@@ -26,6 +26,4 @@ public class MyReview {
 
     // 숙소 이름
     private String accommodationName;
-    // 숙소 이미지 리스트
-    private List<AccommodationImage> accommodationImage;
 }
