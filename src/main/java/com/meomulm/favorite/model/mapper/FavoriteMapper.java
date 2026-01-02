@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface FavoriteMapper {
-    List<SelectFavorite> getFavorites(int userId); // 숙소 Id 하나만 가져와서 String
-    void addFavorite(int userId, int accommodationId);
+    List<SelectFavorite> selectFavorites(int userId); // 숙소 Id 하나만 가져와서 String
+    void insertFavorite(int userId, int accommodationId);
     void deleteFavorite(int userId, int favoriteId);
 }
