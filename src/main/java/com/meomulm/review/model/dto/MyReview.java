@@ -1,5 +1,6 @@
 package com.meomulm.review.model.dto;
 
+import com.meomulm.accommodation.model.dto.AccommodationImage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class MyReview {
     // 리뷰 아이디
     private int reviewId;
     // 유저 아이디
@@ -22,4 +23,9 @@ public class Review {
     private String reviewContent;
     // 리뷰 작성일자
     private String createdAt;
+
+    // 숙소 이름
+    private String accommodationName;
+    // 숙소 이미지 리스트
+    private List<AccommodationImage> accommodationImage;
 }
