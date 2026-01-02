@@ -16,7 +16,7 @@
     <select id="selectReviewByUserId" resultType="MyReview">
         SELECT *
         FROM review
-        INNER JOIN users ON users.user_id = review.user_id
+        INNER JOIN accommodation ON review.accommodation_id  = accommodation.accommodation_id
         WHERE review.user_id=#{userId}
     </select>
     
