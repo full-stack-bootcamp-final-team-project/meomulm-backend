@@ -35,9 +35,9 @@ public interface UserMapper {
 
     /**
      * 프로필 사진 수정
-     * @param user userProfileImage를 포함한 user 객체
+     * @param userProfileImage 회원 프로필 이미지 경로
      */
-    void updateProfileImage(User user);
+    void updateProfileImage(String userProfileImage, int userId);
 
     /**
      * 현재 비밀번호 확인
@@ -50,14 +50,14 @@ public interface UserMapper {
      * 비밀번호 수정 (마이페이지)
      * @param user 수정하려는 회원 비밀번호를 포함한 객체
      */
-    void updateMyPagePassword(User user);
+    void updateMyPagePassword(int userId, String userPassword);
 
     // ==========================================
     //               Signup / Login
     // ==========================================
     /**
      * 회원가입
-     * @param user 회원 정보를 포함한 객체
+     * @param user 회원 정보
      */
     void insertUser(User user);
 
@@ -70,22 +70,39 @@ public interface UserMapper {
 
     /**
      * 아이디 찾기
-     * @param userName 비밀번호를 찾으려는 회원 이름
-     * @param userPhone 비밀번호를 찾으려는 회원 전화번호
+     * @param userName 아이디를 찾으려는 회원 이름
+     * @param userPhone 아이디를 찾으려는 회원 전화번호
      * @return 해당 회원의 이메일
      */
-    User selectUserFindId(String userName, String userPhone);
+    String selectUserFindId(String userName, String userPhone);
 
     /**
-     * 비밀번호 찾기 (성공 시 비밀번호 변경 페지이로)
+     * 비밀번호 찾기
      * @param userEmail 회원 이메일 정보
      * @param userBirth 회원 생일 정보
+     * @return 회원 ID 정보
      */
-    String selectUserFindPassword(String userEmail, String userBirth);
+    Integer selectUserFindPassword(String userEmail, String userBirth);
 
     /**
      * 비밀번호 번경 (로그인페이지)
+     * @param userId 조회되는 회원 ID
      * @param userPassword 수정하는 회원 비밀번호
+     * @return 변경 성공 여부
      */
-    void updateUserPassword(String userPassword);
+    int updateUserPassword(Long userId,String userPassword);
+
+    /**
+     * 이메일 조회
+     * @param userEmail 회원 이메일
+     * @return
+     */
+    User selectUserByUserEmail(String userEmail);
+
+    /**
+     * 전화번호 조회
+     * @param userPhone 회원 전화번호
+     * @return
+     */
+    String selectUserByUserPhone(String userPhone);
 }

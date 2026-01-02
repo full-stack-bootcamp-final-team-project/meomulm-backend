@@ -32,7 +32,7 @@
     </select>
 
     <!-- 프로필 사진 수정 -->
-    <update id="updateProfileImage" parameterType="User">
+    <update id="updateProfileImage">
         UPDATE users
         SET user_profile_image = #{userProfileImage}
         WHERE user_id = #{userId}
@@ -58,8 +58,8 @@
 
     <!-- 회원가입 -->
     <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
-        INSERT INTO users(user_email, user_password, user_name, user_phone, user_birth, user_profile_image)
-        VALUES(#{userEmail}, #{userPassword}, #{userName}, #{userPhone}, #{userBirth}, #{userProfileImage})
+        INSERT INTO users(user_email, user_password, user_name, user_phone, user_birth)
+        VALUES(#{userEmail}, #{userPassword}, #{userName}, #{userPhone}, #{userBirth})
     </insert>
 
     <!-- 로그인 -->
@@ -78,7 +78,7 @@
     </select>
 
     <!-- 비밀번호 찾기(인증) -->
-    <select id="selectUserFindPassword" resultType="Long">
+    <select id="selectUserFindPassword" resultType="Integer">
         SELECT user_id
         FROM users
         WHERE user_email = #{userEmail}
@@ -89,8 +89,22 @@
     <update id="updateUserPassword">
         UPDATE users
         SET user_password = #{userPassword}
-        WHERE user_email = #{userEmail}
+        WHERE user_id = #{userId}
     </update>
+
+    <!-- 이메일 조회 (중복 확인용) -->
+    <select id="selectUserByUserEmail" resultType="String">
+        SELECT user_email
+        FROM users
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 전화번호 조회 (중복 확인용) -->
+    <select id="selectUserByUserPhone" resultType="String">
+        SELECT user_phone
+        FROM users
+        WHERE user_phone = #{userPhone}
+    </select>
 
     <!-- SNS 로그인 -->
 

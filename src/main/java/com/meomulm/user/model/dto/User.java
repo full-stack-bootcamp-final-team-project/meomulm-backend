@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
     // 유저 ID
-    String userId;
+    int userId;
     // 유저 이메일
     String userEmail;
     // 유저 비밀번호

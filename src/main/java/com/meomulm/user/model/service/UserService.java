@@ -22,7 +22,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    boolean putUserInfo(User user);
+    void putUserInfo(User user);
 
     /**
      * 회원 예약 내역 조회
@@ -33,25 +33,76 @@ public interface UserService {
 
     /**
      * 프로필 사진 수정
-     * @param user userProfileImage를 포함한 user 객체
+     * @param userProfileImage 사용자 프로필 이미지 경로
      */
-    void updateProfileImage(User user);
+    void updateProfileImage(String userProfileImage, int userId);
 
     /**
      * 현재 비밀번호 확인
      * @param userId JWT 토큰에서 추출한 userId
      * @return 해당 회원의 비밀번호
      */
-    String getCurrentPassword(int userId);
+    void getCurrentPassword(int userId, String inputPassword);
 
     /**
      * 비밀번호 수정 (마이페이지)
      * @param user 수정하려는 회원 비밀번호를 포함한 객체
      */
-    void putMyPagePassword(User user);
+    void putMyPagePassword(int userId, String newPassword);
 
     // ==========================================
     //               Signup / Login
     // ==========================================
+
+    /**
+     * 회원가입
+     * @param user 회원 정보
+     */
+    void signupUser(User user);
+
+    /**
+     * 로그인
+     * @param userEmail 로그인하려는 회원 이메일
+     * @return 로그인 성공 여부
+     */
+    User userLogin(String userEmail, String userPassword);
+
+    /**
+     * 아이디 찾기
+     * @param userName  아이디를 찾으려는 회원 이름
+     * @param userPhone 아이디를 찾으려는 회원 전화번호
+     * @return 해당 회원의 이메일
+     */
+    String getUserFindId(String userName, String userPhone);
+
+    /**
+     * 비밀번호 찾기
+     * @param userEmail 회원 이메일 정보
+     * @param userBirth 회원 생일 정보
+     * @return 회원 ID 정보
+     */
+    Integer getUserFindPassword(String userEmail, String userBirth);
+
+    /**
+     * 비밀번호 변경 (로그인페이지)
+     * @param userId        조회되는 회원 ID
+     * @param userPassword  수정하는 회원 비밀번호
+     * @return 변경 성공 여부
+     */
+    int putUserPassword(Long userId, String userPassword);
+
+    /**
+     * 이메일 조회
+     * @param userEmail 회원 이메일
+     * @return
+     */
+    User getUserByUserEmail(String userEmail);
+
+    /**
+     * 전화번호 조회
+     * @param userPhone 회원 전화번호
+     * @return
+     */
+    String getUserByUserPhone(String userPhone);
 
 }
