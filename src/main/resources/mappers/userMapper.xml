@@ -5,6 +5,63 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meomulm.user.model.mapper.UserMapper">
+    <!-- 회원정보 조회 -->
+    <select id="selectUserInfoById" resultType="User">
+        SELECT *
+        FROM users
+        WHERE user_id = #{userId}
+    </select>
 
+    <!-- 회원정보 수정 -->
+    <update id="updateUserInfo" parameterType="User">
+        UPDATE users
+        SET user_name = #{userName},
+            user_phone = #{userPhone}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 회원 리뷰 조회 -->
+    <select id="selectUserReviewsById" resultType="Review">
+        SELECT
+            r.accommodation_id,
+            a.accommodation_name,
+            r.user_id,
+            r.rating,
+            r.review_content,
+            r.created_at
+        FROM review r
+        INNER JOIN accommodation a
+        ON r.accommodation_id = a.accommodation_id
+        WHERE r.user_id = #{userId}
+    </select>
+
+    <!-- 회원 예약 내역 조회 -->
+    <!-- 뷰 테이블 생성 필요 -->
+    <select id="selectUserReservationById" resultType="Reservation">
+        SELECT *
+        FROM vw_my_page_reservation
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 프로필 사진 수정 -->
+    <update id="updateProfileImage" parameterType="User">
+        UPDATE users
+        SET user_profile_image = #{userProfileImage}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 현재 비밀번호 확인 -->
+    <select id="selectCurrentPassword" resultType="User">
+        SELECT user_password
+        FROM users
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 비밀번호 수정 -->
+    <update id="updateUserPassword" parameterType="User">
+        UPDATE users
+        SET user_password = #{userPassword}
+        WHERE user_id = #{userId}
+    </update>
 
 </mapper>

@@ -6,6 +6,28 @@
 
 <mapper namespace="com.meomulm.review.model.mapper.ReviewMapper">
 
+    <select id="selectReviewByAccommodationId" resultType="AccommodationReview">
+        SELECT *
+        FROM review
+        INNER JOIN users ON review.user_id = users.user_id
+        WHERE accommodation_id=#{accommodationId}
+    </select>
 
+    <select id="selectReviewByUserId" resultType="MyReview">
+        SELECT *
+        FROM review
+        INNER JOIN users ON users.user_id = review.user_id
+        WHERE review.user_id=#{userId}
+    </select>
+    
+    <insert id="insertReview" parameterType="Review" useGeneratedKeys="true" keyProperty="reviewId" keyColumn="review_id">
+        INSERT INTO review (user_id, accommodation_id, rating, review_content)
+        VALUES (#{userId}, #{accommodationId}, #{rating}, #{reviewContent})
+    </insert>
 
+    <delete id="deleteReview" parameterType="Review">
+        DELETE FROM review
+        WHERE user_id = #{userId}
+        AND review_id = #{reviewId}
+    </delete>
 </mapper>

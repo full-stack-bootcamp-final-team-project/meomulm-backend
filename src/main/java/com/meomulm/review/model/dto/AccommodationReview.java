@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class AccommodationReview {
     // 리뷰 아이디
     private int reviewId;
     // 유저 아이디
@@ -22,4 +20,9 @@ public class Review {
     private String reviewContent;
     // 리뷰 작성일자
     private String createdAt;
+
+    // 유저 이름
+    private String userName;
+    // 유저 프로필
+    private String userProfileImage;
 }
