@@ -6,7 +6,7 @@
 
 <mapper namespace="com.meomulm.favorite.model.mapper.FavoriteMapper">
 
-    <select id="getFavorites" resultType="SelectFavorite">
+    <select id="selectFavorites" resultType="SelectFavorite">
         SELECT
             f.*,
             a.accommodation_name,
@@ -22,7 +22,7 @@
     </select>
 
 
-    <insert id="addFavorite" parameterType="Favorite">
+    <insert id="insertFavorite" parameterType="Favorite" useGeneratedKeys="true" keyProperty="favoriteId" keyColumn="favorite_id">
         INSERT INTO favorite (user_id, accommodation_id)
         VALUES (#{userId}, #{accommodationId})
     </insert>
