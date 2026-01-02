@@ -18,12 +18,12 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public List<SelectFavorite> getFavorites(int userId){
-        return favoriteMapper.getFavorites(userId);
+        return favoriteMapper.selectFavorites(userId);
     }
 
     @Override
-    public void addFavorite(int userId, int accommodationId){
-        favoriteMapper.addFavorite(userId, accommodationId);
+    public void postFavorite(int userId, int accommodationId){
+        favoriteMapper.insertFavorite(userId, accommodationId);
     }
 
     @Override

@@ -33,13 +33,13 @@ public class FavoriteController {
     }
 
     @PostMapping("/{accommodationId}")
-    public ResponseEntity<String> addFavorite(@PathVariable int accommodationId,
+    public ResponseEntity<String> postFavorite(@PathVariable int accommodationId,
                                            @RequestHeader("Authorization") String authHeader){
         try {
             String token = authHeader.substring(7);
             int userId = jwtUtil.getUserIdFromToken(token);
 
-            favoriteService.addFavorite(userId, accommodationId);
+            favoriteService.postFavorite(userId, accommodationId);
             return ResponseEntity.ok("즐겨찾기 추가 성공");
         } catch (Exception e)  {
             log.error("즐겨찾기 추가 실패 : {}", e.getMessage());
