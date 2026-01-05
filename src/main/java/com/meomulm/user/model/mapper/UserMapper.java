@@ -48,7 +48,8 @@ public interface UserMapper {
 
     /**
      * 비밀번호 수정 (마이페이지)
-     * @param user 수정하려는 회원 비밀번호를 포함한 객체
+     * @param userId JWT 토큰에서 추출한 userId
+     * @param userPassword 변경하려는 비밀번호
      */
     void updateMyPagePassword(int userId, String userPassword);
 
@@ -90,8 +91,9 @@ public interface UserMapper {
      * @param userPassword 수정하는 회원 비밀번호
      * @return 변경 성공 여부
      */
-    int updateUserPassword(Long userId,String userPassword);
+    int updateUserPassword(Long userId,String newPassword);
 
+    // 아래는 수정사항에 필요한 조회에 대한 기능
     /**
      * 이메일 조회
      * @param userEmail 회원 이메일
@@ -104,5 +106,5 @@ public interface UserMapper {
      * @param userPhone 회원 전화번호
      * @return
      */
-    String selectUserByUserPhone(String userPhone);
+    User selectUserByUserPhone(String userPhone);
 }

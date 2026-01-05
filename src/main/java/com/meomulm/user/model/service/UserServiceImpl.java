@@ -1,6 +1,8 @@
 package com.meomulm.user.model.service;
 
 import com.meomulm.common.exception.BadRequestException;
+import com.meomulm.common.exception.NotFoundException;
+import com.meomulm.common.util.FileUploadService;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.mapper.UserMapper;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final FileUploadService fileUploadService;
 
     // ==========================================
     //                  My Page
@@ -78,16 +82,19 @@ public class UserServiceImpl implements UserService {
 
     // 프로필 사진 수정
     @Override
-    public void updateProfileImage(String userProfileImage, int userId) {
+    public void updateProfileImage(MultipartFile userProfileImage, int userId) {
         try {
             log.info("💡 프로필 사진 수정 시작. userId: {}", userId);
             if(userProfileImage == null || userProfileImage.isEmpty()) {
                 log.warn("⚠️ 프로필 이미지가 존재하지 않음. userId: {}", userId);
-                throw new BadRequestException("프로필 사진이 존재하지 않습니다.");
+                throw new NotFoundException("프로필 사진이 존재하지 않습니다.");
             }
 
+            // MultipartFile -> String
+            String saveImagePath = fileUploadService.uploadProfileImage(userProfileImage);
+
             log.info("💡 프로필 사진 수정 시작. userId: {}", userId);
-            userMapper.updateProfileImage(userProfileImage, userId);
+            userMapper.updateProfileImage(saveImagePath, userId);
 
             log.info("✅ 프로필 사진 수정 성공. userId: {}, userProfileImage: {}", userId, userProfileImage);
         } catch (Exception e) {
@@ -103,7 +110,7 @@ public class UserServiceImpl implements UserService {
             log.info("💡 현재 비밀번호 확인 시작. userId: {}", userId);
             if(inputPassword == null || inputPassword.isEmpty()) {
                 log.warn("⚠️ 비밀번호가 존재하지 않음. userId: {}", userId);
-                throw new BadRequestException("입력한 비밀번호가 존재하지 않습니다.");
+                throw new NotFoundException("입력한 비밀번호가 존재하지 않습니다.");
             }
 
             String currentPassword = userMapper.selectCurrentPassword(userId);
@@ -127,7 +134,7 @@ public class UserServiceImpl implements UserService {
             log.info("💡 비밀번호 수정 시작. userId: {}", userId);
             if(newPassword == null || newPassword.isEmpty()) {
                 log.warn("⚠️ 새 비밀번호가 존재하지 않음. userId: {}", userId);
-                throw new BadRequestException("입력한 새 비밀번호가 존재하지 않습니다.");
+                throw new NotFoundException("입력한 새 비밀번호가 존재하지 않습니다.");
             }
 
             userMapper.updateMyPagePassword(userId, bCryptPasswordEncoder.encode(newPassword));
@@ -144,78 +151,131 @@ public class UserServiceImpl implements UserService {
     // 회원가입
     @Override
     public void signupUser(User user) {
-        User existingEmail = userMapper.selectUserByUserEmail(user.getUserEmail());
+        try{
+            User existingEmail = userMapper.selectUserByUserEmail(user.getUserEmail());
 
-        if(existingEmail != null) {
-            throw new RuntimeException("이미 존재하는 이메일입니다.");
-        }
-        String existingPhone = userMapper.selectUserByUserPhone(user.getUserPhone());
-        if(existingPhone != null) {
-            throw new RuntimeException("이미 존재하는 전화번호입니다.");
-        }
+            if (existingEmail != null) {
+                log.warn("❌ 이미 존재하는 이메일 : {}", existingEmail);
+                throw new NotFoundException("이미 존재하는 이메일입니다.");
+            }
 
-        String encodePw = bCryptPasswordEncoder.encode(user.getUserPassword());
-        user.setUserPassword(encodePw);
-        userMapper.insertUser(user);
-        log.info("회원가입 완료 - 이메일 {}, 사용자명 : {}", user.getUserEmail(), user.getUserName());
+            User existingPhone = userMapper.selectUserByUserPhone(user.getUserPhone());
+            if (existingPhone != null) {
+                log.warn("❌ 이미 존재하는 전화번호 : {}", existingPhone);
+                throw new NotFoundException("이미 존재하는 전화번호입니다.");
+            }
+
+            String encodePw = bCryptPasswordEncoder.encode(user.getUserPassword());
+            user.setUserPassword(encodePw);
+            userMapper.insertUser(user);
+            log.info("✅ 회원가입 완료 - 이메일 {}, 사용자명 : {}", user.getUserEmail(), user.getUserName());
+
+        }catch(Exception e){
+            log.warn("❌ 회원가입 실패 : {}", e);
+            throw new RuntimeException(e);
+        }
     }
 
     // 로그인 시 토큰 처리 (컨트롤러에서)
     // 로그인
     @Override
     public User userLogin(String userEmail, String userPassword) {
-        User user = userMapper.selectUserByUserEmail(userEmail);
+        try{
+            User user = userMapper.selectUserByUserEmail(userEmail);
+            if (user == null) {
+                log.warn("❌ 로그인 실패 - 존재하지 않는 이메일 : {}", userEmail);
+                throw new NotFoundException("존재하지 않는 이메일입니다.");
+            }
 
-        if(user == null){
-            log.warn("로그인 실패 - 존재하지 않는 이메일 : {}", userEmail);
-            return null;
+            if (!bCryptPasswordEncoder.matches(userPassword, user.getUserPassword())) {
+                log.warn("❌ 로그인 실패 - 잘못된 비밀번호 : {}", userEmail);
+                throw new NotFoundException("비밀번호가 일치하지 않습니다.");
+            }
+
+            user.setUserPassword(null);
+            log.info("✅ 로그인 성공 - 이메일 : {}", userEmail);
+            return user;
+
+        } catch(Exception e){
+            log.warn("❌ 로그인 실패 : {}", e);
+            throw new RuntimeException(e);
         }
-
-        if(!bCryptPasswordEncoder.matches(userPassword, user.getUserPassword())) {
-            log.warn("로그인 실패 - 잘못된 비밀번호 : {}", userEmail);
-            return null;
-        }
-
-        user.setUserPassword(null);
-        log.info("로그인 성공 - 이메일 : {}", userEmail);
-        return user;
     }
 
     // 아이디 찾기
     @Override
     public String getUserFindId(String userName, String userPhone) {
-        return "";
+        try {
+
+            User user = userMapper.selectUserByUserPhone(userPhone);
+
+            if (!userName.equals(user.getUserName())) {
+                log.warn("❌ 존재하지 않은 이름 : {}", userName);
+                throw new NotFoundException("존재하지 않는 이름입니다.");
+            }
+
+            if (user == null) {
+                log.warn("❌ 존재하지 않는 전화번호 : {}", userPhone);
+                throw new NotFoundException("존재하지 않는 전화번호입니다.");
+            }
+
+            log.info("✅ 아이디 찾기 성공 : {}", user.getUserEmail());
+            return user.getUserEmail();
+
+        } catch(Exception e) {
+            log.warn("❌ 아이디 찾기 실패 : {}", e);
+            throw new RuntimeException(e);
+        }
     }
 
     // 비밀번호 찾기
     @Override
     public Integer getUserFindPassword(String userEmail, String userBirth) {
-        User user = userMapper.selectUserByUserEmail(userEmail);
+        try {
+            User user = userMapper.selectUserByUserEmail(userEmail);
+            if (user == null) {
+                log.warn("❌ 존재하지 않는 이메일 : {}", userEmail);
+                throw new NotFoundException("존재하지 않는 이메일입니다.");
+            }
+            if (!userBirth.equals(user.getUserBirth())) {
+                log.warn("❌ 존재하지 않는 생년 : {}", userBirth);
+                throw new NotFoundException("존재하지 않는 생년입니다.");
+            }
 
-        if(user == null){
-            log.warn("존재하지 않는 이메일 : {}", userEmail);
-            return null;
-        }
-        if(!userBirth.equals(user.getUserBirth())) {
-            log.warn("존재하지 않는 생년 : {}", userBirth);
-            return null;
-        }
+            log.info("✅ 유저 정보 확인 성공 이메일 : {}, 생년: {}", userEmail, userBirth);
+            return user.getUserId();
 
-        return user.getUserId();
+        } catch(Exception e) {
+            log.warn("❌ 비밀번호 찾기에 실패했습니다 : {}", e);
+            throw new RuntimeException(e);
+        }
     }
 
     // 비밀번호 변경
     @Override
-    public int putUserPassword(Long userId, String userPassword) {
-        return 0;
+    public int putUserPassword(Long userId, String newPassword) {
+        try {
+            log.info("💡 비밀번호 수정 시작. userId: {}", userId);
+            if(newPassword == null || newPassword.isEmpty()) {
+                log.warn("⚠️ 새 비밀번호가 존재하지 않음. userId: {}", userId);
+                throw new BadRequestException("새 비밀번호가 존재하지 않습니다.");
+            }
+
+            log.info("✅ 비밀번호 수정 성공. userId: {}", userId);
+            return userMapper.updateUserPassword(userId, bCryptPasswordEncoder.encode(newPassword));
+
+        } catch (Exception e) {
+            log.error("❌ 비밀번호 수정 실패. userId: {}", userId, e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public User getUserByUserEmail(String userEmail) {
-        return null;
+        return userMapper.selectUserByUserEmail(userEmail);
     }
     @Override
-    public String getUserByUserPhone(String userPhone) {
-        return "";
+    public User getUserByUserPhone(String userPhone) {
+        return userMapper.selectUserByUserPhone(userPhone);
     }
 }

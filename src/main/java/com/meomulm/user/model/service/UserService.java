@@ -3,6 +3,7 @@ package com.meomulm.user.model.service;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.review.model.dto.MyReview;
 import com.meomulm.user.model.dto.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public interface UserService {
      * 프로필 사진 수정
      * @param userProfileImage 사용자 프로필 이미지 경로
      */
-    void updateProfileImage(String userProfileImage, int userId);
+    void updateProfileImage(MultipartFile userProfileImage, int userId);
 
     /**
      * 현재 비밀번호 확인
@@ -46,7 +47,8 @@ public interface UserService {
 
     /**
      * 비밀번호 수정 (마이페이지)
-     * @param user 수정하려는 회원 비밀번호를 포함한 객체
+     * @param userId JWT 토큰에서 추출한 userId
+     * @param newPassword 변경하려는 비밀번호
      */
     void putMyPagePassword(int userId, String newPassword);
 
@@ -89,7 +91,7 @@ public interface UserService {
      * @param userPassword  수정하는 회원 비밀번호
      * @return 변경 성공 여부
      */
-    int putUserPassword(Long userId, String userPassword);
+    int putUserPassword(Long userId, String newPassword);
 
     /**
      * 이메일 조회
@@ -103,6 +105,6 @@ public interface UserService {
      * @param userPhone 회원 전화번호
      * @return
      */
-    String getUserByUserPhone(String userPhone);
+    User getUserByUserPhone(String userPhone);
 
 }
