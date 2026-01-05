@@ -11,7 +11,6 @@ public class Favorite {
     private int favoriteId;
     private int userId;
     private int accommodationId;
-    private int createdAt;
+    private String createdAt;
 }
-
 
