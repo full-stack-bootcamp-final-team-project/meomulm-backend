@@ -88,10 +88,10 @@ public interface UserService {
     /**
      * 비밀번호 변경 (로그인페이지)
      * @param userId        조회되는 회원 ID
-     * @param userPassword  수정하는 회원 비밀번호
+     * @param newPassword   수정하는 회원 비밀번호
      * @return 변경 성공 여부
      */
-    int putUserPassword(Long userId, String newPassword);
+    int patchUserPassword(Long userId, String newPassword);
 
     /**
      * 이메일 조회

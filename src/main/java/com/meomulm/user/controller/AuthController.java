@@ -67,5 +67,9 @@ public class AuthController {
         return userService.getUserFindPassword(userEmail, userBirth);
     }
 
-    
+    @PatchMapping()
+    public void patchUserPassword(Long userId, String newPassword){
+
+    }
+
 }

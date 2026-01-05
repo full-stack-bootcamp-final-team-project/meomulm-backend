@@ -253,7 +253,7 @@ public class UserServiceImpl implements UserService {
 
     // 비밀번호 변경
     @Override
-    public int putUserPassword(Long userId, String newPassword) {
+    public int patchUserPassword(Long userId, String newPassword) {
         try {
             log.info("💡 비밀번호 수정 시작. userId: {}", userId);
             if(newPassword == null || newPassword.isEmpty()) {
