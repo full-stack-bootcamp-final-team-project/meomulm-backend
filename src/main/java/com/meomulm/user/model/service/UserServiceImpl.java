@@ -4,6 +4,7 @@ import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.exception.NotFoundException;
 import com.meomulm.common.util.FileUploadService;
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.user.model.dto.LoginRequest;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -179,9 +180,9 @@ public class UserServiceImpl implements UserService {
     // 로그인 시 토큰 처리 (컨트롤러에서)
     // 로그인
     @Override
-    public User userLogin(String userEmail, String userPassword) {
+    public LoginRequest userLogin(String userEmail, String userPassword) {
         try{
-            User user = userMapper.selectUserByUserEmail(userEmail);
+            LoginRequest user = userMapper.selectUserByUserEmail(userEmail);
             if (user == null) {
                 log.warn("❌ 로그인 실패 - 존재하지 않는 이메일 : {}", userEmail);
                 throw new NotFoundException("존재하지 않는 이메일입니다.");
@@ -232,7 +233,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer getUserFindPassword(String userEmail, String userBirth) {
         try {
-            User user = userMapper.selectUserByUserEmail(userEmail);
+            LoginRequest user = userMapper.selectUserByUserEmail(userEmail);
             if (user == null) {
                 log.warn("❌ 존재하지 않는 이메일 : {}", userEmail);
                 throw new NotFoundException("존재하지 않는 이메일입니다.");
@@ -271,7 +272,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByUserEmail(String userEmail) {
+    public LoginRequest getUserByUserEmail(String userEmail) {
         return userMapper.selectUserByUserEmail(userEmail);
     }
     @Override

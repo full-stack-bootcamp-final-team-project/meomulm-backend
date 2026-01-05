@@ -3,6 +3,7 @@ package com.meomulm.user.model.mapper;
 
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.review.model.dto.MyReview;
+import com.meomulm.user.model.dto.LoginRequest;
 import com.meomulm.user.model.dto.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -67,7 +68,7 @@ public interface UserMapper {
      * @param userEmail 로그인하려는 회원 이메일
      * @return 로그인 성공 여부
      */
-    User selectUserLogin(String userEmail);
+    LoginRequest selectUserLogin(String userEmail);
 
     /**
      * 아이디 찾기
@@ -88,7 +89,7 @@ public interface UserMapper {
     /**
      * 비밀번호 번경 (로그인페이지)
      * @param userId 조회되는 회원 ID
-     * @param userPassword 수정하는 회원 비밀번호
+     * @param newPassword 수정하는 회원 비밀번호
      * @return 변경 성공 여부
      */
     int updateUserPassword(Long userId,String newPassword);
@@ -99,7 +100,7 @@ public interface UserMapper {
      * @param userEmail 회원 이메일
      * @return
      */
-    User selectUserByUserEmail(String userEmail);
+    LoginRequest selectUserByUserEmail(String userEmail);
 
     /**
      * 전화번호 조회

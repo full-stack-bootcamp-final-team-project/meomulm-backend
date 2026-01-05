@@ -95,6 +95,22 @@ public class UserController {
                                                    @RequestBody String currentPassword) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
         userService.getCurrentPassword(currentUserId, currentPassword);
+
+        return ResponseEntity.ok().build();
     }
 
+    /**
+     * 비밀번호 수정
+     * @param authHeader JWT 토큰 헤더
+     * @param newPassword 변경하려는 새 비밀번호
+     * @return 상태코드 200 / 예외처리: GlobalExceptionHandler
+     */
+    @PatchMapping("/password")
+    public ResponseEntity<Void> putMyPagePassword(@RequestHeader("Authorization") String authHeader,
+                                                  @RequestBody String newPassword) {
+        int currentUserId = authUtil.getCurrentUserId(authHeader);
+        userService.putMyPagePassword(currentUserId, newPassword);
+
+        return ResponseEntity.ok().build();
+    }
 }

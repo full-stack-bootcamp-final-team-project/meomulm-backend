@@ -57,19 +57,36 @@ public class AuthController {
         }
     }
 
+    /**
+     * 아이디 찾기
+     * @param userName  회원 이름
+     * @param userPhone 회원 전화번호
+     * @return 회원 이메일
+     */
     @GetMapping("/findId")
     public String getUserFindId(@RequestParam String userName,@RequestParam String userPhone){
         return userService.getUserFindId(userName, userPhone);
     }
 
+    /**
+     * 비밀번호 찾기
+     * @param userEmail 회원 이메일
+     * @param userBirth 회원 생년
+     * @return 회원 id
+     */
     @GetMapping("/checkPassword")
     public Integer getUserFindPassword(@RequestParam String userEmail,@RequestParam String userBirth) {
         return userService.getUserFindPassword(userEmail, userBirth);
     }
 
+    /**
+     * 비밀번호 변경 (로그인페이지)
+     * @param userId        변경할 회원 id
+     * @param newPassword   변경할 새로운 비밀번호
+     */
     @PatchMapping()
     public void patchUserPassword(Long userId, String newPassword){
-
+        userService.patchUserPassword(userId, newPassword);
     }
 
 }

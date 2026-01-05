@@ -2,6 +2,7 @@ package com.meomulm.user.model.service;
 
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.review.model.dto.MyReview;
+import com.meomulm.user.model.dto.LoginRequest;
 import com.meomulm.user.model.dto.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,7 +68,7 @@ public interface UserService {
      * @param userEmail 로그인하려는 회원 이메일
      * @return 로그인 성공 여부
      */
-    User userLogin(String userEmail, String userPassword);
+    LoginRequest userLogin(String userEmail, String userPassword);
 
     /**
      * 아이디 찾기
@@ -98,7 +99,7 @@ public interface UserService {
      * @param userEmail 회원 이메일
      * @return
      */
-    User getUserByUserEmail(String userEmail);
+    LoginRequest getUserByUserEmail(String userEmail);
 
     /**
      * 전화번호 조회
