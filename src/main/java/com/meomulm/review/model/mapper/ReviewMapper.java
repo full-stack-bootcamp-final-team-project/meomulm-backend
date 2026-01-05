@@ -10,8 +10,13 @@ import java.util.List;
 
 @Mapper
 public interface ReviewMapper {
+
     List<AccommodationReview> selectReviewByAccommodationId(int accommodationId);
+
     List<MyReview> selectReviewByUserId(int userId);
-    void insertReview(Review review);
-    void deleteReview(Review review);
+
+    int insertReview(Review review);
+
+    int deleteReview(Review review);
+
 }
