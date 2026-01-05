@@ -1,5 +1,6 @@
 package com.meomulm.favorite.model.service;
 
+import com.meomulm.favorite.model.dto.Favorite;
 import com.meomulm.favorite.model.dto.SelectFavorite;
 import com.meomulm.favorite.model.mapper.FavoriteMapper;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +19,22 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public List<SelectFavorite> getFavorites(int userId){
+        log.info("서비스에서 가져온 데이터 : {}", favoriteMapper.selectFavorites(userId));
         return favoriteMapper.selectFavorites(userId);
     }
 
+
+
     @Override
     public void postFavorite(int userId, int accommodationId){
-        favoriteMapper.insertFavorite(userId, accommodationId);
+        try {
+            Favorite favorite = new Favorite();
+            favorite.setUserId(userId);
+            favorite.setAccommodationId(accommodationId);
+            favoriteMapper.insertFavorite(favorite);
+        } catch (Exception e) {
+            log.error("즐겨찾기 추가 중 오류 발생 : {}", e.getMessage());
+        }
     }
 
     @Override
