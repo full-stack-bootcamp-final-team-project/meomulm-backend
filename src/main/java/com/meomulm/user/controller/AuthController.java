@@ -63,7 +63,9 @@ public class AuthController {
     }
 
     @GetMapping("/checkPassword")
-    public String getUserFindPassword(@RequestParam String userEmail,@RequestParam String userBirth) {
+    public Integer getUserFindPassword(@RequestParam String userEmail,@RequestParam String userBirth) {
         return userService.getUserFindPassword(userEmail, userBirth);
     }
+
+    
 }

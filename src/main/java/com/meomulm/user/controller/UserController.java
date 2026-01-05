@@ -87,7 +87,7 @@ public class UserController {
     /**
      * 현재 비밀번호 확인
      * @param authHeader JWT 토큰 헤더
-     * @param userPassword 입력된 현재 비밀번호
+     * @param currentPassword 입력된 현재 비밀번호
      * @return 상태코드 200 / 예외처리: GlobalExceptionHandler
      */
     @GetMapping("/currentPassword")
