@@ -51,7 +51,7 @@ public class UserController {
     public ResponseEntity<Void> putUserInfo(@RequestHeader("Authorization") String authHeader,
                                             @RequestBody User user){
         int currentUserId = authUtil.getCurrentUserId(authHeader);
-        userService.putUserInfo(user);
+        userService.putUserInfo(user, currentUserId);
 
         return ResponseEntity.ok().build();
     }
@@ -87,14 +87,14 @@ public class UserController {
     /**
      * 현재 비밀번호 확인
      * @param authHeader JWT 토큰 헤더
-     * @param currentPassword 입력된 현재 비밀번호
+     * @param user 입력된 현재 비밀번호가 담긴 User 객체
      * @return 상태코드 200 / 예외처리: GlobalExceptionHandler
      */
     @GetMapping("/currentPassword")
     public ResponseEntity<Void> getCurrentPassword(@RequestHeader("Authorization") String authHeader,
-                                                   @RequestBody String currentPassword) {
+                                                   @RequestBody User user) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
-        userService.getCurrentPassword(currentUserId, currentPassword);
+        userService.getCurrentPassword(currentUserId, user.getUserPassword());
 
         return ResponseEntity.ok().build();
     }
@@ -102,14 +102,14 @@ public class UserController {
     /**
      * 비밀번호 수정
      * @param authHeader JWT 토큰 헤더
-     * @param newPassword 변경하려는 새 비밀번호
+     * @param user 변경하려는 새 비밀번호가 담긴 User 객체
      * @return 상태코드 200 / 예외처리: GlobalExceptionHandler
      */
     @PatchMapping("/password")
     public ResponseEntity<Void> putMyPagePassword(@RequestHeader("Authorization") String authHeader,
-                                                  @RequestBody String newPassword) {
+                                                  @RequestBody User user) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
-        userService.putMyPagePassword(currentUserId, newPassword);
+        userService.putMyPagePassword(currentUserId, user.getUserPassword());
 
         return ResponseEntity.ok().build();
     }

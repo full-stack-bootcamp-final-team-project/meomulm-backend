@@ -3,6 +3,7 @@ package com.meomulm.user.model.service;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.review.model.dto.MyReview;
 import com.meomulm.user.model.dto.LoginRequest;
+import com.meomulm.user.model.dto.LoginResponse;
 import com.meomulm.user.model.dto.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +25,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    void putUserInfo(User user);
+    void putUserInfo(User user, int currentUserId);
 
     /**
      * 회원 예약 내역 조회
@@ -61,51 +62,38 @@ public interface UserService {
      * 회원가입
      * @param user 회원 정보
      */
-    void signupUser(User user);
+    void signup(User user);
 
     /**
      * 로그인
-     * @param userEmail 로그인하려는 회원 이메일
-     * @return 로그인 성공 여부
+     * @param userEmail     로그인 할 회원 이메일
+     * @param userPassword  로그인 할 회원 비밀번호
+     * @return  로그인 성공 유무
      */
-    LoginRequest userLogin(String userEmail, String userPassword);
+    User login(String userEmail, String userPassword);
 
     /**
      * 아이디 찾기
-     * @param userName  아이디를 찾으려는 회원 이름
-     * @param userPhone 아이디를 찾으려는 회원 전화번호
-     * @return 해당 회원의 이메일
+     * @param userName  회원 이름
+     * @param userPhone 회원 전화번호
+     * @return  회원 이메일
      */
     String getUserFindId(String userName, String userPhone);
 
     /**
      * 비밀번호 찾기
-     * @param userEmail 회원 이메일 정보
-     * @param userBirth 회원 생일 정보
-     * @return 회원 ID 정보
-     */
-    Integer getUserFindPassword(String userEmail, String userBirth);
-
-    /**
-     * 비밀번호 변경 (로그인페이지)
-     * @param userId        조회되는 회원 ID
-     * @param newPassword   수정하는 회원 비밀번호
-     * @return 변경 성공 여부
-     */
-    int patchUserPassword(Long userId, String newPassword);
-
-    /**
-     * 이메일 조회
      * @param userEmail 회원 이메일
-     * @return
+     * @param userBirth 회원 생년
+     * @return  회원 유무 확인
      */
-    LoginRequest getUserByUserEmail(String userEmail);
+    int getUserFindPassword(String userEmail, String userBirth);
 
     /**
-     * 전화번호 조회
-     * @param userPhone 회원 전화번호
-     * @return
+     * 비밀번호 변경 (로그인 페이지)
+     * @param userId        회원 id
+     * @param newPassword   새 비밀번호
+     * @return  성공 여부
      */
-    User getUserByUserPhone(String userPhone);
+    int patchUserPassword(int userId, String newPassword);
 
 }
