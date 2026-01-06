@@ -5,6 +5,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meomulm.user.model.mapper.UserMapper">
+    <!--==========================
+                MyPage
+    ===========================-->
     <!-- 회원정보 조회 -->
     <select id="selectUserInfoById" resultType="User">
         SELECT *
@@ -20,21 +23,6 @@
         WHERE user_id = #{userId}
     </update>
 
-    <!-- 회원 리뷰 조회 -->
-    <select id="selectUserReviewsById" resultType="Review">
-        SELECT
-            r.accommodation_id,
-            a.accommodation_name,
-            r.user_id,
-            r.rating,
-            r.review_content,
-            r.created_at
-        FROM review r
-        INNER JOIN accommodation a
-        ON r.accommodation_id = a.accommodation_id
-        WHERE r.user_id = #{userId}
-    </select>
-
     <!-- 회원 예약 내역 조회 -->
     <!-- 뷰 테이블 생성 필요 -->
     <select id="selectUserReservationById" resultType="Reservation">
@@ -44,24 +32,81 @@
     </select>
 
     <!-- 프로필 사진 수정 -->
-    <update id="updateProfileImage" parameterType="User">
+    <update id="updateProfileImage">
         UPDATE users
         SET user_profile_image = #{userProfileImage}
         WHERE user_id = #{userId}
     </update>
 
     <!-- 현재 비밀번호 확인 -->
-    <select id="selectCurrentPassword" resultType="User">
+    <select id="selectCurrentPassword" resultType="String">
         SELECT user_password
         FROM users
         WHERE user_id = #{userId}
     </select>
 
     <!-- 비밀번호 수정 -->
-    <update id="updateUserPassword" parameterType="User">
+    <update id="updateMyPagePassword" parameterType="User">
         UPDATE users
         SET user_password = #{userPassword}
         WHERE user_id = #{userId}
     </update>
+
+    <!--==========================
+            Signup / Login
+    ===========================-->
+
+    <!-- 회원가입 -->
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
+        INSERT INTO users(user_email, user_password, user_name, user_phone, user_birth)
+        VALUES(#{userEmail}, #{userPassword}, #{userName}, #{userPhone}, #{userBirth})
+    </insert>
+
+    <!-- 로그인 -->
+    <select id="selectUserLogin" resultType="User">
+        SELECT *
+        FROM users
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 아이디(이메일) 찾기 -->
+    <select id="selectUserFindId" resultType="String">
+        SELECT user_email
+        FROM users
+        WHERE user_name = #{userName}
+          AND user_phone = #{userPhone}
+    </select>
+
+    <!-- 비밀번호 찾기(인증) -->
+    <select id="selectUserFindPassword" resultType="Integer">
+        SELECT user_id
+        FROM users
+        WHERE user_email = #{userEmail}
+          AND user_birth = #{userBirth}
+    </select>
+
+    <!-- 비밀번호 찾기(변경) -->
+    <update id="updateUserPassword">
+        UPDATE users
+        SET user_password = #{userPassword}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 이메일 조회 (중복 확인용) -->
+    <select id="selectUserByUserEmail" resultType="String">
+        SELECT user_email
+        FROM users
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 전화번호 조회 (중복 확인용) -->
+    <select id="selectUserByUserPhone" resultType="String">
+        SELECT user_phone
+        FROM users
+        WHERE user_phone = #{userPhone}
+    </select>
+
+    <!-- SNS 로그인 -->
+
 
 </mapper>
