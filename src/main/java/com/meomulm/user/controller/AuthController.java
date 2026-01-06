@@ -23,70 +23,63 @@ public class AuthController {
 
     /**
      * 회원가입
-     * @param user 회원가입할 회원 정보
+     * @param user 회원 정보가 들어있는 객체
+     * @return
      */
     @PostMapping("/signup")
-    public void signupUser(@RequestBody User user) {
-        userService.signupUser(user);
+    public ResponseEntity<Void> signup(@RequestBody User user) {
+        userService.signup(user);
+        return ResponseEntity.ok().build();
     }
 
     /**
      * 로그인
-     * @param request 로그인할 유저의 정보
-     * @return
+     * @param request 로그인 정보(회원 이메일, 회원 비밀번호)
+     * @return  토큰?
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> userLogin(@RequestBody LoginRequest request) {
-        try{
-            User user = userService.userLogin(request.getUserEmail(), request.getUserPassword());
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        User user = userService.login(request.getUserEmail(), request.getUserPassword());
 
-            if (user == null) {
-                return ResponseEntity.status(401).body(null);
-            }
+        String token = jwtUtil.generateToken(user.getUserId(), user.getUserEmail());
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(token);
 
-            String token = jwtUtil.generateToken(user.getUserId(), user.getUserEmail());
-            LoginResponse loginResponse = new LoginResponse();
-            loginResponse.setToken(token);
-
-            log.info("✅ 로그인 성공 - 이메일 : {}", user.getUserEmail());
-            return ResponseEntity.ok(loginResponse);
-
-        }catch(Exception e) {
-            log.error("❌ 로그인 실패 - 이메일 : {}", e.getMessage());
-            return ResponseEntity.status(401).body(null);
-        }
+        log.info("✅ 토큰 생성 완료 - 이메일 : {}", user.getUserEmail());
+        return ResponseEntity.ok(loginResponse);
     }
 
     /**
      * 아이디 찾기
-     * @param userName  회원 이름
-     * @param userPhone 회원 전화번호
-     * @return 회원 이메일
+     * @param user 회원 정보 (회원 이름, 회원 전화번호)
+     * @return  회원 이메일
      */
     @GetMapping("/findId")
-    public String getUserFindId(@RequestParam String userName,@RequestParam String userPhone){
-        return userService.getUserFindId(userName, userPhone);
+    public ResponseEntity<String> getUserFindId(@RequestBody User user){
+        String userEmail = userService.getUserFindId(user.getUserName(), user.getUserPhone());
+        return ResponseEntity.ok(userEmail);
     }
 
     /**
      * 비밀번호 찾기
-     * @param userEmail 회원 이메일
-     * @param userBirth 회원 생년
-     * @return 회원 id
+     * @param user 회원 정보 (회원 이메일, 회원 생년)
+     * @return
      */
     @GetMapping("/checkPassword")
-    public Integer getUserFindPassword(@RequestParam String userEmail,@RequestParam String userBirth) {
-        return userService.getUserFindPassword(userEmail, userBirth);
+    public ResponseEntity<Integer> getUserFindPassword(@RequestBody User user) {
+        int userId = userService.getUserFindPassword(user.getUserEmail(), user.getUserBirth());
+        return ResponseEntity.ok(userId);
     }
 
     /**
      * 비밀번호 변경 (로그인페이지)
-     * @param userId        변경할 회원 id
-     * @param newPassword   변경할 새로운 비밀번호
+     * @param userId        회원 id
+     * @param newPassword   새 비밀번호
+     * @return
      */
-    @PatchMapping()
-    public void patchUserPassword(Long userId, String newPassword){
+    @PatchMapping("/changePassword")
+    public ResponseEntity<Void> patchUserPassword(int userId, String newPassword){
         userService.patchUserPassword(userId, newPassword);
+        return ResponseEntity.ok().build();
     }
-
 }
