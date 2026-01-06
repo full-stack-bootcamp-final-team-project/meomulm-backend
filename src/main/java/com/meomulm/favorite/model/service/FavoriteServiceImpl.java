@@ -19,7 +19,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public List<SelectFavorite> getFavorites(int userId){
-        log.info("서비스에서 가져온 데이터들 : {}", favoriteMapper.selectFavorites(userId));
+        log.info("서비스에서 가져온 데이터 : {}", favoriteMapper.selectFavorites(userId));
         return favoriteMapper.selectFavorites(userId);
     }
 
