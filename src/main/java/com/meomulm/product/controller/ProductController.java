@@ -23,14 +23,9 @@ public class ProductController {
 
     @GetMapping("/room/search/{accommodationId}")
     public ResponseEntity<List<Product>> getRoomsByAccommodationId(@PathVariable int accommodationId){
-        try {
-            log.info("GET accommodationId : ", accommodationId);
-            List<Product> res = productService.getRoomsByAccommodationId(accommodationId);
-            return ResponseEntity.ok(res);
-        } catch (Exception e) {
-            log.error("getRoomsByAccommodationId 조회 실패 : ", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        log.info("GET accommodationId : ", accommodationId);
+        List<Product> res = productService.getRoomsByAccommodationId(accommodationId);
+        return ResponseEntity.ok(res);
     }
 
 //    @GetMapping("/room/detail/{productId}")

@@ -137,7 +137,6 @@ public class UserServiceImpl implements UserService {
                 log.warn("⚠️ 새 비밀번호가 존재하지 않음. userId: {}", userId);
                 throw new NotFoundException("입력한 새 비밀번호가 존재하지 않습니다.");
             }
-
             userMapper.updateMyPagePassword(userId, bCryptPasswordEncoder.encode(newPassword));
             log.info("✅ 비밀번호 수정 성공. userId: {}", userId);
         } catch (Exception e) {

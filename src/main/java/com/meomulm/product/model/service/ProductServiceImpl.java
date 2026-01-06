@@ -27,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
             조회되는 값이 없으면 빈 배열을 반환한다.
         2. product_facility 테이블에서 객실 ID를 기준으로 조회한 결과를 저장한다.
         3. product_image 테이블에서 객실 ID를 기준으로 조회한 이미지 결과를 배열로 저장한다.
+        4.
          */
         try{
             log.info("GET accommodationId : {}", accommodationId);
@@ -47,7 +48,52 @@ public class ProductServiceImpl implements ProductService {
             return productListRes;
         } catch (Exception e) {
             log.error("getRoomsByAccommodationId 조회 실패 : ", e);
+//            throw new
         }
         return List.of();
     }
 }
+
+
+/*
+{
+  "allProducts": [
+    {
+      "product_id": 1,
+      "product_name": "스탠다드",
+      "proudct_price": 120000,
+      "product_standard_number": 2,
+      "product_maximum_number": 4,
+      "product_count": 5,               // 총 재고 수
+      "facilities": {
+            "has_tv": true, ...},
+      "images": ["url1", "url2", ...],
+      "images": {
+            "main_image": ...,
+            "sub_image_1": ...,
+             ...
+       }
+    },
+    {
+      "product_id": 2,
+      "product_name": "스위트룸",
+      "proudct_price": 185000,
+      "product_standard_number": 2,
+      "product_maximum_number": 4,
+      "product_count": 7,               // 총 재고 수
+      "facilities": {
+            "has_tv": true,
+             ...
+       },
+      "images": ["url13", "url14", ...],
+      "images": {
+            "main_image": ...,
+            "sub_image_1": ...,
+             ...
+       }
+    },
+    ...
+  ],
+  "availableProductIds": [1, 3, 5]   // 해당 기간에 예약 가능한 product_id 배열
+}
+ */
