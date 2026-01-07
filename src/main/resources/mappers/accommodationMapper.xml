@@ -5,13 +5,54 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meomulm.accommodation.model.mapper.AccommodationMapper">
-    <!--  숙소명, 지역명으로 숙소 검색  -->
-    <select id="selectKeyword" resultType="Accommodation">
-        SELECT *
-        FROM vw_accommodation_search
-        WHERE accommodation_address = #{accommodationAddress}
+    <!-- 숙소 아이디를 기반으로 이미지 리스트 반환 -->
+    <select id="selectAccommodationImagesById" resultType="AccommodationImage">
+        SELECT accommodation_image_url
+        FROM accommodation_image
+        WHERE accommodation_id = #{accommodationId}
     </select>
 
+    <!-- 돋보기 검색 - 숙소명, 지역명으로 숙소 검색 -->
+    <select id="selectAccommodationByKeyword" resultType="SearchAccommodationResponse" parameterType="String">
+        SELECT *
+        FROM vw_searchpage_accommodation
+        WHERE accommodation_name ILIKE '%' || #{keyword} || '%'
+           OR accommodation_address ILIKE '%' || #{keyword} || '%'
+    </select>
+
+
+    <!-- 지역 별 가격 낮은 순(평점 높은 순x)으로 12개 -->
+    <select id="selectAccommodationPopularByAddress" resultType="SearchAccommodationResponse">
+        SELECT *
+        FROM vw_searchpage_accommodation
+        WHERE accommodation_address ILIKE '%' || #{keyword} || '%'
+        ORDER BY min_price
+        LIMIT 12
+    </select>
+
+
+    <!-- 지도 클릭 -> 현재 위치 기반의 반경 5KM 숙소를 지도에 노출 -->
+    <select id="selectAccommodationByLocation" resultType="SearchAccommodationResponse">
+        SELECT *
+        FROM vw_searchpage_accommodation
+        WHERE (
+        6371 * acos(
+        cos(radians(#{accommodationLatitude}))
+        * cos(radians(accommodation_latitude))
+        * cos(radians(accommodation_longitude) - radians(#{accommodationLongitude}))
+        + sin(radians(#{accommodationLatitude}))
+        * sin(radians(accommodation_latitude))
+        )
+        ) &lt;= 5
+    </select>
+
+
+    <!-- 숙소 상세 검색 -->
+    <select id="selectAccommodationDetailById" resultType="AccommodationDetail">
+        SELECT *
+        FROM vw_accommodation_detail
+        WHERE accommodation_id = #{accommodationId}
+    </select>
 </mapper>
 
 <!--
@@ -41,108 +82,57 @@ TODO 지도에서 위치 조정 시 정해진 영역으로 다시 위치 기반 
 
 ***************** 메인 페이지 *****************************
 5. 최근 본 숙소
-(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~) // TODO 할인율 없음
+(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~)
 
 6. 지역 별 평점 높은 순으로 12개 정도?
-(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~) // TODO 할인율 없음
+(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~)
 -->
 
+
+<!-- 변경 공통 view -->
 <!--
-** 공통??
-숙소별 최소 가격
-숙소 썸네일 이미지
-
-
-1. 돋보기 클릭 -> 숙소 검색
-(숙소 이미지 리스트, 숙소명, 숙소 주소, 숙소 가격)
-2. 지도 클릭 -> 현재 위치 기반의 숙소를 지도에 노출(일단 모든 숙소)
-(가격을 클릭하면 숙소 이미지 리스트, 숙소명, 숙소 주소, 숙소 가격)
-3. 지도에서 돋보기(검색 영역)를 눌렀을 경우
-vw_accommodation_search
-CREATE OR REPLACE VIEW vw_accommodation_search AS
+vw_searchpage_accommodation
+CREATE OR REPLACE VIEW vw_searchpage_accommodation AS
 SELECT
     a.accommodation_id,
     a.accommodation_name,
     a.accommodation_address,
-    MIN(p.product_price) AS min_price,
-    MIN(ai.accommodation_image_url) AS thumbnail_image
+    a.accommodation_latitude,
+    a.accommodation_longitude,
+    MIN(p.product_price) AS min_price
 FROM accommodation a
-JOIN product p ON a.accommodation_id = p.accommodation_id
-LEFT JOIN accommodation_image ai ON a.accommodation_id = ai.accommodation_id
-GROUP BY a.accommodation_id;
-
-4. 숙소 상세 검색
-(필요한 정보 : 숙소 이미지 리스트, 숙소명, 숙소 연락처, 숙소 주소
-시설/서비스 정보, 체크인 시간, 체크아웃 시간)
-vw_accommodation_detail_basic
-CREATE OR REPLACE VIEW vw_accommodation_detail_basic AS
-SELECT
-    a.accommodation_id,
-    a.accommodation_name,
-    a.accommodation_address,
-    a.accommodation_phone,
-    MIN(p.product_check_in_time)  AS check_in_time,
-    MAX(p.product_check_out_time) AS check_out_time,
-    af.has_parking,
-    af.has_ev_charging,
-    af.has_smoking_area
-    af.has_public_wifi,
-    af.has_leisure,
-    af.has_sports,
-    af.has_shopping,
-    af.has_business,
-    af.has_fnb,
-    MIN(ai.accommodation_image_url) AS thumbnail_image
-FROM accommodation a
-JOIN product p
+INNER JOIN product p
     ON a.accommodation_id = p.accommodation_id
-LEFT JOIN accommodation_facility af
-    ON a.accommodation_id = af.accommodation_id
 GROUP BY
     a.accommodation_id,
     a.accommodation_name,
     a.accommodation_address,
+    a.accommodation_latitude,
+    a.accommodation_longitude;
+-->
+
+<!-- 숙소 상세 view -->
+<!--
+vw_accommodation_detail
+CREATE OR REPLACE VIEW vw_accommodation_detail AS
+SELECT
+    a.accommodation_id,
+    a.accommodation_name,
+    a.content_id,
+    a.accommodation_address,
     a.accommodation_phone,
+    a.accommodation_longitude,
+    a.accommodation_latitude,
     af.has_parking,
     af.has_ev_charging,
-    af.has_smoking_area
+    af.has_smoking_area,
     af.has_public_wifi,
     af.has_leisure,
     af.has_sports,
     af.has_shopping,
     af.has_business,
-    af.has_fnb,
-
-5. 최근 본 숙소
-(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~)
-vw_recent_viewed_accommodation
-CREATE OR REPLACE VIEW vw_recent_viewed_accommodation AS
-SELECT DISTINCT
-    r.user_id,
-    a.accommodation_id,
-    a.accommodation_name,
-    MIN(p.product_price) AS min_price,
-    MIN(ai.accommodation_image_url) AS thumbnail_image,
-FROM reservation r
-JOIN product p ON r.product_id = p.product_id
-JOIN accommodation a ON p.accommodation_id = a.accommodation_id
-LEFT JOIN accommodation_image ai ON a.accommodation_id = ai.accommodation_id
-GROUP BY r.user_id, a.accommodation_id, r.created_at;
-
-6. 지역 별 평점 높은 순으로 12개 정도?
-(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~)
-vw_accommodation_top_rated
-CREATE OR REPLACE VIEW vw_accommodation_top_rated AS
-SELECT
-    a.accommodation_id,
-    a.accommodation_name,
-    a.accommodation_region_code,
-    ROUND(AVG(r.rating), 1) AS avg_rating,
-    MIN(p.product_price) AS min_price,
-    MIN(ai.accommodation_image_url) AS thumbnail_image
+    af.has_fnb
 FROM accommodation a
-JOIN review r ON a.accommodation_id = r.accommodation_id
-JOIN product p ON a.accommodation_id = p.accommodation_id
-LEFT JOIN accommodation_image ai ON a.accommodation_id = ai.accommodation_id
-GROUP BY a.accommodation_id;
+LEFT JOIN accommodation_facility af
+    ON a.accommodation_id = af.accommodation_id;
 -->
