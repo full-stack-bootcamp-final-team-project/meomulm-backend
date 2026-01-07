@@ -96,4 +96,11 @@ public interface UserService {
      */
     void patchUserPassword(int userId, String newPassword);
 
+    /**
+     * 이메일 조회
+     * @param userEmail 조회할 회원 이메일
+     * @return
+     */
+    User selectUserByUserEmail(String userEmail);
+
 }
