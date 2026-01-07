@@ -66,13 +66,20 @@ public class ProductServiceImpl implements ProductService {
       "product_maximum_number": 4,
       "product_count": 5,               // 총 재고 수
       "facilities": {
-            "has_tv": true, ...},
-      "images": ["url1", "url2", ...],
-      "images": {
-            "main_image": ...,
-            "sub_image_1": ...,
+            "has_tv": true,
+            "has_bath: true,
              ...
-       }
+             },
+      "images": [
+            {
+              "productImageId": 1,
+              "productImageUrl": "url1"
+            },
+            {
+              "productImageId": 2,
+              "productImageUrl": "url2"
+            }
+        ]
     },
     {
       "product_id": 2,
@@ -83,17 +90,20 @@ public class ProductServiceImpl implements ProductService {
       "product_count": 7,               // 총 재고 수
       "facilities": {
             "has_tv": true,
+            "has_bath: true,
              ...
-       },
-      "images": ["url13", "url14", ...],
-      "images": {
-            "main_image": ...,
-            "sub_image_1": ...,
-             ...
-       }
+             },
+      "images": [
+            {
+              "productImageId": 13,
+              "productImageUrl": "url13"
+            },
+            {
+              "productImageId": 14,
+              "productImageUrl": "url14"
+            }
+        ]
     },
-    ...
-  ],
   "availableProductIds": [1, 3, 5]   // 해당 기간에 예약 가능한 product_id 배열
 }
  */
