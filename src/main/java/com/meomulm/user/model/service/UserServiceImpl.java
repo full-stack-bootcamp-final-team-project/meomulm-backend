@@ -201,10 +201,16 @@ public class UserServiceImpl implements UserService {
         }
 
         int result = userMapper.updateUserPassword(userId, bCryptPasswordEncoder.encode(newPassword));
-        
+
         if(result == 0) {
             throw new BadRequestException("비밀번호 변경 실패");
         }
         log.info("✅ 비밀번호 수정 성공 userId: {}", userId);
+    }
+
+    // 이메일 조회
+    @Override
+    public User selectUserByUserEmail(String userEmail) {
+        return userMapper.selectUserByUserEmail(userEmail);
     }
 }
