@@ -164,11 +164,11 @@ public class UserServiceImpl implements UserService {
     // 아이디 찾기
     @Override
     public String getUserFindId(String userName, String userPhone) {
-        String userEmail = userMapper.selectUserFindId(userName, userPhone);
+        User user = userMapper.selectUserFindId(userName, userPhone);
 
-        if (userEmail != null) {
-            log.info("✅ 아이디 찾기 성공 : {}", userEmail);
-            return userEmail;
+        if (user != null) {
+            log.info("✅ 아이디 찾기 성공 : {}", user.getUserEmail());
+            return user.getUserEmail();
         }
         throw new NotFoundException("이메일 정보 없음");
     }
@@ -176,28 +176,35 @@ public class UserServiceImpl implements UserService {
     // 비밀번호 찾기
     @Override
     public int getUserFindPassword(String userEmail, String userBirth) {
-        int userId = userMapper.selectUserFindPassword(userEmail, userBirth);
+        User user = userMapper.selectUserFindPassword(userEmail, userBirth);
 
-        if (userId != 0) {
+
+        if (user == null) {
             throw new NotFoundException("유저 정보 없음");
         }
 
+        log.info("userId : {}", user.getUserId());
+
         log.info("✅ 유저 정보 확인 성공 이메일 : {}, 생년: {}", userEmail, userBirth);
-        return userId;
+        return user.getUserId();
     }
 
     // 비밀번호 변경
     @Transactional
     @Override
-    public int patchUserPassword(int userId, String newPassword) {
-        log.info("💡 비밀번호 수정 시작. userId: {}", userId);
+    public void patchUserPassword(int userId, String newPassword) {
+        log.info("💡 비밀번호 수정 시작 userId: {}", userId);
 
         if (newPassword == null || newPassword.isEmpty()) {
-            log.warn("⚠️ 새 비밀번호가 존재하지 않음. userId: {}", userId);
+            log.warn("⚠️ 새 비밀번호가 존재하지 않음 userId: {}", userId);
             throw new BadRequestException("새 비밀번호가 존재하지 않습니다.");
         }
 
-        log.info("✅ 비밀번호 수정 성공. userId: {}", userId);
-        return userMapper.updateUserPassword(userId, bCryptPasswordEncoder.encode(newPassword));
+        int result = userMapper.updateUserPassword(userId, bCryptPasswordEncoder.encode(newPassword));
+        
+        if(result == 0) {
+            throw new BadRequestException("비밀번호 변경 실패");
+        }
+        log.info("✅ 비밀번호 수정 성공 userId: {}", userId);
     }
 }

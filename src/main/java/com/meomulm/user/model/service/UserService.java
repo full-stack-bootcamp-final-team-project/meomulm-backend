@@ -94,6 +94,6 @@ public interface UserService {
      * @param newPassword   새 비밀번호
      * @return  성공 여부
      */
-    int patchUserPassword(int userId, String newPassword);
+    void patchUserPassword(int userId, String newPassword);
 
 }
