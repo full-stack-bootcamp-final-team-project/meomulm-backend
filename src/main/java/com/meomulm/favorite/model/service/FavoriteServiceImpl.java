@@ -19,8 +19,13 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public List<SelectFavorite> getFavorites(int userId){
-        log.info("서비스에서 가져온 데이터들 : {}", favoriteMapper.selectFavorites(userId));
-        return favoriteMapper.selectFavorites(userId);
+        try {
+            List<SelectFavorite> favorites = favoriteMapper.selectFavorites(userId);
+            log.info("서비스에서 가져온 데이터들 : {}", favorites);
+            return favorites;
+        } catch (Exception e) {
+            throw new RuntimeException("즐겨찾기 목록을 가져오던 중 오류 발생 : : ", e);
+        }
     }
 
 
@@ -34,11 +39,17 @@ public class FavoriteServiceImpl implements FavoriteService {
             favoriteMapper.insertFavorite(favorite);
         } catch (Exception e) {
             log.error("즐겨찾기 추가 중 오류 발생 : {}", e.getMessage());
+            throw new RuntimeException("즐겨찾기 추가 중 오류 발생 : ", e);
         }
     }
 
     @Override
     public void deleteFavorite(int userId, int favoriteId){
-        favoriteMapper.deleteFavorite(userId, favoriteId);
+        try {
+            favoriteMapper.deleteFavorite(userId, favoriteId);
+        } catch (Exception e) {
+            log.error("즐겨찾기 삭제 중 오류 발생 : {}", e.getMessage());
+            throw new RuntimeException("즐겨찾기 삭제 중 오류 발생 :", e);
+        }
     }
 }
