@@ -1,6 +1,5 @@
 package com.meomulm.review.model.dto;
 
-import com.meomulm.accommodation.model.dto.AccommodationImage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
