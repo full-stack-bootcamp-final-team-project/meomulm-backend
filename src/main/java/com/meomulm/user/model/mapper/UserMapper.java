@@ -25,7 +25,7 @@ public interface UserMapper {
      * 회원정보 수정
      * @param user 수정하려는 회원 정보
      */
-    void updateUserInfo(User user);
+    void updateUserInfo(String userName, String userPhone, int currentUserId);
 
     /**
      * 회원 예약 내역 조회
@@ -68,7 +68,7 @@ public interface UserMapper {
      * @param userEmail 로그인하려는 회원 이메일
      * @return 로그인 성공 여부
      */
-    LoginRequest selectUserLogin(String userEmail);
+    User selectUserLogin(String userEmail);
 
     /**
      * 아이디 찾기
@@ -76,7 +76,7 @@ public interface UserMapper {
      * @param userPhone 아이디를 찾으려는 회원 전화번호
      * @return 해당 회원의 이메일
      */
-    String selectUserFindId(String userName, String userPhone);
+    User selectUserFindId(String userName, String userPhone);
 
     /**
      * 비밀번호 찾기
@@ -84,28 +84,27 @@ public interface UserMapper {
      * @param userBirth 회원 생일 정보
      * @return 회원 ID 정보
      */
-    Integer selectUserFindPassword(String userEmail, String userBirth);
+    User selectUserFindPassword(String userEmail, String userBirth);
 
     /**
      * 비밀번호 번경 (로그인페이지)
      * @param userId 조회되는 회원 ID
-     * @param newPassword 수정하는 회원 비밀번호
+     * @param userPassword 수정하는 회원 비밀번호
      * @return 변경 성공 여부
      */
-    int updateUserPassword(Long userId,String newPassword);
+    int updateUserPassword(int userId, String userPassword);
 
-    // 아래는 수정사항에 필요한 조회에 대한 기능
     /**
-     * 이메일 조회
+     * 이메일 조회 (중복 방지)
      * @param userEmail 회원 이메일
-     * @return
+     * @return 이메일 유무 확인
      */
-    LoginRequest selectUserByUserEmail(String userEmail);
+    User selectUserByUserEmail(String userEmail);
 
     /**
-     * 전화번호 조회
+     * 비밀번호 조회 (중복 방지)
      * @param userPhone 회원 전화번호
-     * @return
+     * @return 전화번호 유무 확인
      */
     User selectUserByUserPhone(String userPhone);
 }

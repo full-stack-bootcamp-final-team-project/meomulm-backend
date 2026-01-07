@@ -15,9 +15,9 @@ public class Accommodation {
     // 숙소 연락처
     private String accommodationPhone;
     // 경도
-    private String accommodationLongitude;
+    private double accommodationLongitude;
     // 위도
-    private String accommodationLatitude;
+    private double accommodationLatitude;
     // 지역코드
     private String accommodationRegionCode;
     // 공공데이터 API 원본 고유 ID (중복 방지 및 식별용)

@@ -5,144 +5,52 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meomulm.accommodation.model.mapper.AccommodationMapper">
-    <!--  숙소명, 지역명으로 숙소 검색  -->
-    <select id="selectKeyword" resultType="Accommodation">
-        SELECT *
-        FROM vw_accommodation_search
-        WHERE accommodation_address = #{accommodationAddress}
+    <!-- 숙소 아이디를 기반으로 이미지 리스트 반환 -->
+    <select id="selectAccommodationImagesById" resultType="AccommodationImage">
+        SELECT accommodation_image_url
+        FROM accommodation_image
+        WHERE accommodation_id = #{accommodationId}
     </select>
 
+    <!-- 돋보기 검색 - 숙소명, 지역명으로 숙소 검색 -->
+    <select id="selectAccommodationByKeyword" resultType="SearchAccommodationResponse" parameterType="String">
+        SELECT *
+        FROM vw_searchpage_accommodation
+        WHERE accommodation_name ILIKE '%' || #{keyword} || '%'
+           OR accommodation_address ILIKE '%' || #{keyword} || '%'
+    </select>
+
+
+    <!-- 지역 별 가격 낮은 순(평점 높은 순x)으로 12개 -->
+    <select id="selectAccommodationPopularByAddress" resultType="SearchAccommodationResponse">
+        SELECT *
+        FROM vw_searchpage_accommodation
+        WHERE accommodation_address ILIKE '%' || #{keyword} || '%'
+        ORDER BY min_price
+        LIMIT 12
+    </select>
+
+
+    <!-- 지도 클릭 -> 현재 위치 기반의 반경 5KM 숙소를 지도에 노출 -->
+    <select id="selectAccommodationByLocation" resultType="SearchAccommodationResponse">
+        SELECT *
+        FROM vw_searchpage_accommodation
+        WHERE (
+        6371 * acos(
+        cos(radians(#{accommodationLatitude}))
+        * cos(radians(accommodation_latitude))
+        * cos(radians(accommodation_longitude) - radians(#{accommodationLongitude}))
+        + sin(radians(#{accommodationLatitude}))
+        * sin(radians(accommodation_latitude))
+        )
+        ) &lt;= 5
+    </select>
+
+
+    <!-- 숙소 상세 검색 -->
+    <select id="selectAccommodationDetailById" resultType="AccommodationDetail">
+        SELECT *
+        FROM vw_accommodation_detail
+        WHERE accommodation_id = #{accommodationId}
+    </select>
 </mapper>
-
-<!--
-** 숙소를 검색할 수 있는 방법
-
-1. 돋보기 클릭 -> 숙소 검색
-(숙소명 혹은 지역명, 주소, 선택한 날짜, 인원수에 맞는 숙소 노출)
-(필요한 정보 : 가격을 클릭하면 숙소 이미지 리스트, 숙소명, 숙소 주소, 숙소 가격)
-
-2. 지도 클릭 -> 현재 위치 기반의 숙소를 지도에 노출(일단 모든 숙소)
-TODO 그럼 디자인에서 날짜와 인원수가 처음에는 없는 값으로 들어가고 "날짜 및 인원 선택" 이런식으로 들어가야하지 않나요?
-TODO 지도에서 위치 조정 시 정해진 영역으로 다시 위치 기반 조회 되는건가요?
-(필요한 정보 : 처음 뷰에서는 위치와 가격)
-(필요한 정보 : 가격을 클릭하면 숙소 이미지 리스트, 숙소명, 숙소 주소, 숙소 가격)
-
-3. 지도에서 돋보기(검색 영역)를 눌렀을 경우
-지역선택 페이지로 이동해 선택 후 해당 지역으로 지도 이동 가능
-지도에서 검색영역 옆 날짜 인원 선택 시
-변경할 수 있는 창으로 이동해 확인 후 맞는 조건으로 검색
-(필요한 정보 : 가격을 클릭하면 숙소 이미지 리스트, 숙소명, 숙소 주소, 숙소 가격)
-
-4. 숙소 상세 검색
-숙소 검색 결과에서 숙소를 선택했을 경우 상세 페이지 이동 상세 정보 노출
-(필요한 정보 : 숙소 이미지 리스트, 숙소명,
-(리뷰에서 -> 리뷰 평균, 평점 높은 리뷰 중 최신 리뷰 내용, 리뷰 총 개수,)
-시설/서비스 정보, 숙소 연락처, 체크인 시간, 체크아웃 시간, 숙소 주소, 찜 내용)
-
-***************** 메인 페이지 *****************************
-5. 최근 본 숙소
-(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~) // TODO 할인율 없음
-
-6. 지역 별 평점 높은 순으로 12개 정도?
-(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~) // TODO 할인율 없음
--->
-
-<!--
-** 공통??
-숙소별 최소 가격
-숙소 썸네일 이미지
-
-
-1. 돋보기 클릭 -> 숙소 검색
-(숙소 이미지 리스트, 숙소명, 숙소 주소, 숙소 가격)
-2. 지도 클릭 -> 현재 위치 기반의 숙소를 지도에 노출(일단 모든 숙소)
-(가격을 클릭하면 숙소 이미지 리스트, 숙소명, 숙소 주소, 숙소 가격)
-3. 지도에서 돋보기(검색 영역)를 눌렀을 경우
-vw_accommodation_search
-CREATE OR REPLACE VIEW vw_accommodation_search AS
-SELECT
-    a.accommodation_id,
-    a.accommodation_name,
-    a.accommodation_address,
-    MIN(p.product_price) AS min_price,
-    MIN(ai.accommodation_image_url) AS thumbnail_image
-FROM accommodation a
-JOIN product p ON a.accommodation_id = p.accommodation_id
-LEFT JOIN accommodation_image ai ON a.accommodation_id = ai.accommodation_id
-GROUP BY a.accommodation_id;
-
-4. 숙소 상세 검색
-(필요한 정보 : 숙소 이미지 리스트, 숙소명, 숙소 연락처, 숙소 주소
-시설/서비스 정보, 체크인 시간, 체크아웃 시간)
-vw_accommodation_detail_basic
-CREATE OR REPLACE VIEW vw_accommodation_detail_basic AS
-SELECT
-    a.accommodation_id,
-    a.accommodation_name,
-    a.accommodation_address,
-    a.accommodation_phone,
-    MIN(p.product_check_in_time)  AS check_in_time,
-    MAX(p.product_check_out_time) AS check_out_time,
-    af.has_parking,
-    af.has_ev_charging,
-    af.has_smoking_area
-    af.has_public_wifi,
-    af.has_leisure,
-    af.has_sports,
-    af.has_shopping,
-    af.has_business,
-    af.has_fnb,
-    MIN(ai.accommodation_image_url) AS thumbnail_image
-FROM accommodation a
-JOIN product p
-    ON a.accommodation_id = p.accommodation_id
-LEFT JOIN accommodation_facility af
-    ON a.accommodation_id = af.accommodation_id
-GROUP BY
-    a.accommodation_id,
-    a.accommodation_name,
-    a.accommodation_address,
-    a.accommodation_phone,
-    af.has_parking,
-    af.has_ev_charging,
-    af.has_smoking_area
-    af.has_public_wifi,
-    af.has_leisure,
-    af.has_sports,
-    af.has_shopping,
-    af.has_business,
-    af.has_fnb,
-
-5. 최근 본 숙소
-(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~)
-vw_recent_viewed_accommodation
-CREATE OR REPLACE VIEW vw_recent_viewed_accommodation AS
-SELECT DISTINCT
-    r.user_id,
-    a.accommodation_id,
-    a.accommodation_name,
-    MIN(p.product_price) AS min_price,
-    MIN(ai.accommodation_image_url) AS thumbnail_image,
-FROM reservation r
-JOIN product p ON r.product_id = p.product_id
-JOIN accommodation a ON p.accommodation_id = a.accommodation_id
-LEFT JOIN accommodation_image ai ON a.accommodation_id = ai.accommodation_id
-GROUP BY r.user_id, a.accommodation_id, r.created_at;
-
-6. 지역 별 평점 높은 순으로 12개 정도?
-(필요한 정보 : 숙소 이미지, 숙소 명, 가격(최소 가격 ~)
-vw_accommodation_top_rated
-CREATE OR REPLACE VIEW vw_accommodation_top_rated AS
-SELECT
-    a.accommodation_id,
-    a.accommodation_name,
-    a.accommodation_region_code,
-    ROUND(AVG(r.rating), 1) AS avg_rating,
-    MIN(p.product_price) AS min_price,
-    MIN(ai.accommodation_image_url) AS thumbnail_image
-FROM accommodation a
-JOIN review r ON a.accommodation_id = r.accommodation_id
-JOIN product p ON a.accommodation_id = p.accommodation_id
-LEFT JOIN accommodation_image ai ON a.accommodation_id = ai.accommodation_id
-GROUP BY a.accommodation_id;
--->

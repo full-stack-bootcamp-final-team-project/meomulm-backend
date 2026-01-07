@@ -16,18 +16,18 @@
     </select>
 
     <!-- 회원정보 수정 -->
-    <update id="updateUserInfo" parameterType="User">
+    <update id="updateUserInfo">
         UPDATE users
         SET user_name = #{userName},
             user_phone = #{userPhone}
-        WHERE user_id = #{userId}
+        WHERE user_id = #{currentUserId}
     </update>
 
     <!-- 회원 예약 내역 조회 -->
     <!-- 뷰 테이블 생성 필요 -->
     <select id="selectUserReservationById" resultType="Reservation">
         SELECT *
-        FROM vw_my_page_reservation
+        FROM vw_mypage_reservation
         WHERE user_id = #{userId}
     </select>
 
@@ -52,10 +52,10 @@
         WHERE user_id = #{userId}
     </update>
 
+
     <!--==========================
             Signup / Login
     ===========================-->
-
     <!-- 회원가입 -->
     <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
         INSERT INTO users(user_email, user_password, user_name, user_phone, user_birth)
@@ -70,7 +70,7 @@
     </select>
 
     <!-- 아이디(이메일) 찾기 -->
-    <select id="selectUserFindId" resultType="String">
+    <select id="selectUserFindId">
         SELECT user_email
         FROM users
         WHERE user_name = #{userName}
@@ -78,8 +78,8 @@
     </select>
 
     <!-- 비밀번호 찾기(인증) -->
-    <select id="selectUserFindPassword" resultType="Integer">
-        SELECT user_id
+    <select id="selectUserFindPassword">
+        SELECT *
         FROM users
         WHERE user_email = #{userEmail}
           AND user_birth = #{userBirth}
@@ -92,16 +92,16 @@
         WHERE user_id = #{userId}
     </update>
 
-    <!-- 이메일 조회 (중복 확인용) -->
-    <select id="selectUserByUserEmail" resultType="String">
-        SELECT user_email
+    <!-- 이메일 조회 -->
+    <select id="selectUserByUserEmail" resultType="User">
+        SELECT *
         FROM users
         WHERE user_email = #{userEmail}
     </select>
 
-    <!-- 전화번호 조회 (중복 확인용) -->
-    <select id="selectUserByUserPhone" resultType="String">
-        SELECT user_phone
+    <!-- 전화번호 조회 -->
+    <select id="selectUserByUserPhone" resultType="User">
+        SELECT *
         FROM users
         WHERE user_phone = #{userPhone}
     </select>

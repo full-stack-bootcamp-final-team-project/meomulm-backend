@@ -9,19 +9,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
     // 유저 ID
-    String userId;
+    private int userId;
     // 유저 이메일
-    String userEmail;
+    private String userEmail;
     // 유저 비밀번호
-    String userPassword;
+    private String userPassword;
     // 유저 이름
-    String userName;
+    private String userName;
     // 유저 연락처
-    String userPhone;
+    private String userPhone;
     // 유저 생년월일
-    String userBirth;
+    private String userBirth;
     // 유저 프로필 이미지
-    String userProfileImage;
+    private String userProfileImage;
     // 생성일자
-    String createdAt;
+    private String createdAt;
 }

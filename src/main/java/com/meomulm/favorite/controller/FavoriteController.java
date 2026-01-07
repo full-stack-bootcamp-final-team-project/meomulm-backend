@@ -25,28 +25,24 @@ public class FavoriteController {
      @GetMapping
     public ResponseEntity<List<SelectFavorite>> getFavorites(@RequestHeader("Authorization") String authHeader){
 
-        try {
+
             int currentUserId = authUtil.getCurrentUserId(authHeader);
             List<SelectFavorite> favorites = favoriteService.getFavorites(currentUserId);
             return ResponseEntity.ok(favorites);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+
     }
 
     // 사용자 찜 추가하기
     @PostMapping("/{accommodationId}")
     public ResponseEntity<String> postFavorite(@PathVariable int accommodationId,
                                            @RequestHeader("Authorization") String authHeader){
-        try {
+
             int currentUserId = authUtil.getCurrentUserId(authHeader);
 
             favoriteService.postFavorite(currentUserId, accommodationId);
             return ResponseEntity.ok("즐겨찾기 추가 성공");
-        } catch (Exception e)  {
-            log.error("즐겨찾기 추가 실패 : {}", e.getMessage());
-            return ResponseEntity.badRequest().body("즐겨찾기 추가 중 오류 발생");
-        }
+
+
     }
 
 
@@ -55,15 +51,12 @@ public class FavoriteController {
     @DeleteMapping("/{favoriteId}")
     public ResponseEntity<String> deleteFavorite(@PathVariable int favoriteId,
                                               @RequestHeader("Authorization") String authHeader){
-        try {
+
             int currentUserId = authUtil.getCurrentUserId(authHeader);
 
             favoriteService.deleteFavorite(currentUserId, favoriteId);
             return ResponseEntity.ok("즐겨찾기 삭제 성공");
-        } catch (Exception e)  {
-            log.error("즐겨찾기 삭제 실패 : {}", e.getMessage());
-            return ResponseEntity.badRequest().body("즐겨찾기 삭제 중 오류 발생");
-        }
+
     }
 
 
