@@ -79,7 +79,7 @@
 
     <!-- 비밀번호 찾기(인증) -->
     <select id="selectUserFindPassword">
-        SELECT user_id
+        SELECT *
         FROM users
         WHERE user_email = #{userEmail}
           AND user_birth = #{userBirth}

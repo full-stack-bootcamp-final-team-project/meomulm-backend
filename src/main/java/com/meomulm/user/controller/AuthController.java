@@ -73,13 +73,12 @@ public class AuthController {
 
     /**
      * 비밀번호 변경 (로그인페이지)
-     * @param userId        회원 id
-     * @param newPassword   새 비밀번호
+     * @param user 회원 id, 새 비밀번호가 담겨있는 객체
      * @return
      */
     @PatchMapping("/changePassword")
-    public ResponseEntity<Void> patchUserPassword(int userId, String newPassword){
-        userService.patchUserPassword(userId, newPassword);
+    public ResponseEntity<Void> patchUserPassword(@RequestBody User user){
+        userService.patchUserPassword(user.getUserId(), user.getUserPassword());
         return ResponseEntity.ok().build();
     }
 }

@@ -76,7 +76,7 @@ public interface UserMapper {
      * @param userPhone 아이디를 찾으려는 회원 전화번호
      * @return 해당 회원의 이메일
      */
-    String selectUserFindId(String userName, String userPhone);
+    User selectUserFindId(String userName, String userPhone);
 
     /**
      * 비밀번호 찾기
@@ -84,15 +84,15 @@ public interface UserMapper {
      * @param userBirth 회원 생일 정보
      * @return 회원 ID 정보
      */
-    int selectUserFindPassword(String userEmail, String userBirth);
+    User selectUserFindPassword(String userEmail, String userBirth);
 
     /**
      * 비밀번호 번경 (로그인페이지)
      * @param userId 조회되는 회원 ID
-     * @param newPassword 수정하는 회원 비밀번호
+     * @param userPassword 수정하는 회원 비밀번호
      * @return 변경 성공 여부
      */
-    int updateUserPassword(int userId,String newPassword);
+    int updateUserPassword(int userId, String userPassword);
 
     /**
      * 이메일 조회 (중복 방지)
