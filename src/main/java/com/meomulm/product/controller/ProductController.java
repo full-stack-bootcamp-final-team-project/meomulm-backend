@@ -1,6 +1,7 @@
 package com.meomulm.product.controller;
 
 import com.meomulm.product.model.dto.Product;
+import com.meomulm.product.model.dto.ProductResponse;
 import com.meomulm.product.model.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,17 +17,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
 
-    final ProductService productService;
+    private final ProductService productService;
 
     /*
     날짜 매개변수 추가
      */
     @GetMapping("/room/search/{accommodationId}")
-    public ResponseEntity<List<Product>> getRoomsByAccommodationId(
+    public ResponseEntity<ProductResponse> getRoomsByAccommodationId(
             @PathVariable int accommodationId,
             @RequestParam String checkInDate,
             @RequestParam String checkOutDate){
-        List<Product> res = productService.getRoomsByAccommodationId(accommodationId, checkInDate, checkOutDate);
+        ProductResponse res = productService.getRoomsByAccommodationId(accommodationId, checkInDate, checkOutDate);
         return ResponseEntity.ok(res);
     }
 
