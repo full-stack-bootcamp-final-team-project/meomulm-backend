@@ -30,17 +30,24 @@ public class ReservationController {
 
     @PostMapping("/{reservationId}")
     public ResponseEntity<Void> updateReservation(
+            @RequestHeader("Authorization") String authHeader,
             @RequestParam int reservationId,
             @RequestBody Reservation reservation) {
+        String token = authHeader.substring(7);
+        int loginUserId = jwtUtil.getUserIdFromToken(token);
         reservation.setReservationId(reservationId);
+        reservation.setUserId(loginUserId);
         reservationService.updateReservation(reservation);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{reservationId}")
     public ResponseEntity<Void> deleteReservation(
+            @RequestHeader("Authorization") String authHeader,
             @RequestParam int reservationId) {
-        reservationService.deleteReservation(reservationId);
+        String token = authHeader.substring(7);
+        int loginUserId = jwtUtil.getUserIdFromToken(token);
+        reservationService.deleteReservation(reservationId, loginUserId);
         return ResponseEntity.ok().build();
     }
 }

@@ -30,7 +30,10 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @Transactional
-    public void deleteReservation(int reservationId) {
+    public void deleteReservation(int reservationId, int loginUserId) {
+        /*
+
+         */
         reservationMapper.deleteReservation(reservationId);
         paymentMapper.deletePayment(reservationId);
     }

@@ -34,12 +34,10 @@ public class UserServiceImpl implements UserService {
     public User getUserInfoById(int userId) {
         log.info("💡 회원정보 조회 시작. userId: {}", userId);
         User user = userMapper.selectUserInfoById(userId);
-
         if (user == null) {
             log.warn("⚠️ 조회 결과 - 사용자 없음. userId: {}", userId);
             throw new BadRequestException("사용자를 찾을 수 없습니다.");
         }
-
         log.info("✅ 회원정보 조회 성공. userId: {}", user.getUserId());
         return user;
     }

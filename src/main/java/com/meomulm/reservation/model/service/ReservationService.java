@@ -9,5 +9,5 @@ import java.util.List;
 public interface ReservationService {
     void addReservation(Reservation reservation);
     void updateReservation(Reservation reservation);
-    void deleteReservation(int reservationId);
+    void deleteReservation(int reservationId, int loginUserId);
 }
