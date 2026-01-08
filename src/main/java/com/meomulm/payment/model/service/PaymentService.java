@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface PaymentService {
-    void addPayment(Payment payment);
+    void addPayment(Payment payment, int loginUserId);
 }

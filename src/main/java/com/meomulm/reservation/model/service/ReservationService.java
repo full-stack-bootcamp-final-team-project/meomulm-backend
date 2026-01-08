@@ -7,7 +7,9 @@ import java.util.List;
 
 @Component
 public interface ReservationService {
+    List<Reservation> getAllReservationsByUserId(int loginUserId);
+    Reservation getReservationById(int reservationId, int loginUserId);
     void addReservation(Reservation reservation);
-    void updateReservation(Reservation reservation);
-    void deleteReservation(int reservationId, int loginUserId);
+    void updateReservation(Reservation reservation, int loginUserId);
+    void deleteReservation(Reservation reservation, int loginUserId);
 }

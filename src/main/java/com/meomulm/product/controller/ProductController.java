@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,10 +18,15 @@ public class ProductController {
 
     final ProductService productService;
 
+    /*
+    날짜 매개변수 추가
+     */
     @GetMapping("/room/search/{accommodationId}")
-    public ResponseEntity<List<Product>> getRoomsByAccommodationId(@PathVariable int accommodationId){
-        log.info("GET accommodationId : ", accommodationId);
-        List<Product> res = productService.getRoomsByAccommodationId(accommodationId);
+    public ResponseEntity<List<Product>> getRoomsByAccommodationId(
+            @PathVariable int accommodationId,
+            @RequestParam String checkInDate,
+            @RequestParam String checkOutDate){
+        List<Product> res = productService.getRoomsByAccommodationId(accommodationId, checkInDate, checkOutDate);
         return ResponseEntity.ok(res);
     }
 

@@ -6,6 +6,16 @@
 
 <mapper namespace="com.meomulm.reservation.model.mapper.ReservationMapper">
 
+    <!-- 예약 조회 -->
+    <select id="selectAllReservationsByUserId">
+
+    </select>
+
+    <!-- 예약 조회 (예약Id) -->
+    <select id="selectReservationById">
+
+    </select>
+
     <!-- 예약 추가 -->
     <insert id="insertReservation" parameterType="Reservation">
         INSERT INTO reservation (user_id, product_id, booker_name, booker_email, booker_phone, check_in_date, check_out_date, status, total_price, created_at)

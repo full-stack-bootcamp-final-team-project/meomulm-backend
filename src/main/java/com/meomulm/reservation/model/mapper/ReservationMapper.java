@@ -8,6 +8,14 @@ import java.util.List;
 
 @Mapper
 public interface ReservationMapper {
+    // 예약 조회
+    List<Reservation> selectAllReservationsByUserId(int loginUserId);
+    // 예약 조회 (예약Id)
+    Reservation selectReservationById(int reservationId);
+
+
+
+
     // 예약 추가
     void insertReservation(Reservation reservation);
     // 예약 수정
