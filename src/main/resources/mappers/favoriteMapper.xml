@@ -17,7 +17,13 @@
                             ON f.accommodation_id = a.accommodation_id
                  INNER JOIN accommodation_image ai
                             ON a.accommodation_id = ai.accommodation_id
-                            AND ai.accommodation_image_id = 1
+                            AND ai.accommodation_image_id = (
+                                    SELECT accommodation_image_id
+                                    FROM accommodation_image
+                                    WHERE accommodation_id = a.accommodation_id
+                                    ORDER BY accommodation_image_id ASC
+                                    LIMIT 1
+                                    )
         WHERE f.user_id = #{userId}
     </select>
 
@@ -33,12 +39,4 @@
     </delete>
 
 
-    <!--
-     <select id="getFavorites" resultType="Favorite">
-        SELECT *
-        FROM favorite
-
-        WHERE user_id = #{userId}
-    </select>
-    -->
 </mapper>
