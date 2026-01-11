@@ -109,6 +109,7 @@
             ]]>
             AND r.status IN ('NOT_PAID', 'PAID')
         WHERE p.accommodation_id = #{accommodationId}
+            AND p.product_maximum_number >= #{guestCount}
         GROUP BY p.product_id, p.product_count
         <![CDATA[
         HAVING COUNT(r.reservation_id) < p.product_count

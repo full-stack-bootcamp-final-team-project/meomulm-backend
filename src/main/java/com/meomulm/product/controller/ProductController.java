@@ -19,27 +19,22 @@ public class ProductController {
 
     private final ProductService productService;
 
-    /*
-    날짜 매개변수 추가
+    /**
+     *
+     * @param accommodationId   숙소 Id
+     * @param checkInDate       체크인 날짜
+     * @param checkOutDate      체크아웃 날짜
+     * @param guestCount        인원 수
+     * @return                  예약 가능한 객실 조회 결과 반환
      */
     @GetMapping("/room/search/{accommodationId}")
     public ResponseEntity<ProductResponse> getRoomsByAccommodationId(
             @PathVariable int accommodationId,
             @RequestParam String checkInDate,
-            @RequestParam String checkOutDate){
-        ProductResponse res = productService.getRoomsByAccommodationId(accommodationId, checkInDate, checkOutDate);
+            @RequestParam String checkOutDate,
+            @RequestParam(required = false, defaultValue = "2") int guestCount){
+        ProductResponse res = productService.getRoomsByAccommodationId(
+                accommodationId, checkInDate, checkOutDate, guestCount);
         return ResponseEntity.ok(res);
     }
-
-//    @GetMapping("/room/detail/{productId}")
-//    public ResponseEntity<Product> getRoomsByProductId(@PathVariable int productId){
-//        try {
-//            log.info("GET productId : ", productId);
-//            Product res = productService.getRoomByProductId(productId);
-//            return ResponseEntity.ok(res);
-//        } catch (Exception e) {
-//            log.error("getRoomByProductId 조회 실패 : ", e);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
 }

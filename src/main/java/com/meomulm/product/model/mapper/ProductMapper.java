@@ -21,7 +21,7 @@ public interface ProductMapper {
     List<ProductImage> selectProductImagesByProductId(int productId);
 
     // 예약 가능 객실 조회
-    List<Integer> selectAvailableProductId(int accommodationId, String checkInDate, String checkOutDate);
+    List<Integer> selectAvailableProductId(int accommodationId, String checkInDate, String checkOutDate, int guestCount);
 
 //    List<ProductDetailMap> selectRoomsWithDetails
 

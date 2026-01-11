@@ -7,14 +7,12 @@
 <mapper namespace="com.meomulm.reservation.model.mapper.ReservationMapper">
 
     <!-- 예약 조회 -->
-    <select id="selectAllReservationsByUserId">
-
-    </select>
+    <!-- <select id="selectAllReservationsByUserId"> -->
+    <!-- </select> -->
 
     <!-- 예약 조회 (예약Id) -->
-    <select id="selectReservationById">
-
-    </select>
+    <!-- <select id="selectReservationById"> -->
+    <!-- </select> -->
 
     <!-- 예약 추가 -->
     <insert id="insertReservation" parameterType="Reservation">
@@ -51,13 +49,4 @@
         SET status = 'CANCELED'
         WHERE reservation_id = #{reservationId}
     </update>
-
-<!--    &lt;!&ndash; 예약 조회 (상태별) &ndash;&gt;-->
-<!--    <select id="selectReservationByStatus">-->
-<!--        SELECT *-->
-<!--        FROM reservation-->
-<!--        WHERE user_id = #{userId}-->
-<!--        AND status = #{status}-->
-<!--    </select>-->
-
 </mapper>
