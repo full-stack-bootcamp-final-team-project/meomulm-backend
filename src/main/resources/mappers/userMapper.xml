@@ -24,7 +24,6 @@
     </update>
 
     <!-- 회원 예약 내역 조회 -->
-    <!-- 뷰 테이블 생성 필요 -->
     <select id="selectUserReservationById" resultType="Reservation">
         SELECT *
         FROM vw_mypage_reservation

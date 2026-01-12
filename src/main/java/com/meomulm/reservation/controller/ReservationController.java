@@ -1,15 +1,12 @@
 package com.meomulm.reservation.controller;
 
-import com.meomulm.common.exception.UnauthorizedException;
-import com.meomulm.common.util.JwtUtil;
+import com.meomulm.common.util.AuthUtil;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.reservation.model.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -18,70 +15,45 @@ import java.util.List;
 public class ReservationController {
 
     private final ReservationService reservationService;
-    private final JwtUtil jwtUtil;
+    private final AuthUtil authUtil;
 
-    @GetMapping("/")
-    public ResponseEntity<List<Reservation>> getAllReservationsByUserId(
-            @RequestHeader("Authorization") String authHeader) {
-        String token = verifyToken(authHeader);
-        int loginUserId = jwtUtil.getUserIdFromToken(token);
-        List<Reservation> reservations = reservationService.getAllReservationsByUserId(loginUserId);
-        return ResponseEntity.ok(reservations);
-    }
-
-    @GetMapping("/{reservationId}")
-    public ResponseEntity<Reservation> getAllReservationById(
-            @RequestHeader("Authorization") String authHeader,
-            @PathVariable int reservationId) {
-        String token = verifyToken(authHeader);
-        int loginUserId = jwtUtil.getUserIdFromToken(token);
-        Reservation reservations = reservationService.getReservationById(reservationId, loginUserId);
-        return ResponseEntity.ok(reservations);
-    }
-
-    @PutMapping("/")
-    public ResponseEntity<Void> addReservation(
-            @RequestHeader("Authorization") String authHeader,
-            @RequestBody Reservation reservation) {
-        String token = verifyToken(authHeader);
-        int loginUserId = jwtUtil.getUserIdFromToken(token);
+    /**
+     * 예약 추가
+     * @param authHeader JWT 토큰
+     * @param reservation 예약 DTO
+     * @return 상태코드 200
+     */
+    @PostMapping
+    public ResponseEntity<Void> postReservation(@RequestHeader("Authorization") String authHeader, @RequestBody Reservation reservation) {
+        int loginUserId = authUtil.getCurrentUserId(authHeader);
         reservation.setUserId(loginUserId);
-        reservationService.addReservation(reservation);
+        reservationService.postReservation(reservation);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{reservationId}")
-    public ResponseEntity<Void> updateReservation(
-            @RequestHeader("Authorization") String authHeader,
-            @PathVariable int reservationId,
-            @RequestBody Reservation reservation) {
-        String token = verifyToken(authHeader);
-        int loginUserId = jwtUtil.getUserIdFromToken(token);
-        reservation.setReservationId(reservationId);
-        reservationService.updateReservation(reservation, loginUserId);
+    /**
+     * 예약 수정
+     * @param authHeader JWT 토큰
+     * @param reservation 예약 DTO
+     * @return 상태코드 200
+     */
+    @PatchMapping
+    public ResponseEntity<Void> patchReservation(@RequestHeader("Authorization") String authHeader, @RequestBody Reservation reservation) {
+        int loginUserId = authUtil.getCurrentUserId(authHeader);
+        reservationService.patchReservation(reservation, loginUserId);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{reservationId}")
-    public ResponseEntity<Void> deleteReservation(
-            @RequestHeader("Authorization") String authHeader,
-            @PathVariable int reservationId,
-            @RequestBody Reservation reservation) {
-        String token = verifyToken(authHeader);
-        int loginUserId = jwtUtil.getUserIdFromToken(token);
-        reservation.setReservationId(reservationId);
+    /**
+     * 예약 취소 (상태만 변경)
+     * @param authHeader JWT 토큰
+     * @param reservation 예약 DTO
+     * @return 상태코드 200
+     */
+    @DeleteMapping
+    public ResponseEntity<Void> deleteReservation(@RequestHeader("Authorization") String authHeader, @RequestBody Reservation reservation) {
+        int loginUserId = authUtil.getCurrentUserId(authHeader);
         reservationService.deleteReservation(reservation, loginUserId);
         return ResponseEntity.ok().build();
-    }
-
-    /*
-    Bearer 토큰 유효성 검사
-    예외 처리 또는 사용자 ID 추출
-     */
-    private String verifyToken(String authHeader) {
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new UnauthorizedException("인증 헤더가 없거나 잘못되었습니다.");
-        }
-        return authHeader.substring(7);
     }
 }

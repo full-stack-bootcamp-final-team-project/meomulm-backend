@@ -19,45 +19,45 @@ public class FavoriteController {
     private final FavoriteService favoriteService;
     private final AuthUtil authUtil;
 
+    /**
+     * 사용자 찜 목록 가져오기
+     * @param authHeader JWT 토큰
+     * @return 찜 목록 조회 DTO 리스트 + 상태코드 200
+     */
+    @GetMapping
+    public ResponseEntity<List<SelectFavorite>> getFavorites(@RequestHeader("Authorization") String authHeader) {
+        int currentUserId = authUtil.getCurrentUserId(authHeader);
 
-
-    // 사용자 찜 목록 가져오기
-     @GetMapping
-    public ResponseEntity<List<SelectFavorite>> getFavorites(@RequestHeader("Authorization") String authHeader){
-
-
-            int currentUserId = authUtil.getCurrentUserId(authHeader);
-            List<SelectFavorite> favorites = favoriteService.getFavorites(currentUserId);
-            return ResponseEntity.ok(favorites);
-
+        List<SelectFavorite> favorites = favoriteService.getFavorites(currentUserId);
+        return ResponseEntity.ok(favorites);
     }
 
-    // 사용자 찜 추가하기
+    /**
+     * 사용자 찜 추가하기
+     * @param accommodationId 숙소 ID
+     * @param authHeader      JWT 토큰
+     * @return 성공 메세지 + 상태코드 200
+     */
     @PostMapping("/{accommodationId}")
-    public ResponseEntity<String> postFavorite(@PathVariable int accommodationId,
-                                           @RequestHeader("Authorization") String authHeader){
+    public ResponseEntity<Void> postFavorite(@RequestHeader("Authorization") String authHeader, @PathVariable int accommodationId) {
+        int currentUserId = authUtil.getCurrentUserId(authHeader);
 
-            int currentUserId = authUtil.getCurrentUserId(authHeader);
-
-            favoriteService.postFavorite(currentUserId, accommodationId);
-            return ResponseEntity.ok("즐겨찾기 추가 성공");
-
-
+        favoriteService.postFavorite(currentUserId, accommodationId);
+        return ResponseEntity.ok().build();
     }
 
-
-
-    // 사용자 찜 삭제하기
+    /**
+     * 사용자 찜 삭제하기
+     * @param favoriteId 찜 ID
+     * @param authHeader JWT 토큰
+     * @return 성공 메세지 + 상태코드 200
+     */
     @DeleteMapping("/{favoriteId}")
-    public ResponseEntity<String> deleteFavorite(@PathVariable int favoriteId,
-                                              @RequestHeader("Authorization") String authHeader){
+    public ResponseEntity<Void> deleteFavorite(@RequestHeader("Authorization") String authHeader, @PathVariable int favoriteId) {
+        int currentUserId = authUtil.getCurrentUserId(authHeader);
 
-            int currentUserId = authUtil.getCurrentUserId(authHeader);
-
-            favoriteService.deleteFavorite(currentUserId, favoriteId);
-            return ResponseEntity.ok("즐겨찾기 삭제 성공");
+        favoriteService.deleteFavorite(currentUserId, favoriteId);
+        return ResponseEntity.ok().build();
 
     }
-
-
 }

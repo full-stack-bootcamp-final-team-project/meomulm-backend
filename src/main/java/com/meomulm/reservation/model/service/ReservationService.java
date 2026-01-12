@@ -7,9 +7,24 @@ import java.util.List;
 
 @Component
 public interface ReservationService {
-    List<Reservation> getAllReservationsByUserId(int loginUserId);
-    Reservation getReservationById(int reservationId, int loginUserId);
-    void addReservation(Reservation reservation);
-    void updateReservation(Reservation reservation, int loginUserId);
+
+    /**
+     * 예약 추가
+     * @param reservation 예약 DTO
+     */
+    void postReservation(Reservation reservation);
+
+    /**
+     * 예약 수정
+     * @param reservation 예약 DTO
+     * @param loginUserId 로그인한 유저 ID
+     */
+    void patchReservation(Reservation reservation, int loginUserId);
+
+    /**
+     * 예약 취소 (상태만 변경)
+     * @param reservation 예약 DTO
+     * @param loginUserId 로그인한 유저 ID
+     */
     void deleteReservation(Reservation reservation, int loginUserId);
 }

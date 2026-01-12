@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/accommodation")
@@ -19,10 +18,11 @@ import java.util.Map;
 public class AccommodationController {
     private final AccommodationService accommodationService;
 
-    // http://localhost:8080/api/accommodation/keyword
-    // {
-    //    "keyword": "제주"
-    // }
+    /**
+     * 키워드로 숙소 조회
+     * @param request 숙소검색 요청 DTO
+     * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
+     */
     @GetMapping("/keyword")
     public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByKeyword(@RequestBody SearchAccommodationRequest request) {
         log.info("🔥 Controller 진입 - keyword={}", request.getKeyword());
@@ -30,10 +30,11 @@ public class AccommodationController {
         return ResponseEntity.ok(searchAccommodationResponse);
     }
 
-    // http://localhost:8080/api/accommodation/popular
-    // {
-    //    "accommodationAddress": "제주"
-    // }
+    /**
+     * 지역별 가격 낮은 숙소 12개 조회
+     * @param request 숙소검색 요청 DTO
+     * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
+     */
     @GetMapping("/popular")
     public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationPopularByAddress(@RequestBody SearchAccommodationRequest request) {
         log.info("🔥 Controller 진입 - accommodationAddress={}", request.getAccommodationAddress());
@@ -41,11 +42,11 @@ public class AccommodationController {
         return ResponseEntity.ok(searchAccommodationResponse);
     }
 
-    // http://localhost:8080/api/accommodation/map
-    // {
-    //    "latitude": 33.4629,
-    //    "longitude": 126.3095
-    // }
+    /**
+     * 현재위치 기반 반경 5km 내 숙소 조회 : 지도 검색
+     * @param request 숙소검색 요청 DTO
+     * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
+     */
     @GetMapping("/map")
     public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByLocation(@RequestBody SearchAccommodationRequest request) {
         log.info("🔥 Controller 진입 - location={},{}", request.getLatitude(), request.getLongitude());
@@ -53,7 +54,11 @@ public class AccommodationController {
         return ResponseEntity.ok(searchAccommodationResponse);
     }
 
-    // http://localhost:8080/api/accommodation/detail/1
+    /**
+     * 숙소 ID로 숙소 상세정보 조회
+     * @param accommodationId 숙소 ID
+     * @return 숙소 상세정보 DTO + 상태코드 200
+     */
     @GetMapping("/detail/{accommodationId}")
     public ResponseEntity<AccommodationDetail> getAccommodationDetailById(@PathVariable int accommodationId) {
         log.info("🔥 Controller 진입 - accommodationId={}", accommodationId);

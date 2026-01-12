@@ -9,7 +9,12 @@ import java.util.List;
 
 @Mapper
 public interface FavoriteMapper {
-    List<SelectFavorite> selectFavorites(int userId); // 숙소 Id 하나만 가져와서 String
+    // 유저 아이디를 기반으로 찜 리스트 조회
+    List<SelectFavorite> selectFavorites(int userId);
+
+    // 찜 목록 추가
     void insertFavorite(Favorite favorite);
+
+    // 찜 목록 삭제
     void deleteFavorite(int userId, int favoriteId);
 }
