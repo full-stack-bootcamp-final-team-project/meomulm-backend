@@ -1,7 +1,6 @@
 package com.meomulm.review.model.service;
 
 import com.meomulm.common.exception.BadRequestException;
-import com.meomulm.common.exception.ForbiddenException;
 import com.meomulm.common.exception.NotFoundException;
 import com.meomulm.review.model.dto.AccommodationReview;
 import com.meomulm.review.model.dto.MyReview;
@@ -10,6 +9,7 @@ import com.meomulm.review.model.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,10 +20,13 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewMapper reviewMapper;
 
-    // 숙소별 리뷰들 조회
+    /**
+     * 숙소별 리뷰 조회
+     * @param accommodationId 숙소 ID
+     * @return 숙소 리뷰 DTO 리스트
+     */
     @Override
     public List<AccommodationReview> getReviewByAccommodationId(int accommodationId) {
-
         List<AccommodationReview> reviews = reviewMapper.selectReviewByAccommodationId(accommodationId);
 
         if (reviews == null || reviews.isEmpty()) {
@@ -33,10 +36,13 @@ public class ReviewServiceImpl implements ReviewService {
         return reviews;
     }
 
-    // 자신의 리뷰들 조회
+    /**
+     * 내 리뷰 조회
+     * @param userId 유저 ID
+     * @return 나의 리뷰 DTO 리스트
+     */
     @Override
     public List<MyReview> getReviewByUserId(int userId) {
-
         List<MyReview> reviews = reviewMapper.selectReviewByUserId(userId);
 
         if (reviews == null || reviews.isEmpty()) {
@@ -46,18 +52,24 @@ public class ReviewServiceImpl implements ReviewService {
         return reviews;
     }
 
-    //리뷰 작성
+    /**
+     * 리뷰 작성
+     * @param userId 유저 ID
+     * @param accommodationId 숙소 ID
+     * @param rating 별점
+     * @param reviewContent 리뷰 내용
+     */
+    @Transactional
     @Override
     public void postReview(int userId, int accommodationId, int rating, String reviewContent) {
 
-        if (rating < 1 || rating > 5) {
-            throw new BadRequestException("평점은 1~5점 사이여야 합니다.");
+        if (rating < 1 || rating > 10) {
+            throw new BadRequestException("평점은 1~10점 사이여야 합니다.");
         }
 
         if (reviewContent == null || reviewContent.trim().isEmpty()) {
             throw new BadRequestException("리뷰 내용을 입력해주세요.");
         }
-
 
         Review review = new Review();
         review.setUserId(userId);
@@ -72,8 +84,12 @@ public class ReviewServiceImpl implements ReviewService {
         }
     }
 
-
-    // 리뷰 삭제
+    /**
+     * 리뷰 삭제
+     * @param reviewId 리뷰 ID
+     * @param userId 유저 ID
+     */
+    @Transactional
     @Override
     public void deleteReview(int reviewId, int userId) {
         Review review = new Review();

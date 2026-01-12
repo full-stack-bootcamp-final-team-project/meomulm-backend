@@ -6,13 +6,12 @@
 
 <mapper namespace="com.meomulm.reservation.model.mapper.ReservationMapper">
 
-    <!-- 예약 조회 -->
-    <!-- <select id="selectAllReservationsByUserId"> -->
-    <!-- </select> -->
-
     <!-- 예약 조회 (예약Id) -->
-    <!-- <select id="selectReservationById"> -->
-    <!-- </select> -->
+    <select id="selectReservationById">
+    SELECT *
+    FROM reservation
+    WHERE reservation_id= #{reservationId}
+    </select>
 
     <!-- 예약 추가 -->
     <insert id="insertReservation" parameterType="Reservation">

@@ -19,9 +19,14 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentMapper paymentMapper;
     private final ReservationMapper reservationMapper;
 
-    @Override
+    /**
+     * 결제정보 추가
+     * @param payment 결제 DTO
+     * @param reservationId 예약 ID
+     */
     @Transactional
-    public void addPayment(Payment payment, int reservationId) {
+    @Override
+    public void postPayment(Payment payment, int reservationId) {
         if (payment == null) {
             throw new BadRequestException("결제 정보가 전달되지 않았습니다.");
         }
@@ -29,8 +34,8 @@ public class PaymentServiceImpl implements PaymentService {
         if(isExistReservation == null) {
             throw new NotFoundException("예약 정보를 찾을 수 없습니다.");
         }
-        payment.setReservation_id(reservationId);
+        payment.setReservationId(reservationId);
         paymentMapper.insertPayment(payment);
-        reservationMapper.updateStatusToPaid(payment.getReservation_id());
+        reservationMapper.updateStatusToPaid(payment.getReservationId());
     }
 }

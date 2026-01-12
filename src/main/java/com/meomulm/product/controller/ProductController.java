@@ -1,11 +1,9 @@
 package com.meomulm.product.controller;
 
-import com.meomulm.product.model.dto.Product;
 import com.meomulm.product.model.dto.ProductResponse;
 import com.meomulm.product.model.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +18,7 @@ public class ProductController {
     private final ProductService productService;
 
     /**
-     *
+     * 숙소 ID로 객실 조회
      * @param accommodationId   숙소 Id
      * @param checkInDate       체크인 날짜
      * @param checkOutDate      체크아웃 날짜

@@ -17,7 +17,11 @@ import java.util.List;
 public class AccommodationServiceImpl implements AccommodationService {
     private final AccommodationMapper accommodationMapper;
 
-    // 숙소 아이디를 기반으로 이미지 리스트 반환
+    /**
+     * 숙소 ID로 숙소 이미지 리스트 조회
+     * @param accommodationId 숙소 ID
+     * @return 숙소 이미지 DTO 리스트
+     */
     @Override
     public List<AccommodationImage> getAccommodationImagesById(int accommodationId) {
         List<AccommodationImage> accommodationImages = accommodationMapper.selectAccommodationImagesById(accommodationId);
@@ -26,6 +30,11 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     // 이미 존재하는 List 안의 객체들을 set 하는 역할
+
+    /**
+     * 각 숙소검색 응답 DTO의 이미지 변수(accommodationImages)에 숙소 이미지 리스트 저장
+     * @param responses 숙소검색 응답 DTO
+     */
     private void setAccommodationImages(List<SearchAccommodationResponse> responses) {
         for (SearchAccommodationResponse response : responses) {
             response.setAccommodationImages(
@@ -34,7 +43,11 @@ public class AccommodationServiceImpl implements AccommodationService {
         }
     }
 
-    // 돋보기 검색 - 숙소명, 지역명으로 숙소 검색
+    /**
+     * 키워드로 숙소 검색 : 돋보기 검색
+     * @param keyword 숙소명 또는 지역명
+     * @return 숙소검색 응답 DTO 리스트
+     */
     @Override
     public List<SearchAccommodationResponse> getAccommodationByKeyword(String keyword) {
         log.info("💡 숙소명, 지역명 숙소 검색 시작 - keyword={}", keyword);
@@ -51,7 +64,11 @@ public class AccommodationServiceImpl implements AccommodationService {
         return searchAccommodationResponse;
     }
 
-    // 지역 별 가격 낮은 순 12개
+    /**
+     * 지역별 가격 낮은 숙소 12개 조회
+     * @param accommodationAddress 숙소 주소
+     * @return 숙소검색 응답 DTO 리스트
+     */
     @Override
     public List<SearchAccommodationResponse> getAccommodationPopularByAddress(String accommodationAddress) {
         log.info("💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress={}", accommodationAddress);
@@ -68,7 +85,12 @@ public class AccommodationServiceImpl implements AccommodationService {
         return searchAccommodationResponse;
     }
 
-    // 지도 클릭 -> 현재 위치 기반의 반경 5KM 숙소를 지도에 노출
+    /**
+     * 현재위치 기반 반경 5km 내 숙소 조회 : 지도 검색
+     * @param accommodationLatitude 숙소 경도
+     * @param accommodationLongitude 숙소 위도
+     * @return 숙소검색 응답 DTO 리스트
+     */
     @Override
     public List<SearchAccommodationResponse> getAccommodationByLocation(double accommodationLatitude, double accommodationLongitude) {
         log.info("💡 지도 5km 반경 숙소 검색 시작 - latitude={}, longitude={}", accommodationLatitude, accommodationLongitude);
@@ -87,7 +109,11 @@ public class AccommodationServiceImpl implements AccommodationService {
         return searchAccommodationResponse;
     }
 
-    // 숙소 상세 검색
+    /**
+     * 숙소 ID로 숙소 상세정보 조회
+     * @param accommodationId 숙소 ID
+     * @return 숙소 상세정보 DTO
+     */
     @Override
     public AccommodationDetail getAccommodationDetailById(int accommodationId) {
         log.info("💡 숙소 상세 검색 시작 - accommodationId={}", accommodationId);

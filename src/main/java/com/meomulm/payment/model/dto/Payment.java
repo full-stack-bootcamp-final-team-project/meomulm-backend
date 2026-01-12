@@ -9,10 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Payment {
-    private int payment_id;
-    private int reservation_id;
-    private String payment_method;
-    private int paid_amount;
+    // 결제 아이디
+    private int paymentId;
+    // 예약 아이디
+    private int reservationId;
+    // 결제 수단
+    private String paymentMethod;
+    // 결제 금액
+    private int paidAmount;
+    // 결제 상태
     private String status;
-    private String paid_at;
+    // 결제 일자
+    private String paidAt;
 }

@@ -23,6 +23,8 @@ public class ReviewController {
 
     /**
      * 숙소별 리뷰 조회
+     * @param accommodationId URL에서 가져온 숙소 ID
+     * @return 숙소 리뷰 DTO 리스트 + 상태코드 200
      */
     @GetMapping("/accommodationId/{accommodationId}")
     public ResponseEntity<List<AccommodationReview>> getReviewByAccommodationId(@PathVariable int accommodationId) {
@@ -33,6 +35,8 @@ public class ReviewController {
 
     /**
      * 내 리뷰 조회
+     * @param authHeader JWT 토큰 헤더
+     * @return 나의 리뷰 DTO 리스트 + 상태코드 200
      */
     @GetMapping("/userId")
     public ResponseEntity<List<MyReview>> getReviewByUserId(@RequestHeader(value = "Authorization") String authHeader) {
@@ -44,6 +48,9 @@ public class ReviewController {
 
     /**
      * 리뷰 작성
+     * @param authHeader JWT 토큰
+     * @param review 리뷰 DTO
+     * @return 상태코드 200
      */
     @PostMapping
     public ResponseEntity<Void> postReview(@RequestHeader(value = "Authorization") String authHeader, @RequestBody Review review) {
@@ -61,6 +68,9 @@ public class ReviewController {
 
     /**
      * 리뷰 삭제
+     * @param authHeader JWT 토큰
+     * @param reviewId URL에서 가져온 리뷰 ID
+     * @return 상태코드 200
      */
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteReview(@RequestHeader(value = "Authorization") String authHeader, @PathVariable int reviewId) {

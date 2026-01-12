@@ -4,7 +4,6 @@ import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.exception.NotFoundException;
 import com.meomulm.common.util.FileUploadService;
 import com.meomulm.reservation.model.dto.Reservation;
-import com.meomulm.user.model.dto.LoginRequest;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,12 @@ public class UserServiceImpl implements UserService {
     // ==========================================
     //                  My Page
     // ==========================================
-    // 회원정보 조회
+
+    /**
+     * 회원정보 조회
+     * @param userId 유저 ID
+     * @return 유저 객체
+     */
     @Override
     public User getUserInfoById(int userId) {
         log.info("💡 회원정보 조회 시작. userId: {}", userId);
@@ -44,7 +48,12 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    // 회원정보 수정
+    /**
+     * 회원정보 수정
+     * @param user 유저 객체
+     * @param currentUserId 현재 로그인한 유저 ID
+     */
+    @Transactional
     @Override
     public void putUserInfo(User user, int currentUserId) {
         log.info("💡 회원정보 수정 시작. userId: {}", currentUserId);
@@ -53,9 +62,13 @@ public class UserServiceImpl implements UserService {
         log.info("✅ 회원정보 수정 완료. userId: {}", currentUserId);
     }
 
-    // 회원 예약 내역 조회
+    /**
+     * 회원 예약 내역 조회
+     * @param userId 유저 ID
+     * @return 예약 DTO 리스트
+     */
     @Override
-    public List<Reservation> selectUserReservationById(int userId) {
+    public List<Reservation> getUserReservationById(int userId) {
         log.info("💡 예약내역 조회 시작. userId: {}", userId);
         List<Reservation> reservations = userMapper.selectUserReservationById(userId);
 
@@ -68,7 +81,12 @@ public class UserServiceImpl implements UserService {
         return reservations;
     }
 
-    // 프로필 사진 수정
+    /**
+     * 프로필 사진 수정
+     * @param userProfileImage 사용자 프로필 이미지 경로
+     * @param userId 유저 ID
+     */
+    @Transactional
     @Override
     public void updateProfileImage(MultipartFile userProfileImage, int userId) {
         try {
@@ -90,7 +108,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    // 현재 비밀번호 확인
+    /**
+     * 현재 비밀번호 확인
+     * @param userId 유저 ID
+     * @param inputPassword 현재 비밀번호
+     */
     @Override
     public void getCurrentPassword(int userId, String inputPassword) {
         log.info("💡 현재 비밀번호 확인 시작. userId: {}", userId);
@@ -109,7 +131,12 @@ public class UserServiceImpl implements UserService {
         log.info("✅ 현재 비밀번호 조회 성공. userId: {}", userId);
     }
 
-    // 비밀번호 수정
+    /**
+     * 비밀번호 수정
+     * @param userId 유저 ID
+     * @param newPassword 새 비밀번호
+     */
+    @Transactional
     @Override
     public void putMyPagePassword(int userId, String newPassword) {
         log.info("💡 비밀번호 수정 시작. userId: {}", userId);
@@ -125,7 +152,11 @@ public class UserServiceImpl implements UserService {
     // ==========================================
     //               Signup / Login
     // ==========================================
-    // 회원가입
+
+    /**
+     * 회원가입
+     * @param user 유저 객체
+     */
     @Transactional
     @Override
     public void signup(User user) {
@@ -148,7 +179,12 @@ public class UserServiceImpl implements UserService {
         log.info("✅ 회원가입 완료 - 이메일 {}, 사용자명 : {}", user.getUserEmail(), user.getUserName());
     }
 
-    // 로그인
+    /**
+     * 로그인
+     * @param userEmail     로그인 할 유저 이메일
+     * @param userPassword  로그인 할 유저 비밀번호
+     * @return 유저 객체
+     */
     @Override
     public User login(String userEmail, String userPassword) {
         User user = userMapper.selectUserLogin(userEmail);
@@ -161,7 +197,12 @@ public class UserServiceImpl implements UserService {
         throw new NotFoundException("로그인 정보 없음");
     }
 
-    // 아이디 찾기
+    /**
+     * 아이디 찾기
+     * @param userName  유저 이름
+     * @param userPhone 유저 전화번호
+     * @return 유저 이메일
+     */
     @Override
     public String getUserFindId(String userName, String userPhone) {
         User user = userMapper.selectUserFindId(userName, userPhone);
@@ -173,7 +214,12 @@ public class UserServiceImpl implements UserService {
         throw new NotFoundException("이메일 정보 없음");
     }
 
-    // 비밀번호 찾기
+    /**
+     * 비밀번호 찾기
+     * @param userEmail 유저 이메일
+     * @param userBirth 유저 생년
+     * @return 유저 ID
+     */
     @Override
     public int getUserFindPassword(String userEmail, String userBirth) {
         User user = userMapper.selectUserFindPassword(userEmail, userBirth);
@@ -189,7 +235,11 @@ public class UserServiceImpl implements UserService {
         return user.getUserId();
     }
 
-    // 비밀번호 변경
+    /**
+     * 비밀번호 변경 (로그인 페이지)
+     * @param userId        유저 ID
+     * @param newPassword   새 비밀번호
+     */
     @Transactional
     @Override
     public void patchUserPassword(int userId, String newPassword) {
@@ -208,9 +258,13 @@ public class UserServiceImpl implements UserService {
         log.info("✅ 비밀번호 수정 성공 userId: {}", userId);
     }
 
-    // 이메일 조회
+    /**
+     * 이메일 조회
+     * @param userEmail 유저 이메일
+     * @return 유저 객체
+     */
     @Override
-    public User selectUserByUserEmail(String userEmail) {
+    public User getUserByUserEmail(String userEmail) {
         return userMapper.selectUserByUserEmail(userEmail);
     }
 }

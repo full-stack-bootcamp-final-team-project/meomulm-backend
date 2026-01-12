@@ -1,15 +1,11 @@
 package com.meomulm.user.controller;
 
-import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.util.AuthUtil;
-import com.meomulm.common.util.JwtUtil;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +26,7 @@ public class UserController {
     /**
      * 회원정보 조회
      * @param authHeader JWT 토큰 헤더
-     * @return User 객체 + 상태코드 200 / 예외처리: GlobalExceptionHandler
+     * @return User 객체 + 상태코드 200
      */
     @GetMapping
     public ResponseEntity<User> getUserInfoById(
@@ -44,8 +40,8 @@ public class UserController {
     /**
      * 회원정보 수정
      * @param authHeader JWT 토큰 헤더
-     * @param user 프론트에서 body로 받아온 User 데이터
-     * @return 상태코드 200 / 예외처리: GlobalExceptionHandler
+     * @param user 유저 객체
+     * @return 상태코드 200
      */
     @PutMapping("/userInfo")
     public ResponseEntity<Void> putUserInfo(@RequestHeader("Authorization") String authHeader,
@@ -59,12 +55,12 @@ public class UserController {
     /**
      * 회원 예약 내역 조회
      * @param authHeader JWT 토큰 헤더
-     * @return 예약내역 리스트 + 상태코드 200 / 예외처리: GlobalExceptionHandler
+     * @return 예약내역 DTO 리스트 + 상태코드 200
      */
     @GetMapping("/reservation")
-    public ResponseEntity<List<Reservation>> selectUserReservationById(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<List<Reservation>> getUserReservationById(@RequestHeader("Authorization") String authHeader) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
-        List<Reservation> reservations = userService.selectUserReservationById(currentUserId);
+        List<Reservation> reservations = userService.getUserReservationById(currentUserId);
 
         return ResponseEntity.ok(reservations);
     }
@@ -73,7 +69,7 @@ public class UserController {
      * 프로필 사진 수정
      * @param authHeader JWT 토큰 헤더
      * @param userProfileImage 새로 저장할 프로필 이미지
-     * @return
+     * @return 상태코드 200
      */
     @PatchMapping("/profileImage")
     public ResponseEntity<Void> updateProfileImage(@RequestHeader("Authorization") String authHeader,
@@ -87,8 +83,8 @@ public class UserController {
     /**
      * 현재 비밀번호 확인
      * @param authHeader JWT 토큰 헤더
-     * @param user 입력된 현재 비밀번호가 담긴 User 객체
-     * @return 상태코드 200 / 예외처리: GlobalExceptionHandler
+     * @param user 유저 객체 (입력된 현재 비밀번호)
+     * @return 상태코드 200
      */
     @GetMapping("/currentPassword")
     public ResponseEntity<Void> getCurrentPassword(@RequestHeader("Authorization") String authHeader,
@@ -102,8 +98,8 @@ public class UserController {
     /**
      * 비밀번호 수정
      * @param authHeader JWT 토큰 헤더
-     * @param user 변경하려는 새 비밀번호가 담긴 User 객체
-     * @return 상태코드 200 / 예외처리: GlobalExceptionHandler
+     * @param user 유저 객체 (새 비밀번호)
+     * @return 상태코드 200
      */
     @PatchMapping("/password")
     public ResponseEntity<Void> putMyPagePassword(@RequestHeader("Authorization") String authHeader,

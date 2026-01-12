@@ -10,6 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductResponse {
+    // 객실 리스트
     private List<Product> allProducts;
+    // 예약 가능한 아이디 리스트
     private List<Integer> availableProductIds;
 }

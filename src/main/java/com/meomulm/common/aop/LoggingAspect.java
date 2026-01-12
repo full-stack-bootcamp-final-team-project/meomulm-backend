@@ -28,7 +28,8 @@ public class LoggingAspect {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("[%s.%s] 요청 / ip : %s", className, methodName, ip));
 
- /*       if(req.getSession().getAttribute("loginUser") != null) {
+        /*
+        if(req.getSession().getAttribute("loginUser") != null) {
             String userEmail =
                     ( (User)req.getSession().getAttribute("loginUser") ).getUserEmail();
             sb.append(String.format(", 요청 회원 : %s", userEmail));

@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -25,7 +23,6 @@ public class ReservationServiceImpl implements ReservationService {
         return str == null || str.trim().isEmpty();
     }
 
-
     private boolean isValidEmail(String email) {
         if (email == null) return false;
         String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
@@ -34,7 +31,6 @@ public class ReservationServiceImpl implements ReservationService {
 
     private boolean isValidPhone(String phone) {
         if (phone == null) return false;
-        // 010-1234-5678 또는 01012345678
         String regex = "^010-?\\d{4}-?\\d{4}$";
         return phone.matches(regex);
     }
@@ -44,30 +40,13 @@ public class ReservationServiceImpl implements ReservationService {
         return phone.replace("-", "");
     }
 
-
+    /**
+     * 예약 추가
+     * @param reservation 예약 DTO
+     */
+    @Transactional
     @Override
-    public List<Reservation> getAllReservationsByUserId(int loginUserId) {
-        List<Reservation> reservations = reservationMapper.selectAllReservationsByUserId(loginUserId);
-        if (reservations.isEmpty()) {
-            throw new NotFoundException("조회 결과가 없습니다.");
-        }
-        return reservations;
-    }
-
-    @Override
-    public Reservation getReservationById(int reservationId, int loginUserId) {
-        Reservation reservation = reservationMapper.selectReservationById(reservationId);
-        if (reservation == null) {
-            throw new NotFoundException("조회 결과가 없습니다.");
-        }
-        if (reservation.getUserId() != loginUserId) {
-            throw new ForbiddenException("예약자 본인만 조회 가능합니다.");
-        }
-        return reservation;
-    }
-
-    @Override
-    public void addReservation(Reservation reservation) {
+    public void postReservation(Reservation reservation) {
         if (reservation == null) {
             throw new BadRequestException("예약 정보가 전달되지 않았습니다.");
         }
@@ -86,8 +65,14 @@ public class ReservationServiceImpl implements ReservationService {
         reservationMapper.insertReservation(reservation);
     }
 
+    /**
+     * 예약 수정
+     * @param reservation 예약 DTO
+     * @param loginUserId 로그인한 유저 ID
+     */
+    @Transactional
     @Override
-    public void updateReservation(Reservation reservation, int loginUserId) {
+    public void patchReservation(Reservation reservation, int loginUserId) {
         Reservation isExistReservation = reservationMapper.selectReservationById(reservation.getReservationId());
         if(isExistReservation == null) {
             throw new NotFoundException("수정하려는 예약을 찾을 수 없습니다.");
@@ -98,8 +83,13 @@ public class ReservationServiceImpl implements ReservationService {
         reservationMapper.updateReservation(reservation);
     }
 
-    @Override
+    /**
+     * 예약 취소 (상태만 변경)
+     * @param reservation 예약 DTO
+     * @param loginUserId 로그인한 유저 ID
+     */
     @Transactional
+    @Override
     public void deleteReservation(Reservation reservation, int loginUserId) {
         Reservation isExistReservation = reservationMapper.selectReservationById(reservation.getReservationId());
         if(isExistReservation == null) {
@@ -111,10 +101,5 @@ public class ReservationServiceImpl implements ReservationService {
         reservationMapper.deleteReservation(reservation.getReservationId());
         paymentMapper.deletePayment(reservation.getReservationId());
     }
-
-    /*
-    체크아웃 이후 스케줄러로 예약 상태 자동으로 수정하기
-    reservationMapper.updateStatusToUsed(reservationId);
-     */
 
 }

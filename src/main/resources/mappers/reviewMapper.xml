@@ -6,6 +6,7 @@
 
 <mapper namespace="com.meomulm.review.model.mapper.ReviewMapper">
 
+    <!-- 숙소 ID로 리뷰 조회 -->
     <select id="selectReviewByAccommodationId" resultType="AccommodationReview">
         SELECT *
         FROM review
@@ -13,18 +14,21 @@
         WHERE accommodation_id=#{accommodationId}
     </select>
 
+    <!-- 유저 ID로 리뷰 조회 -->
     <select id="selectReviewByUserId" resultType="MyReview">
         SELECT *
         FROM review
         INNER JOIN accommodation ON review.accommodation_id  = accommodation.accommodation_id
         WHERE review.user_id=#{userId}
     </select>
-    
+
+    <!-- 리뷰 등록 -->
     <insert id="insertReview" parameterType="Review" useGeneratedKeys="true" keyProperty="reviewId" keyColumn="review_id">
         INSERT INTO review (user_id, accommodation_id, rating, review_content)
         VALUES (#{userId}, #{accommodationId}, #{rating}, #{reviewContent})
     </insert>
 
+    <!-- 리뷰 삭제 -->
     <delete id="deleteReview" parameterType="Review">
         DELETE FROM review
         WHERE user_id = #{userId}

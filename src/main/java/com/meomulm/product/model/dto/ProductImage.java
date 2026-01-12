@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductImage {
-    private int productImageId ;
-    private int productId ;
-    private String productImageUrl ;
+    // 객실 이미지 아이디
+    private int productImageId;
+    // 객실 아이디
+    private int productId;
+    // 객실 이미지 URL
+    private String productImageUrl;
 }

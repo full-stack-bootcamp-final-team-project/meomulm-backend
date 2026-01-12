@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,8 +28,8 @@ public class AuthController {
 
     /**
      * 회원가입
-     * @param user 회원 정보가 들어있는 객체
-     * @return
+     * @param user 유저 객체
+     * @return 상태코드 200
      */
     @PostMapping("/signup")
     public ResponseEntity<Void> signup(@RequestBody User user) {
@@ -40,8 +39,8 @@ public class AuthController {
 
     /**
      * 로그인
-     * @param request 로그인 정보(회원 이메일, 회원 비밀번호)
-     * @return  토큰?
+     * @param request 로그인 요청 DTO
+     * @return 로그인 응답 DTO + 상태코드 200
      */
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
@@ -57,8 +56,8 @@ public class AuthController {
 
     /**
      * 아이디 찾기
-     * @param user 회원 정보 (회원 이름, 회원 전화번호)
-     * @return  회원 이메일
+     * @param user 유저 객체 (userName, userPhone)
+     * @return  회원 이메일 + 상태코드 200
      */
     @GetMapping("/findId")
     public ResponseEntity<String> getUserFindId(@RequestBody User user){
@@ -67,9 +66,9 @@ public class AuthController {
     }
 
     /**
-     * 비밀번호 찾기
-     * @param user 회원 정보 (회원 이메일, 회원 생년)
-     * @return
+     * 본인인증 (비밀번호 변경 시)
+     * @param user 유저 객체 (userEmail, userBirth)
+     * @return 유저ID + 상태코드 200
      */
     @GetMapping("/checkPassword")
     public ResponseEntity<Integer> getUserFindPassword(@RequestBody User user) {
@@ -79,8 +78,8 @@ public class AuthController {
 
     /**
      * 비밀번호 변경 (로그인페이지)
-     * @param user 회원 id, 새 비밀번호가 담겨있는 객체
-     * @return
+     * @param user 유저 객체 (userId, 새 비밀번호)
+     * @return 상태코드 200
      */
     @PatchMapping("/changePassword")
     public ResponseEntity<Void> patchUserPassword(@RequestBody User user){
@@ -91,7 +90,7 @@ public class AuthController {
     /**
      * 카카오 로그인
      * @param data 카카오 유저 정보
-     * @return
+     * @return 에러코드 / 로그인 응답 DTO + 상태코드 200
      */
     @PostMapping("/kakao")
     public ResponseEntity<?> kakaoLogin(@RequestBody Map<String, String> data) {
@@ -113,11 +112,11 @@ public class AuthController {
         User kakaoUser = kakaoService.getKakaoUserInfo(accessToken);
         if(kakaoUser == null) {
             log.error("카카오 사용자 정보 조회 실패");
-            return ResponseEntity.status(400).body("카카오 쥬저 정보 조회 실패");
+            return ResponseEntity.status(400).body("카카오 유저 정보 조회 실패");
         }
 
         log.info("카카오 사용자 정보 조회 성공 - email : {}", kakaoUser.getUserEmail());
-        User existUser = userService.selectUserByUserEmail(kakaoUser.getUserEmail());
+        User existUser = userService.getUserByUserEmail(kakaoUser.getUserEmail());
         if(existUser != null){
             String token = jwtUtil.generateToken(existUser.getUserId(), existUser.getUserEmail());
             LoginResponse loginResponse = new LoginResponse();

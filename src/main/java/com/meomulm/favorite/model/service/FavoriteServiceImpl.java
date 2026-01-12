@@ -6,8 +6,8 @@ import com.meomulm.favorite.model.dto.SelectFavorite;
 import com.meomulm.favorite.model.mapper.FavoriteMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,9 +15,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FavoriteServiceImpl implements FavoriteService {
-    @Autowired
-    private FavoriteMapper favoriteMapper;
+    private final FavoriteMapper favoriteMapper;
 
+    /**
+     * 사용자 찜 목록 가져오기
+     * @param userId 유저 ID
+     * @return 찜 목록 조회 DTO 리스트
+     */
     @Override
     public List<SelectFavorite> getFavorites(int userId){
             List<SelectFavorite> favorites = favoriteMapper.selectFavorites(userId);
@@ -29,21 +33,28 @@ public class FavoriteServiceImpl implements FavoriteService {
             return favorites;
     }
 
-
-
+    /**
+     * 사용자 찜 추가하기
+     * @param userId 유저 ID
+     * @param accommodationId 숙소 ID
+     */
+    @Transactional
     @Override
     public void postFavorite(int userId, int accommodationId){
             Favorite favorite = new Favorite();
             favorite.setUserId(userId);
             favorite.setAccommodationId(accommodationId);
             favoriteMapper.insertFavorite(favorite);
-
-
     }
 
+    /**
+     * 사용자 찜 삭제하기
+     * @param userId 유저 ID
+     * @param favoriteId 찜 ID
+     */
+    @Transactional
     @Override
     public void deleteFavorite(int userId, int favoriteId){
             favoriteMapper.deleteFavorite(userId, favoriteId);
-
     }
 }
