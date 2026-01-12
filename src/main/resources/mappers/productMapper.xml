@@ -1,10 +1,120 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meomulm.product.model.mapper.ProductMapper">
 
+    <!--    <resultMap id="ProductDetailMap"-->
+    <!--               type="com.meomulm.product.model.dto.Product">-->
+
+    <!--        <id column="product_id" property="productId"/>-->
+
+    <!--        <result column="accommodation_id" property="accommodationId"/>-->
+    <!--        <result column="product_name" property="productName"/>-->
+    <!--        <result column="product_price" property="productPrice"/>-->
+    <!--        <result column="product_standard_number" property="productStandardNumber"/>-->
+    <!--        <result column="product_maximum_number" property="productMaximumNumber"/>-->
+    <!--        <result column="product_count" property="productCount"/>-->
+    <!--        <result column="product_check_in_time" property="productCheckInTime"/>-->
+    <!--        <result column="product_check_out_time" property="productCheckOutTime"/>-->
+
+    <!--        <association property="facility"-->
+    <!--                     javaType="com.meomulm.product.model.dto.ProductFacility">-->
+    <!--            <id column="product_facility_id" property="productFacilityId"/>-->
+    <!--            <result column="product_id" property="productId"/>-->
+    <!--            <result column="has_bath" property="hasBath"/>-->
+    <!--            <result column="has_air_condition" property="hasAirCondition"/>-->
+    <!--            <result column="has_refrigerator" property="hasRefrigerator"/>-->
+    <!--            <result column="has_bidet" property="hasBidet"/>-->
+    <!--            <result column="has_tv" property="hasTv"/>-->
+    <!--            <result column="has_pc" property="hasPc"/>-->
+    <!--            <result column="has_internet" property="hasInternet"/>-->
+    <!--            <result column="has_toiletries" property="hasToiletries"/>-->
+    <!--        </association>-->
+
+    <!--        <collection property="images"-->
+    <!--                    ofType="com.meomulm.product.model.dto.ProductImage">-->
+    <!--            <id column="product_image_id" property="productImageId"/>-->
+    <!--            <result column="product_id" property="productId"/>-->
+    <!--            <result column="product_image_url" property="productImageUrl"/>-->
+    <!--        </collection>-->
+
+    <!--    </resultMap>-->
+
+
+    <!-- 숙소별 객실 기본 조회 -->
+    <select id="selectRoomsByAccommodationId" resultType="Product">
+        SELECT *
+        FROM product
+        WHERE accommodation_id = #{accommodationId}
+        ORDER BY product_id ASC
+    </select>
+
+    <!-- 객실 시설 조회 -->
+    <select id="selectProductFacilityByProductId" resultType="ProductFacility">
+        SELECT *
+        FROM product_facility
+        WHERE product_id = #{productId}
+    </select>
+
+    <!-- 객실 이미지 조회 -->
+    <select id="selectProductImagesByProductId" resultType="ProductImage">
+        SELECT *
+        FROM product_image
+        WHERE product_id = #{productId}
+        ORDER BY product_image_id ASC
+    </select>
+
+    <!--    &lt;!&ndash; 1. 모든 객실 상세 정보 한 번에 조회 &ndash;&gt;-->
+    <!--    <select id="selectRoomsWithDetails" resultMap="ProductDetailMap">-->
+    <!--        SELECT-->
+    <!--            p.product_id,-->
+    <!--            p.accommodation_id,-->
+    <!--            p.product_name,-->
+    <!--            p.product_price,-->
+    <!--            p.product_standard_number,-->
+    <!--            p.product_maximum_number,-->
+    <!--            p.product_count,-->
+    <!--            p.product_check_in_time,-->
+    <!--            p.product_check_out_time,-->
+
+    <!--            pf.product_facility_id,-->
+    <!--            pf.has_bath,-->
+    <!--            pf.has_air_condition,-->
+    <!--            pf.has_refrigerator,-->
+    <!--            pf.has_bidet,-->
+    <!--            pf.has_tv,-->
+    <!--            pf.has_pc,-->
+    <!--            pf.has_internet,-->
+    <!--            pf.has_toiletries,-->
+
+    <!--            pi.product_image_id,-->
+    <!--            pi.product_image_url-->
+    <!--        FROM product p-->
+    <!--                 LEFT JOIN product_facility pf ON pf.product_id = p.product_id-->
+    <!--                 LEFT JOIN product_image pi ON pi.product_id = p.product_id-->
+    <!--        WHERE p.accommodation_id = #{accommodationId}-->
+    <!--        ORDER BY p.product_id, pi.product_image_id-->
+    <!--    </select>-->
+
+    <!-- 예약 가능한 객실 ID만 조회 -->
+    <select id="selectAvailableProductId" resultType="java.lang.Integer">
+        SELECT p.product_id
+        FROM product p
+                 LEFT JOIN reservation r
+                           ON r.product_id = p.product_id
+            <![CDATA[
+                               AND r.check_out_date > #{checkInDate}
+                               AND r.check_in_date < #{checkOutDate}
+            ]]>
+            AND r.status IN ('NOT_PAID', 'PAID')
+        WHERE p.accommodation_id = #{accommodationId}
+          AND p.product_maximum_number >= #{guestCount}
+        GROUP BY p.product_id, p.product_count
+        <![CDATA[
+        HAVING COUNT(r.reservation_id) < p.product_count
+        ]]>
+        ORDER BY p.product_id ASC
+    </select>
 
 </mapper>
