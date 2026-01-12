@@ -20,4 +20,9 @@ public interface ProductMapper {
     // 객실 ID로 객실별 이미지 조회
     List<ProductImage> selectProductImagesByProductId(int productId);
 
+    // 예약 가능 객실 조회
+    List<Integer> selectAvailableProductId(int accommodationId, String checkInDate, String checkOutDate, int guestCount);
+
+//    List<ProductDetailMap> selectRoomsWithDetails
+
 }
