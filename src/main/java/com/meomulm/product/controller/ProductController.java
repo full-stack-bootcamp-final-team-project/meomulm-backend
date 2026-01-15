@@ -25,7 +25,7 @@ public class ProductController {
      * @param guestCount        인원 수
      * @return                  예약 가능한 객실 조회 결과 반환
      */
-    @GetMapping("/room/search/{accommodationId}")
+    @GetMapping("/search/{accommodationId}")
     public ResponseEntity<ProductResponse> getRoomsByAccommodationId(
             @PathVariable int accommodationId,
             @RequestParam String checkInDate,
