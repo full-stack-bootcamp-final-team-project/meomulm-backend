@@ -28,4 +28,5 @@ public class ProductFacility {
     private boolean hasInternet;
     // 세면도구 여부
     private boolean hasToiletries;
+
 }
