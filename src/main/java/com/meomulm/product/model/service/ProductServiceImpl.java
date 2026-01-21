@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collections;
+import java.sql.Date;
 import java.util.List;
 
 @Slf4j
@@ -59,8 +61,15 @@ public class ProductServiceImpl implements ProductService {
             }
             product.setImages(images);
         }
+        LocalDate checkIn = LocalDate.parse(checkInDate);
+        LocalDate checkOut = LocalDate.parse(checkOutDate);
+
+        Date sqlCheckIn = Date.valueOf(checkIn);
+        Date sqlCheckOut = Date.valueOf(checkOut);
+
+
         List<Integer> availableProductId = productMapper.selectAvailableProductId(
-                accommodationId, checkInDate, checkOutDate, guestCount);
+                accommodationId, sqlCheckIn, sqlCheckOut, guestCount);
         if (availableProductId == null) {
             availableProductId = Collections.emptyList();
         }

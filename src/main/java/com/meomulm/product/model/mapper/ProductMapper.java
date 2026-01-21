@@ -6,6 +6,7 @@ import com.meomulm.product.model.dto.ProductFacility;
 import com.meomulm.product.model.dto.ProductImage;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.sql.Date;
 import java.util.List;
 
 @Mapper
@@ -20,5 +21,5 @@ public interface ProductMapper {
     List<ProductImage> selectProductImagesByProductId(int productId);
 
     // 예약 가능 객실 조회
-    List<Integer> selectAvailableProductId(int accommodationId, String checkInDate, String checkOutDate, int guestCount);
+    List<Integer> selectAvailableProductId(int accommodationId, Date checkInDate, Date checkOutDate, int guestCount);
 }
