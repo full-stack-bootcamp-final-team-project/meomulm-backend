@@ -24,8 +24,8 @@ public class AccommodationServiceImpl implements AccommodationService {
      */
     @Override
     public List<AccommodationImage> getAccommodationImagesById(int accommodationId) {
-        List<AccommodationImage> accommodationImages = accommodationMapper.selectAccommodationImagesById(accommodationId);
-
+        List<AccommodationImage> accommodationImages =
+                accommodationMapper.selectAccommodationImagesById(accommodationId);
         return accommodationImages;
     }
 
@@ -52,15 +52,17 @@ public class AccommodationServiceImpl implements AccommodationService {
     public List<SearchAccommodationResponse> getAccommodationByKeyword(String keyword) {
         log.info("💡 숙소명, 지역명 숙소 검색 시작 - keyword={}", keyword);
 
-        List<SearchAccommodationResponse> searchAccommodationResponse = accommodationMapper.selectAccommodationByKeyword(keyword);
-        if (searchAccommodationResponse == null || searchAccommodationResponse.isEmpty()) {
+        List<SearchAccommodationResponse> searchAccommodationResponse =
+                accommodationMapper.selectAccommodationByKeyword(keyword);
+        if (searchAccommodationResponse == null
+                || searchAccommodationResponse.isEmpty()) {
             log.warn("❌ 숙소명, 지역명 숙소 검색 결과 없음 - keyword={}", keyword);
             throw new NotFoundException("해당 숙소가 존재하지 않습니다.");
         }
-
         setAccommodationImages(searchAccommodationResponse);
-        log.info("✅ 숙소명, 지역명 숙소 검색 완료 - resultCount={}", searchAccommodationResponse.size());
-
+        log.info("✅ 숙소명, 지역명 숙소 검색 완료 - resultCount={}",
+                searchAccommodationResponse.size());
+        log.info("✅ 조회 결과 - {}", searchAccommodationResponse);
         return searchAccommodationResponse;
     }
 
@@ -70,17 +72,23 @@ public class AccommodationServiceImpl implements AccommodationService {
      * @return 숙소검색 응답 DTO 리스트
      */
     @Override
-    public List<SearchAccommodationResponse> getAccommodationPopularByAddress(String accommodationAddress) {
-        log.info("💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress={}", accommodationAddress);
+    public List<SearchAccommodationResponse> getAccommodationPopularByAddress(
+            String accommodationAddress) {
+        log.info("💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress={}",
+                accommodationAddress);
 
-        List<SearchAccommodationResponse> searchAccommodationResponse = accommodationMapper.selectAccommodationPopularByAddress(accommodationAddress);
-        if (searchAccommodationResponse == null || searchAccommodationResponse.isEmpty()) {
+        List<SearchAccommodationResponse> searchAccommodationResponse =
+                accommodationMapper.selectAccommodationPopularByAddress(
+                        accommodationAddress);
+        if (searchAccommodationResponse == null ||
+                searchAccommodationResponse.isEmpty()) {
             log.warn("❌ 지역 별 가격 낮은 순 숙소 12개 검색 결과 없음 - accommodationAddress={}", accommodationAddress);
             throw new NotFoundException("해당 지역 숙소가 존재하지 않습니다.");
         }
 
         setAccommodationImages(searchAccommodationResponse);
-        log.info("✅ 지역 별 가격 낮은 순 숙소 12개 숙소 검색 완료 - resultCount={}", searchAccommodationResponse.size());
+        log.info("✅ 지역 별 가격 낮은 순 숙소 12개 숙소 검색 완료 - resultCount={}",
+                searchAccommodationResponse.size());
 
         return searchAccommodationResponse;
     }
@@ -92,11 +100,17 @@ public class AccommodationServiceImpl implements AccommodationService {
      * @return 숙소검색 응답 DTO 리스트
      */
     @Override
-    public List<SearchAccommodationResponse> getAccommodationByLocation(double accommodationLatitude, double accommodationLongitude) {
-        log.info("💡 지도 5km 반경 숙소 검색 시작 - latitude={}, longitude={}", accommodationLatitude, accommodationLongitude);
+    public List<SearchAccommodationResponse> getAccommodationByLocation(
+            double accommodationLatitude,
+            double accommodationLongitude) {
+        log.info("💡 지도 5km 반경 숙소 검색 시작 - latitude={}, longitude={}",
+                accommodationLatitude, accommodationLongitude);
 
 
-        List<SearchAccommodationResponse> searchAccommodationResponse = accommodationMapper.selectAccommodationByLocation(accommodationLatitude, accommodationLongitude);
+        List<SearchAccommodationResponse> searchAccommodationResponse =
+                accommodationMapper.selectAccommodationByLocation(
+                        accommodationLatitude,
+                        accommodationLongitude);
 
         if (searchAccommodationResponse == null || searchAccommodationResponse.isEmpty()) {
             log.warn("❌ 지도 5km 반경 숙소 검색 결과 없음 - latitude={}, longitude={}", accommodationLatitude, accommodationLongitude);
