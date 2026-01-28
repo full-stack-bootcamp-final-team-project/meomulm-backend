@@ -4,6 +4,7 @@ import com.meomulm.common.util.AuthUtil;
 import com.meomulm.review.model.dto.AccommodationReview;
 import com.meomulm.review.model.dto.MyReview;
 import com.meomulm.review.model.dto.Review;
+import com.meomulm.review.model.dto.ReviewSummary;
 import com.meomulm.review.model.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,17 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final AuthUtil authUtil;
+
+    /**
+     * 숙소별 리뷰 약식 조회
+     * @param accommodationId
+     * @return
+     */
+    @GetMapping("/summary/{accommodationId}")
+    public ResponseEntity<ReviewSummary> getReviewSummary(@PathVariable int accommodationId) {
+        ReviewSummary summary = reviewService.getReviewSummaryByAccommodationId(accommodationId);
+        return ResponseEntity.ok(summary);
+    }
 
     /**
      * 숙소별 리뷰 조회
