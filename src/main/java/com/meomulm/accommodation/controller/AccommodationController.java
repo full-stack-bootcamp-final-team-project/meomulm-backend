@@ -20,13 +20,15 @@ public class AccommodationController {
 
     /**
      * 키워드로 숙소 조회
-     * @param request 숙소검색 요청 DTO
+     * @param keyword 숙소검색 요청 DTO
      * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
      */
     @GetMapping("/keyword")
-    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByKeyword(@RequestBody SearchAccommodationRequest request) {
-        log.info("🔥 Controller 진입 - keyword={}", request.getKeyword());
-        List<SearchAccommodationResponse> searchAccommodationResponse = accommodationService.getAccommodationByKeyword(request.getKeyword());
+    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByKeyword(
+            @RequestParam String keyword) {
+        log.info("🔥 Controller 진입 - keyword={}", keyword);
+        List<SearchAccommodationResponse> searchAccommodationResponse =
+                accommodationService.getAccommodationByKeyword(keyword);
         return ResponseEntity.ok(searchAccommodationResponse);
     }
 
@@ -36,9 +38,13 @@ public class AccommodationController {
      * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
      */
     @GetMapping("/popular")
-    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationPopularByAddress(@RequestBody SearchAccommodationRequest request) {
-        log.info("🔥 Controller 진입 - accommodationAddress={}", request.getAccommodationAddress());
-        List<SearchAccommodationResponse> searchAccommodationResponse = accommodationService.getAccommodationPopularByAddress(request.getAccommodationAddress());
+    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationPopularByAddress(
+            @RequestBody SearchAccommodationRequest request) {
+        log.info("🔥 Controller 진입 - accommodationAddress={}",
+                request.getAccommodationAddress());
+        List<SearchAccommodationResponse> searchAccommodationResponse =
+                accommodationService.getAccommodationPopularByAddress(
+                        request.getAccommodationAddress());
         return ResponseEntity.ok(searchAccommodationResponse);
     }
 
@@ -48,9 +54,15 @@ public class AccommodationController {
      * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
      */
     @GetMapping("/map")
-    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByLocation(@RequestBody SearchAccommodationRequest request) {
-        log.info("🔥 Controller 진입 - location={},{}", request.getLatitude(), request.getLongitude());
-        List<SearchAccommodationResponse> searchAccommodationResponse = accommodationService.getAccommodationByLocation(request.getLatitude(), request.getLongitude());
+    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByLocation(
+            @RequestBody SearchAccommodationRequest request) {
+        log.info("🔥 Controller 진입 - location={},{}",
+                request.getLatitude(),
+                request.getLongitude());
+        List<SearchAccommodationResponse> searchAccommodationResponse =
+                accommodationService.getAccommodationByLocation(
+                        request.getLatitude(),
+                        request.getLongitude());
         return ResponseEntity.ok(searchAccommodationResponse);
     }
 
@@ -60,10 +72,13 @@ public class AccommodationController {
      * @return 숙소 상세정보 DTO + 상태코드 200
      */
     @GetMapping("/detail/{accommodationId}")
-    public ResponseEntity<AccommodationDetail> getAccommodationDetailById(@PathVariable int accommodationId) {
-        log.info("🔥 Controller 진입 - accommodationId={}", accommodationId);
-        AccommodationDetail accommodationDetail = accommodationService.getAccommodationDetailById(accommodationId);
-
+    public ResponseEntity<AccommodationDetail> getAccommodationDetailById(
+            @PathVariable int accommodationId) {
+        log.info("🔥 Controller 진입 - accommodationId={}",
+                accommodationId);
+        AccommodationDetail accommodationDetail =
+                accommodationService.getAccommodationDetailById(
+                        accommodationId);
         return ResponseEntity.ok(accommodationDetail);
     }
 
