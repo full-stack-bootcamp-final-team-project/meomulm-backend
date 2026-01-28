@@ -53,9 +53,10 @@ public class AccommodationController {
      * @param request 숙소검색 요청 DTO
      * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
      */
-    @GetMapping("/map")
-    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByLocation(
-            @RequestBody SearchAccommodationRequest request) {
+    @PostMapping("/map")
+    public ResponseEntity<List<SearchAccommodationResponse>> searchByLocation(
+            @RequestBody SearchAccommodationRequest request
+    ) {
         log.info("🔥 Controller 진입 - location={},{}",
                 request.getLatitude(),
                 request.getLongitude());
