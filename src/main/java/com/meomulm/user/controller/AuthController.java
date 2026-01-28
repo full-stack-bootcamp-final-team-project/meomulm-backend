@@ -38,6 +38,28 @@ public class AuthController {
     }
 
     /**
+     * 이메일 중복 확인
+     * @param userEmail 유저가 작성한 이메일
+     * @return 상태코드 200
+     */
+    @GetMapping("/checkEmail")
+    public ResponseEntity<User> checkEmail(@RequestParam("email") String userEmail) {
+        userService.getUserByUserEmail(userEmail);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * 전화번호 중복 확인
+     * @param userPhone 유저가 작성한 전화번호
+     * @return 상태코드 200
+     */
+    @GetMapping("/checkPhone")
+    public ResponseEntity<User> checkPhone(@RequestParam("phone") String userPhone) {
+        userService.getUserByUserPhone(userPhone);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
      * 로그인
      * @param request 로그인 요청 DTO
      * @return 로그인 응답 DTO + 상태코드 200
@@ -56,23 +78,25 @@ public class AuthController {
 
     /**
      * 아이디 찾기
-     * @param user 유저 객체 (userName, userPhone)
+     * @param userName 유저 userName
+     * @param userPhone 유저 userPhone
      * @return  회원 이메일 + 상태코드 200
      */
     @GetMapping("/findId")
-    public ResponseEntity<String> getUserFindId(@RequestBody User user){
-        String userEmail = userService.getUserFindId(user.getUserName(), user.getUserPhone());
+    public ResponseEntity<String> getUserFindId(@RequestParam("userName") String userName, @RequestParam("userPhone") String userPhone){
+        String userEmail = userService.getUserFindId(userName, userPhone);
         return ResponseEntity.ok(userEmail);
     }
 
     /**
      * 본인인증 (비밀번호 변경 시)
-     * @param user 유저 객체 (userEmail, userBirth)
+     * @param userEmail 유저 userEmail
+     * @param userBirth 유저 userBirth
      * @return 유저ID + 상태코드 200
      */
     @GetMapping("/checkPassword")
-    public ResponseEntity<Integer> getUserFindPassword(@RequestBody User user) {
-        int userId = userService.getUserFindPassword(user.getUserEmail(), user.getUserBirth());
+    public ResponseEntity<Integer> getUserFindPassword(@RequestParam("userEmail") String userEmail, @RequestParam("userBirth") String userBirth) {
+        int userId = userService.getUserFindPassword(userEmail, userBirth);
         return ResponseEntity.ok(userId);
     }
 
