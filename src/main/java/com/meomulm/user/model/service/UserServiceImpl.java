@@ -267,4 +267,14 @@ public class UserServiceImpl implements UserService {
     public User getUserByUserEmail(String userEmail) {
         return userMapper.selectUserByUserEmail(userEmail);
     }
+
+    /**
+     * 전화번호 조회
+     * @param userPhone 유저 전화번호
+     * @return 유저 객체
+     */
+    @Override
+    public User getUserByUserPhone(String userPhone) {
+        return userMapper.selectUserByUserPhone(userPhone);
+    }
 }
