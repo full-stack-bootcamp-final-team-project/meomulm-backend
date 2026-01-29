@@ -28,7 +28,7 @@ dependencies {
 1. Gradle 새로고침 (IntelliJ: 우클릭 → Reload Gradle Project)
 2. 애플리케이션 재시작
 
-### 2. Swagger 설정 파일 생성
+### 3. Swagger 설정 파일 생성
 
 `src/main/java/com/meomulm/config/SwaggerConfig.java` 파일을 생성하세요:
 
@@ -108,7 +108,29 @@ public class SwaggerConfig {
 
 ---
 
-## Swagger UI 접속
+## 사전 준비
+
+### 1. 데이터베이스 테스트 데이터 준비
+
+API 테스트를 위해서는 데이터베이스에 테스트 데이터가 있어야 합니다.
+
+```sql
+-- 1. 테스트 사용자 추가 (user_id = 1)
+INSERT INTO users (user_id, user_email, user_password, user_name, user_phone, created_at)
+VALUES (1, 'test@example.com', 'password123', '테스트유저', '010-1234-5678', CURRENT_TIMESTAMP)
+ON CONFLICT (user_id) DO NOTHING;
+
+-- 2. 테스트 숙소 추가 (accommodation_id = 10)
+INSERT INTO accommodation (accommodation_id, accommodation_name, accommodation_address)
+VALUES (10, '서울 호텔', '서울시 강남구')
+ON CONFLICT (accommodation_id) DO NOTHING;
+
+-- 참고: 실제 테이블 구조에 맞게 컬럼명과 값을 수정하세요
+```
+
+**중요**: 위 SQL은 예시입니다. 실제 테이블 스키마에 맞게 수정해서 사용하세요.
+
+### 2. Swagger 의존성 추가
 
 애플리케이션 실행 후 브라우저에서 다음 URL 중 하나로 접속:
 
@@ -154,7 +176,7 @@ http://localhost:8080/swagger-ui/index.html
    ```
 3. **Authorize** 버튼 클릭
 4. **Close** 버튼으로 창 닫기
-5. 아이콘이 🔒로 변경되면 인증 완료
+5. 아이콘이 🔒로 변경되면 인증 완료!
 
 ### 3단계: Favorite API 테스트
 
@@ -189,7 +211,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ## FavoriteController로 테스트하기
 
->  **FavoriteController**는 Swagger 문서화가 되어있지 않지만, 동일한 방식으로 테스트 가능합니다.
+> **FavoriteController**는 Swagger 문서화가 되어있지 않지만, 동일한 방식으로 테스트 가능합니다.
 
 ### 방법 1: Swagger UI에서 직접 테스트
 
@@ -273,8 +295,8 @@ public class FavoriteController {
 ### 테스트용 API (TestFavoriteController)
 | Method | Endpoint | 설명 | 인증 필요 |
 |--------|----------|------|-------|
-| GET | /api/test/token | JWT 토큰 발급 | x     |
-| GET | /api/test/validate | JWT 토큰 검증 | x     |
+| GET | /api/test/token | JWT 토큰 발급 | X     |
+| GET | /api/test/validate | JWT 토큰 검증 | X     |
 | GET | /api/test/me | 현재 인증된 사용자 정보 | O     |
 | GET | /api/test/favorite | 찜 목록 조회 | O     |
 | POST | /api/test/favorite/{accommodationId} | 찜 추가 | O     |
@@ -283,9 +305,9 @@ public class FavoriteController {
 ### 실제 API (FavoriteController)
 | Method | Endpoint | 설명 | 인증 필요 |
 |--------|----------|------|-------|
-| GET | /api/favorite | 찜 목록 조회 | O     |
-| POST | /api/favorite/{accommodationId} | 찜 추가 | O     |
-| DELETE | /api/favorite/{favoriteId} | 찜 삭제 | O     |
+| GET | /api/favorite | 찜 목록 조회 | O  |
+| POST | /api/favorite/{accommodationId} | 찜 추가 | O  |
+| DELETE | /api/favorite/{favoriteId} | 찜 삭제 | O  |
 
 ---
 
@@ -295,6 +317,43 @@ public class FavoriteController {
 - 토큰이 만료되었거나 유효하지 않음
 - `/api/test/token`에서 새 토큰 발급 받기
 - Authorize에 토큰을 올바르게 입력했는지 확인 (Bearer 제외)
+
+### 400 Bad Request - "Required request header 'Authorization' is not present"
+**원인**: Swagger에서 Authorize를 하지 않고 인증이 필요한 API를 호출했을 때 발생
+
+**해결방법**:
+1. Swagger UI 우측 상단의 **Authorize** 버튼 (🔓) 클릭
+2. `/api/test/token`에서 토큰 발급
+3. 발급받은 토큰을 Authorize 창에 입력 (Bearer 제외)
+4. **Authorize** 버튼 클릭하여 인증 완료
+5. 아이콘이 🔒로 변경되었는지 확인
+6. API 재시도
+
+**참고**: 자물쇠 아이콘이 🔒로 잠겨있으면 인증된 상태입니다.
+
+### 500 Internal Server Error - Foreign Key Constraint 에러
+**에러 메시지**:
+```
+ERROR: insert or update on table "favorite" violates foreign key constraint
+Detail: Key (user_id)=(1) is not present in table "users".
+```
+
+**원인**: 데이터베이스에 테스트 데이터(사용자 또는 숙소)가 없음
+
+**해결방법**:
+1. 데이터베이스에 테스트 사용자 추가 (위의 "데이터베이스 테스트 데이터 준비" 섹션 참조)
+2. 데이터베이스에 테스트 숙소 추가
+3. API 재시도
+
+**빠른 해결**:
+```sql
+-- PostgreSQL 기준
+INSERT INTO users (user_id, user_email, user_password, user_name, created_at)
+VALUES (1, 'test@example.com', 'password', '테스트유저', CURRENT_TIMESTAMP);
+
+INSERT INTO accommodation (accommodation_id, accommodation_name, accommodation_address)
+VALUES (10, '테스트숙소', '서울시 강남구');
+```
 
 ### 404 Not Found 에러
 - 찜 목록이 없거나 존재하지 않는 리소스 요청

@@ -160,17 +160,19 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void signup(User user) {
+        log.info("💡 회원가입 시작 - 이메일: {}", user.getUserEmail());
+
         User existingEmail = userMapper.selectUserByUserEmail(user.getUserEmail());
 
         if (existingEmail != null) {
-            log.warn("❌ 이미 존재하는 이메일 : {}", existingEmail);
-            throw new NotFoundException("이미 존재하는 이메일입니다.");
+            log.warn("❌ 이미 존재하는 이메일 : {}", user.getUserEmail());
+            throw new BadRequestException("이미 존재하는 이메일입니다.");
         }
 
         User existingPhone = userMapper.selectUserByUserPhone(user.getUserPhone());
         if (existingPhone != null) {
-            log.warn("❌ 이미 존재하는 전화번호 : {}", existingPhone);
-            throw new NotFoundException("이미 존재하는 전화번호입니다.");
+            log.warn("❌ 이미 존재하는 전화번호 : {}", user.getUserPhone());
+            throw new BadRequestException("이미 존재하는 전화번호입니다.");
         }
 
         String encodePw = bCryptPasswordEncoder.encode(user.getUserPassword());
@@ -187,14 +189,25 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User login(String userEmail, String userPassword) {
+        log.info("💡 로그인 시도 - 이메일: {}", userEmail);
+
+        // 이메일로 사용자 조회
         User user = userMapper.selectUserLogin(userEmail);
 
-        if (bCryptPasswordEncoder.matches(userPassword, user.getUserPassword())) {
-            log.info("✅ 로그인 성공 - 이메일 : {}", userEmail);
-            return user;
+        // 사용자가 존재하지 않는 경우
+        if (user == null) {
+            log.warn("❌ 로그인 실패 - 존재하지 않는 이메일: {}", userEmail);
+            throw new NotFoundException("이메일 또는 비밀번호가 일치하지 않습니다.");
         }
 
-        throw new NotFoundException("로그인 정보 없음");
+        // 비밀번호 확인
+        if (!bCryptPasswordEncoder.matches(userPassword, user.getUserPassword())) {
+            log.warn("❌ 로그인 실패 - 비밀번호 불일치. 이메일: {}", userEmail);
+            throw new NotFoundException("이메일 또는 비밀번호가 일치하지 않습니다.");
+        }
+
+        log.info("✅ 로그인 성공 - 이메일: {}, userId: {}", userEmail, user.getUserId());
+        return user;
     }
 
     /**
@@ -211,7 +224,7 @@ public class UserServiceImpl implements UserService {
             log.info("✅ 아이디 찾기 성공 : {}", user.getUserEmail());
             return user.getUserEmail();
         }
-        throw new NotFoundException("이메일 정보 없음");
+        throw new NotFoundException("일치하는 회원 정보가 없습니다.");
     }
 
     /**
@@ -224,13 +237,11 @@ public class UserServiceImpl implements UserService {
     public int getUserFindPassword(String userEmail, String userBirth) {
         User user = userMapper.selectUserFindPassword(userEmail, userBirth);
 
-
         if (user == null) {
-            throw new NotFoundException("유저 정보 없음");
+            throw new NotFoundException("일치하는 회원 정보가 없습니다.");
         }
 
         log.info("userId : {}", user.getUserId());
-
         log.info("✅ 유저 정보 확인 성공 이메일 : {}, 생년: {}", userEmail, userBirth);
         return user.getUserId();
     }
