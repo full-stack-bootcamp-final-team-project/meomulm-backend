@@ -270,12 +270,22 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 전화번호 조회
-     * @param userPhone 유저 전화번호
-     * @return 유저 객체
+     * 이메일 중복 확인
+     * @param userEmail 유저 이메일
+     * @return
      */
     @Override
-    public User getUserByUserPhone(String userPhone) {
-        return userMapper.selectUserByUserPhone(userPhone);
+    public boolean existsByUserEmail(String userEmail) {
+        return userMapper.existsByUserEmail(userEmail) > 0;
+    }
+
+    /**
+     * 전화번호 중복 확인
+     * @param userPhone 유저 전화번호
+     * @return
+     */
+    @Override
+    public boolean existsByUserPhone(String userPhone) {
+        return userMapper.existsByUserPhone(userPhone) > 0;
     }
 }

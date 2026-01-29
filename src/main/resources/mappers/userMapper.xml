@@ -105,6 +105,21 @@
         WHERE user_phone = #{userPhone}
     </select>
 
+    <!-- 이메일 중복 체크 -->
+    <select id="existsByUserEmail" resultType="int">
+        SELECT COUNT(1)
+        FROM users
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 전화번호 중복 체크 -->
+    <select id="existsByUserPhone" resultType="int">
+        SELECT COUNT(1)
+        FROM users
+        WHERE user_phone = #{userPhone}
+    </select>
+
+
     <!-- SNS 로그인 -->
 
 
