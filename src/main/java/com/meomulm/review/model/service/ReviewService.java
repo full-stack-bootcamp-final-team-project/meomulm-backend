@@ -2,10 +2,18 @@ package com.meomulm.review.model.service;
 
 import com.meomulm.review.model.dto.AccommodationReview;
 import com.meomulm.review.model.dto.MyReview;
+import com.meomulm.review.model.dto.ReviewSummary;
 
 import java.util.List;
 
 public interface ReviewService {
+
+    /**
+     * 숙소별 리뷰 약식 조회
+     * @param accommodationId 숙소 ID
+     * @return
+     */
+    ReviewSummary getReviewSummaryByAccommodationId(int accommodationId);
 
     /**
      * 숙소별 리뷰 조회

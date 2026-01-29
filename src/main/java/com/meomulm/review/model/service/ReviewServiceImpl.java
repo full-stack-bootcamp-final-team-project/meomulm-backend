@@ -5,6 +5,7 @@ import com.meomulm.common.exception.NotFoundException;
 import com.meomulm.review.model.dto.AccommodationReview;
 import com.meomulm.review.model.dto.MyReview;
 import com.meomulm.review.model.dto.Review;
+import com.meomulm.review.model.dto.ReviewSummary;
 import com.meomulm.review.model.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,17 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewMapper reviewMapper;
+
+    @Override
+    public ReviewSummary getReviewSummaryByAccommodationId(int accommodationId) {
+        ReviewSummary summary = reviewMapper.selectReviewSummary(accommodationId);
+
+        // 리뷰가 하나도 없는 경우 기본 객체 반환
+        if (summary == null) {
+            return new ReviewSummary(0.0, 0, "아직 작성된 리뷰가 없습니다.");
+        }
+        return summary;
+    }
 
     /**
      * 숙소별 리뷰 조회
