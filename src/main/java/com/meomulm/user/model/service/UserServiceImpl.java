@@ -4,6 +4,7 @@ import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.exception.NotFoundException;
 import com.meomulm.common.util.FileUploadService;
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.user.model.dto.MyReservationResponse;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -68,9 +69,9 @@ public class UserServiceImpl implements UserService {
      * @return 예약 DTO 리스트
      */
     @Override
-    public List<Reservation> getUserReservationById(int userId) {
+    public List<MyReservationResponse> getUserReservationById(int userId) {
         log.info("💡 예약내역 조회 시작. userId: {}", userId);
-        List<Reservation> reservations = userMapper.selectUserReservationById(userId);
+        List<MyReservationResponse> reservations = userMapper.selectUserReservationById(userId);
 
         if (reservations == null) {
             log.warn("⚠️ 조회 결과 - 예약내역 없음. userId: {}", userId);

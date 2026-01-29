@@ -2,6 +2,7 @@ package com.meomulm.user.controller;
 
 import com.meomulm.common.util.AuthUtil;
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.user.model.dto.MyReservationResponse;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -58,9 +59,9 @@ public class UserController {
      * @return 예약내역 DTO 리스트 + 상태코드 200
      */
     @GetMapping("/reservation")
-    public ResponseEntity<List<Reservation>> getUserReservationById(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<List<MyReservationResponse>> getUserReservationById(@RequestHeader("Authorization") String authHeader) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
-        List<Reservation> reservations = userService.getUserReservationById(currentUserId);
+        List<MyReservationResponse> reservations = userService.getUserReservationById(currentUserId);
 
         return ResponseEntity.ok(reservations);
     }
