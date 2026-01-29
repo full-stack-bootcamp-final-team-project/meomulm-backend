@@ -132,15 +132,20 @@ public class AccommodationServiceImpl implements AccommodationService {
     public AccommodationDetail getAccommodationDetailById(int accommodationId) {
         log.info("💡 숙소 상세 검색 시작 - accommodationId={}", accommodationId);
 
-        AccommodationDetail accommodationDetail = accommodationMapper.selectAccommodationDetailById(accommodationId);
+        AccommodationDetail accommodationDetail =
+                accommodationMapper.selectAccommodationDetailById(accommodationId);
+
         if (accommodationDetail == null) {
             log.warn("❌ 숙소 상세 검색 결과 없음 - accommodationId={}", accommodationId);
             throw new NotFoundException("숙소 상세 검색이 존재하지 않습니다.");
         }
 
-        getAccommodationImagesById(accommodationDetail.getAccommodationId());
+        accommodationDetail.setAccommodationImages(
+                getAccommodationImagesById(accommodationDetail.getAccommodationId())
+        );
 
         log.info("✅ 숙소 상세 검색 완료 - result={}", accommodationDetail.getAccommodationName());
+        log.info("✅ 숙소 상세 검색 완료 - result={}", accommodationDetail.getAccommodationImages());
 
         return accommodationDetail;
     }
