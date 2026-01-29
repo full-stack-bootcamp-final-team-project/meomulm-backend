@@ -26,6 +26,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     public List<AccommodationImage> getAccommodationImagesById(int accommodationId) {
         List<AccommodationImage> accommodationImages =
                 accommodationMapper.selectAccommodationImagesById(accommodationId);
+        log.info("✅ 특정 숙소 이미지 조회 결과 - result={}", accommodationImages.toString());
         return accommodationImages;
     }
 
@@ -132,15 +133,23 @@ public class AccommodationServiceImpl implements AccommodationService {
     public AccommodationDetail getAccommodationDetailById(int accommodationId) {
         log.info("💡 숙소 상세 검색 시작 - accommodationId={}", accommodationId);
 
-        AccommodationDetail accommodationDetail = accommodationMapper.selectAccommodationDetailById(accommodationId);
+        AccommodationDetail accommodationDetail =
+                accommodationMapper.selectAccommodationDetailById(accommodationId);
+
         if (accommodationDetail == null) {
             log.warn("❌ 숙소 상세 검색 결과 없음 - accommodationId={}", accommodationId);
             throw new NotFoundException("숙소 상세 검색이 존재하지 않습니다.");
         }
 
-        getAccommodationImagesById(accommodationDetail.getAccommodationId());
+        // 이미지를 조회해서 set
+        List<AccommodationImage> images = getAccommodationImagesById(accommodationDetail.getAccommodationId());
+        accommodationDetail.setAccommodationImages(images);
 
         log.info("✅ 숙소 상세 검색 완료 - result={}", accommodationDetail.getAccommodationName());
+        log.info("✅ 숙소 상세 검색 완료 - images count={}",
+                accommodationDetail.getAccommodationImages() != null
+                        ? accommodationDetail.getAccommodationImages().size()
+                        : 0);
 
         return accommodationDetail;
     }
