@@ -43,10 +43,10 @@ public class AuthController {
      * @return 상태코드 200
      */
     @GetMapping("/checkEmail")
-    public ResponseEntity<User> checkEmail(@RequestParam("email") String userEmail) {
-        userService.getUserByUserEmail(userEmail);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Boolean> checkEmail(@RequestParam("email") String userEmail) {
+        return ResponseEntity.ok(!userService.existsByUserEmail(userEmail));
     }
+
 
     /**
      * 전화번호 중복 확인
@@ -54,10 +54,10 @@ public class AuthController {
      * @return 상태코드 200
      */
     @GetMapping("/checkPhone")
-    public ResponseEntity<User> checkPhone(@RequestParam("phone") String userPhone) {
-        userService.getUserByUserPhone(userPhone);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Boolean> checkPhone(@RequestParam("phone") String userPhone) {
+        return ResponseEntity.ok(!userService.existsByUserPhone(userPhone));
     }
+
 
     /**
      * 로그인

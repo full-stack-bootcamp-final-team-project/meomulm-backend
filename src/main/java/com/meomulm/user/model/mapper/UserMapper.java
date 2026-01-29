@@ -48,9 +48,16 @@ public interface UserMapper {
     // 비밀번호 수정 (로그인페이지)
     int updateUserPassword(int userId, String userPassword);
 
-    // 이메일 조회 (중복 방지)
+    // 이메일 조회
     User selectUserByUserEmail(String userEmail);
 
-    // 비밀번호 조회 (중복 방지)
+    // 비밀번호 조회
     User selectUserByUserPhone(String userPhone);
+
+    // 이메일 중복 체크
+    int existsByUserEmail(String userEmail);
+
+    // 전화번호 중복 체크
+    int existsByUserPhone(String userPhone);
+
 }
