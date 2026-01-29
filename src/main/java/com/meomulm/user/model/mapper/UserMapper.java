@@ -2,6 +2,7 @@ package com.meomulm.user.model.mapper;
 
 
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.user.model.dto.MyReservationResponse;
 import com.meomulm.user.model.dto.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,7 +19,7 @@ public interface UserMapper {
     void updateUserInfo(String userName, String userPhone, int currentUserId);
 
     // 회원 예약 내역 조회
-    List<Reservation> selectUserReservationById(int userId);
+    List<MyReservationResponse> selectUserReservationById(int userId);
 
     //프로필 사진 수정
     void updateProfileImage(String userProfileImage, int userId);
@@ -47,9 +48,16 @@ public interface UserMapper {
     // 비밀번호 수정 (로그인페이지)
     int updateUserPassword(int userId, String userPassword);
 
-    // 이메일 조회 (중복 방지)
+    // 이메일 조회
     User selectUserByUserEmail(String userEmail);
 
-    // 비밀번호 조회 (중복 방지)
+    // 비밀번호 조회
     User selectUserByUserPhone(String userPhone);
+
+    // 이메일 중복 체크
+    int existsByUserEmail(String userEmail);
+
+    // 전화번호 중복 체크
+    int existsByUserPhone(String userPhone);
+
 }

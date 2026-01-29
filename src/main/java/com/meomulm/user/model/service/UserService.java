@@ -1,6 +1,7 @@
 package com.meomulm.user.model.service;
 
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.user.model.dto.MyReservationResponse;
 import com.meomulm.user.model.dto.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +30,7 @@ public interface UserService {
      * @param userId 유저 ID
      * @return 예약 DTO 리스트
      */
-    List<Reservation> getUserReservationById(int userId);
+    List<MyReservationResponse> getUserReservationById(int userId);
 
     /**
      * 프로필 사진 수정
@@ -93,16 +94,24 @@ public interface UserService {
     void patchUserPassword(int userId, String newPassword);
 
     /**
-     * 이메일 조회 (중복 확인)
+     * 이메일 조회
      * @param userEmail 유저 이메일
      * @return 유저 객체
      */
     User getUserByUserEmail(String userEmail);
 
     /**
-     * 전화번호 조회 (중복 확인)
-     * @param userPhone 유저 전화번호
-     * @return 유저 객체
+     * 이메일 중복 체크
+     * @param userEmail 유저 이메일
+     * @return
      */
-    User getUserByUserPhone(String userPhone);
+    boolean existsByUserEmail(String userEmail);
+
+    /**
+     * 전화번호 중복 체크
+     * @param userPhone 유저 전화번호
+     * @return
+     */
+    boolean existsByUserPhone(String userPhone);
+
 }
