@@ -1,6 +1,7 @@
 package com.meomulm.user.model.service;
 
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.user.model.dto.MyReservationResponse;
 import com.meomulm.user.model.dto.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +30,7 @@ public interface UserService {
      * @param userId 유저 ID
      * @return 예약 DTO 리스트
      */
-    List<Reservation> getUserReservationById(int userId);
+    List<MyReservationResponse> getUserReservationById(int userId);
 
     /**
      * 프로필 사진 수정
