@@ -50,7 +50,8 @@ public class ReviewController {
      * @param authHeader JWT 토큰 헤더
      * @return 나의 리뷰 DTO 리스트 + 상태코드 200
      */
-    @GetMapping("/userId")
+    // @GetMapping("/userId")
+    @GetMapping
     public ResponseEntity<List<MyReview>> getReviewByUserId(@RequestHeader(value = "Authorization") String authHeader) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
         List<MyReview> reviews = reviewService.getReviewByUserId(currentUserId);
