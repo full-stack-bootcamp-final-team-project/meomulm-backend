@@ -89,24 +89,20 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional
     @Override
-    public void updateProfileImage(MultipartFile userProfileImage, int userId) {
-        try {
-            log.info("💡 프로필 사진 수정 시작. userId: {}", userId);
-            if (userProfileImage == null || userProfileImage.isEmpty()) {
-                log.warn("⚠️ 프로필 이미지가 존재하지 않음. userId: {}", userId);
-                throw new NotFoundException("프로필 사진이 존재하지 않습니다.");
-            }
-
-            // MultipartFile -> String
-            String saveImagePath = fileUploadService.uploadProfileImage(userProfileImage);
-
-            log.info("💡 프로필 사진 수정 시작. userId: {}", userId);
-            userMapper.updateProfileImage(saveImagePath, userId);
-
-            log.info("✅ 프로필 사진 수정 성공. userId: {}, userProfileImage: {}", userId, userProfileImage);
-        } catch (IOException e) {
-            log.error("❌ 프로필 사진 수정 실패. userId: {}, userProfileImage: {}", userId, userProfileImage, e);
+    public void updateProfileImage(String userProfileImage, int userId) {
+        log.info("💡 프로필 사진 수정 시작. userId: {}", userId);
+        if (userProfileImage == null || userProfileImage.isEmpty()) {
+            log.warn("⚠️ 프로필 이미지가 존재하지 않음. userId: {}", userId);
+            throw new NotFoundException("프로필 사진이 존재하지 않습니다.");
         }
+
+        // MultipartFile -> String
+        // String saveImagePath = fileUploadService.uploadProfileImage(userProfileImage);
+
+        log.info("💡 프로필 사진 수정 시작. userId: {}", userId);
+        userMapper.updateProfileImage(userProfileImage, userId);
+
+        log.info("✅ 프로필 사진 수정 성공. userId: {}, userProfileImage: {}", userId, userProfileImage);
     }
 
     /**
