@@ -14,9 +14,9 @@
             a.accommodation_address,
             ai.accommodation_image_url
         FROM favorite f
-                 INNER JOIN accommodation a
+                 FULL OUTER JOIN accommodation a
                             ON f.accommodation_id = a.accommodation_id
-                 INNER JOIN accommodation_image ai
+                 FULL OUTER JOIN accommodation_image ai
                             ON a.accommodation_id = ai.accommodation_id
                             AND ai.accommodation_image_id = (
                                     SELECT accommodation_image_id
