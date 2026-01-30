@@ -10,6 +10,9 @@ import java.util.List;
 
 @Mapper
 public interface AccommodationMapper {
+    // 숙소 아이디로 숙소 이미지 1개 반환
+    AccommodationImage selectAccommodationImageById(int accommodationId);
+
     // 숙소 아이디를 기반으로 이미지 리스트 반환
     List<AccommodationImage> selectAccommodationImagesById(int accommodationId);
 

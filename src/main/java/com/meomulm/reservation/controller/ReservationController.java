@@ -2,6 +2,8 @@ package com.meomulm.reservation.controller;
 
 import com.meomulm.common.util.AuthUtil;
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.reservation.model.dto.ReservationDeleteRequest;
+import com.meomulm.reservation.model.dto.ReservationUpdateRequest;
 import com.meomulm.reservation.model.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +40,7 @@ public class ReservationController {
      * @return 상태코드 200
      */
     @PatchMapping
-    public ResponseEntity<Void> patchReservation(@RequestHeader("Authorization") String authHeader, @RequestBody Reservation reservation) {
+    public ResponseEntity<Void> patchReservation(@RequestHeader("Authorization") String authHeader, @RequestBody ReservationUpdateRequest reservation) {
         int loginUserId = authUtil.getCurrentUserId(authHeader);
         reservationService.patchReservation(reservation, loginUserId);
         return ResponseEntity.ok().build();
@@ -51,7 +53,7 @@ public class ReservationController {
      * @return 상태코드 200
      */
     @DeleteMapping
-    public ResponseEntity<Void> deleteReservation(@RequestHeader("Authorization") String authHeader, @RequestBody Reservation reservation) {
+    public ResponseEntity<Void> deleteReservation(@RequestHeader("Authorization") String authHeader, @RequestBody ReservationDeleteRequest reservation) {
         int loginUserId = authUtil.getCurrentUserId(authHeader);
         reservationService.deleteReservation(reservation, loginUserId);
         return ResponseEntity.ok().build();
