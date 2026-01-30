@@ -36,7 +36,7 @@ public interface UserService {
      * 프로필 사진 수정
      * @param userProfileImage 사용자 프로필 이미지 경로
      */
-    void updateProfileImage(MultipartFile userProfileImage, int userId);
+    void updateProfileImage(String userProfileImage, int userId);
 
     /**
      * 현재 비밀번호 확인

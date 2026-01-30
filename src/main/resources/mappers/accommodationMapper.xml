@@ -9,7 +9,7 @@
     <select id="selectAccommodationImageById" resultType="AccommodationImage">
         SELECT *
         FROM accommodation_image
-        WHERE accommodation_id = ${accommodationId}
+        WHERE accommodation_id = #{accommodationId}
         LIMIT 1;
     </select>
 

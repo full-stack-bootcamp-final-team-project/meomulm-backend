@@ -2,7 +2,9 @@ package com.meomulm.user.controller;
 
 import com.meomulm.common.util.AuthUtil;
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.user.model.dto.CurrentPassword;
 import com.meomulm.user.model.dto.MyReservationResponse;
+import com.meomulm.user.model.dto.NewPassword;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -74,7 +76,8 @@ public class UserController {
      */
     @PatchMapping("/profileImage")
     public ResponseEntity<Void> updateProfileImage(@RequestHeader("Authorization") String authHeader,
-                                                   @RequestPart MultipartFile userProfileImage) {
+                                                   @RequestBody String userProfileImage) {
+                                                   // @RequestPart MultipartFile userProfileImage) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
         userService.updateProfileImage(userProfileImage, currentUserId);
 
@@ -84,14 +87,14 @@ public class UserController {
     /**
      * 현재 비밀번호 확인
      * @param authHeader JWT 토큰 헤더
-     * @param user 유저 객체 (입력된 현재 비밀번호)
+     * @param currentPassword 입력된 현재 비밀번호
      * @return 상태코드 200
      */
-    @GetMapping("/currentPassword")
+    @PostMapping("/currentPassword")
     public ResponseEntity<Void> getCurrentPassword(@RequestHeader("Authorization") String authHeader,
-                                                   @RequestBody User user) {
+                                                   @RequestBody CurrentPassword currentPassword) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
-        userService.getCurrentPassword(currentUserId, user.getUserPassword());
+        userService.getCurrentPassword(currentUserId, currentPassword.getCurrentPassword());
 
         return ResponseEntity.ok().build();
     }
@@ -99,14 +102,14 @@ public class UserController {
     /**
      * 비밀번호 수정
      * @param authHeader JWT 토큰 헤더
-     * @param user 유저 객체 (새 비밀번호)
+     * @param newPassword 입력된 새 비밀번호
      * @return 상태코드 200
      */
     @PatchMapping("/password")
     public ResponseEntity<Void> putMyPagePassword(@RequestHeader("Authorization") String authHeader,
-                                                  @RequestBody User user) {
+                                                  @RequestBody NewPassword newPassword) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
-        userService.putMyPagePassword(currentUserId, user.getUserPassword());
+        userService.putMyPagePassword(currentUserId, newPassword.getNewPassword());
 
         return ResponseEntity.ok().build();
     }
