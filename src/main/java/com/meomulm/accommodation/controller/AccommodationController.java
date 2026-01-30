@@ -47,17 +47,17 @@ public class AccommodationController {
 
     /**
      * 지역별 가격 낮은 숙소 12개 조회
-     * @param request 숙소검색 요청 DTO
+     * @param accommodationAddress 숙소검색 요청 DTO
      * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
      */
     @GetMapping("/popular")
     public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationPopularByAddress(
-            @RequestBody SearchAccommodationRequest request) {
+            @RequestParam String accommodationAddress) {
         log.info("🔥 Controller 진입 - accommodationAddress={}",
-                request.getAccommodationAddress());
+                accommodationAddress);
         List<SearchAccommodationResponse> searchAccommodationResponse =
                 accommodationService.getAccommodationPopularByAddress(
-                        request.getAccommodationAddress());
+                        accommodationAddress);
         return ResponseEntity.ok(searchAccommodationResponse);
     }
 
