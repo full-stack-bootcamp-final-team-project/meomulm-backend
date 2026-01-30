@@ -17,6 +17,18 @@ import java.util.List;
 public class AccommodationServiceImpl implements AccommodationService {
     private final AccommodationMapper accommodationMapper;
 
+
+    /**
+     * 숙소 ID로 숙소 대표이미지 1개 조회
+     * @param accommodationId 숙소 ID
+     * @return 숙소 이미지 DTO
+     */
+    @Override
+    public AccommodationImage getAccommodationImageById(int accommodationId) {
+        AccommodationImage image = accommodationMapper.selectAccommodationImageById(accommodationId);
+        return image;
+    }
+
     /**
      * 숙소 ID로 숙소 이미지 리스트 조회
      * @param accommodationId 숙소 ID

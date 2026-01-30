@@ -1,6 +1,7 @@
 package com.meomulm.accommodation.controller;
 
 import com.meomulm.accommodation.model.dto.AccommodationDetail;
+import com.meomulm.accommodation.model.dto.AccommodationImage;
 import com.meomulm.accommodation.model.dto.SearchAccommodationRequest;
 import com.meomulm.accommodation.model.dto.SearchAccommodationResponse;
 import com.meomulm.accommodation.model.service.AccommodationService;
@@ -17,6 +18,18 @@ import java.util.List;
 @Slf4j
 public class AccommodationController {
     private final AccommodationService accommodationService;
+
+    /**
+     * 숙소ID로 숙소 이미지 조회
+     * @param accommodationId 숙소 ID
+     * @return 숙소 이미지 DTO + 상태코드 200
+     */
+    @GetMapping("/{accommodationId}")
+    public ResponseEntity<AccommodationImage> getAccommodationImage(@RequestParam int accommodationId) {
+        log.info("🔥 Controller 진입 - accommodationId={}", accommodationId);
+        AccommodationImage accommodationImage = accommodationService.getAccommodationImageById(accommodationId);
+        return ResponseEntity.ok(accommodationImage);
+    }
 
     /**
      * 키워드로 숙소 조회

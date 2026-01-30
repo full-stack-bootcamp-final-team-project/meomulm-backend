@@ -5,6 +5,8 @@ import com.meomulm.common.exception.ForbiddenException;
 import com.meomulm.common.exception.NotFoundException;
 import com.meomulm.payment.model.mapper.PaymentMapper;
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.reservation.model.dto.ReservationDeleteRequest;
+import com.meomulm.reservation.model.dto.ReservationUpdateRequest;
 import com.meomulm.reservation.model.mapper.ReservationMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +74,7 @@ public class ReservationServiceImpl implements ReservationService {
      */
     @Transactional
     @Override
-    public void patchReservation(Reservation reservation, int loginUserId) {
+    public void patchReservation(ReservationUpdateRequest reservation, int loginUserId) {
         Reservation isExistReservation = reservationMapper.selectReservationById(reservation.getReservationId());
         if(isExistReservation == null) {
             throw new NotFoundException("수정하려는 예약을 찾을 수 없습니다.");
@@ -90,7 +92,7 @@ public class ReservationServiceImpl implements ReservationService {
      */
     @Transactional
     @Override
-    public void deleteReservation(Reservation reservation, int loginUserId) {
+    public void deleteReservation(ReservationDeleteRequest reservation, int loginUserId) {
         Reservation isExistReservation = reservationMapper.selectReservationById(reservation.getReservationId());
         if(isExistReservation == null) {
             throw new NotFoundException("취소하려는 예약을 찾을 수 없습니다.");

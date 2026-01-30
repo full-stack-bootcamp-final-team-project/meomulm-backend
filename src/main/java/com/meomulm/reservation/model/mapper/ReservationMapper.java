@@ -2,6 +2,7 @@ package com.meomulm.reservation.model.mapper;
 
 
 import com.meomulm.reservation.model.dto.Reservation;
+import com.meomulm.reservation.model.dto.ReservationUpdateRequest;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface ReservationMapper {
     void insertReservation(Reservation reservation);
 
     // 예약 수정
-    void updateReservation(Reservation reservation);
+    void updateReservation(ReservationUpdateRequest reservation);
     
     // 예약 상태 변경 (결제 후)
     void updateStatusToPaid(int reservationId);

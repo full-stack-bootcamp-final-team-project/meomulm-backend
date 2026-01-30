@@ -16,7 +16,7 @@
     <!-- 예약 추가 -->
     <insert id="insertReservation" parameterType="Reservation">
         INSERT INTO reservation (user_id, product_id, booker_name, booker_email, booker_phone, check_in_date, check_out_date, status, total_price, created_at)
-        VALUES (#{userId}, #{productId}, #{bookerName}, #{bookerEmail}, #{booker_phone}, #{checkInDate}, #{checkOutDate}, 'NOT_PAID', #{totalPrice}, NOW())
+        VALUES (#{userId}, #{productId}, #{bookerName}, #{bookerEmail}, #{bookerPhone}, #{checkInDate}, #{checkOutDate}, 'NOT_PAID', #{totalPrice}, NOW())
     </insert>
 
     <!-- 예약 수정 -->
