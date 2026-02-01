@@ -3,6 +3,7 @@ package com.meomulm.accommodation.model.mapper;
 
 import com.meomulm.accommodation.model.dto.AccommodationDetail;
 import com.meomulm.accommodation.model.dto.AccommodationImage;
+import com.meomulm.accommodation.model.dto.SearchAccommodationRequest;
 import com.meomulm.accommodation.model.dto.SearchAccommodationResponse;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -18,6 +19,13 @@ public interface AccommodationMapper {
 
     // 숙소명, 지역명으로 숙소 검색
     List<SearchAccommodationResponse> selectAccommodationByKeyword(String keyword);
+
+
+
+    // 키워드 / 현위치 / 필터링 통합 조회
+    List<SearchAccommodationResponse> selectAccommodations(SearchAccommodationRequest request);
+
+
 
     // 지역별 가격 낮은 순 숙소 12개 조회
     List<SearchAccommodationResponse> selectAccommodationPopularByAddress(String accommodationAddress);

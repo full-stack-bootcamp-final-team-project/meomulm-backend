@@ -2,6 +2,7 @@ package com.meomulm.accommodation.model.service;
 
 import com.meomulm.accommodation.model.dto.AccommodationDetail;
 import com.meomulm.accommodation.model.dto.AccommodationImage;
+import com.meomulm.accommodation.model.dto.SearchAccommodationRequest;
 import com.meomulm.accommodation.model.dto.SearchAccommodationResponse;
 import com.meomulm.accommodation.model.mapper.AccommodationMapper;
 import com.meomulm.common.exception.NotFoundException;
@@ -77,6 +78,38 @@ public class AccommodationServiceImpl implements AccommodationService {
         log.info("✅ 조회 결과 - {}", searchAccommodationResponse);
         return searchAccommodationResponse;
     }
+
+
+    /**
+     * 키워드 / 현위치 / 필터링 통합 조회
+     * @param request 통합 dto
+     * @return 숙소검색 응답 DTO 리스트
+     */
+    @Override
+    public List<SearchAccommodationResponse> searchAccommodations(SearchAccommodationRequest request) {
+        log.info("💡 숙소 검색 시작 - 조건: {}", request);
+
+        // 1. 매퍼 호출 (동적 쿼리 수행)
+        List<SearchAccommodationResponse> responses = accommodationMapper.selectAccommodations(request);
+
+        if (responses == null || responses.isEmpty()) {
+            log.warn("❌ 검색 결과 없음");
+            throw new NotFoundException("조건에 맞는 숙소가 존재하지 않습니다.");
+        }
+
+        // 2. 각 숙소별 이미지 설정 (기존 메서드 재사용)
+        setAccommodationImages(responses);
+
+        log.info("✅ 검색 완료 - 결과 수: {}", responses.size());
+        return responses;
+    }
+
+
+
+
+
+
+
 
     /**
      * 지역별 가격 낮은 숙소 12개 조회

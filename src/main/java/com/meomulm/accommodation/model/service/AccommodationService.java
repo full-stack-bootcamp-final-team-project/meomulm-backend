@@ -2,6 +2,7 @@ package com.meomulm.accommodation.model.service;
 
 import com.meomulm.accommodation.model.dto.AccommodationDetail;
 import com.meomulm.accommodation.model.dto.AccommodationImage;
+import com.meomulm.accommodation.model.dto.SearchAccommodationRequest;
 import com.meomulm.accommodation.model.dto.SearchAccommodationResponse;
 
 import java.util.List;
@@ -22,6 +23,15 @@ public interface AccommodationService {
      * @return 숙소검색 응답 DTO 리스트
      */
     List<SearchAccommodationResponse> getAccommodationByKeyword(String keyword);
+
+
+    /**
+     * 키워드 / 현위치 / 필터링 통합 조회
+     * @param request
+     * @return
+     */
+    List<SearchAccommodationResponse> searchAccommodations(SearchAccommodationRequest request);
+
 
     /**
      * 지역별 가격 낮은 숙소 12개 조회
