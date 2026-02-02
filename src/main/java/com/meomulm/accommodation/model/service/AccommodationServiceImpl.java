@@ -152,9 +152,13 @@ public class AccommodationServiceImpl implements AccommodationService {
             throw new NotFoundException("숙소 상세 검색이 존재하지 않습니다.");
         }
 
-        getAccommodationImagesById(accommodationDetail.getAccommodationId());
-
-        log.info("✅ 숙소 상세 검색 완료 - result={}", accommodationDetail.getAccommodationName());
+        //getAccommodationImagesById(accommodationDetail.getAccommodationId());
+        // 이미지 리스트를 조회하여 AccommodationDetail에 설정
+        accommodationDetail.setAccommodationImages(
+                getAccommodationImagesById(accommodationDetail.getAccommodationId())
+        );
+        log.info("숙소 상세 검색 완료 - result={}", accommodationDetail.getAccommodationName());
+        log.info("숙소 상세 검색 완료 - result={}", accommodationDetail.getAccommodationImages());
 
         return accommodationDetail;
     }
