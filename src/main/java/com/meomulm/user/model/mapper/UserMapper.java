@@ -33,7 +33,6 @@ public interface UserMapper {
     // 회원정보 삭제
     void deleteUser(int userId);
 
-
     // Signup / Login
 
     // 회원가입

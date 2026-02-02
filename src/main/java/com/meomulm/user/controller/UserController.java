@@ -9,7 +9,6 @@ import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -115,11 +114,6 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    /**
-     * 회원정보 삭제 (회원 탈퇴)
-     * @param authHeader JWT 토큰 헤더
-     * @return 상태코드 200
-     */
     @DeleteMapping
     public ResponseEntity<Void> deleteUser(@RequestHeader("Authorization") String authHeader) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);

@@ -51,12 +51,11 @@
         WHERE user_id = #{userId}
     </update>
 
-    <!-- 회원 삭제 -->
+    <!-- 회원정보 삭제 -->
     <delete id="deleteUser">
-        DELETE FROM users
+        DELETE from users
         WHERE user_id = #{userId}
     </delete>
-
 
     <!--==========================
             Signup / Login
