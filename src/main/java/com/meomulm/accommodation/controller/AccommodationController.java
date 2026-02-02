@@ -28,6 +28,7 @@ public class AccommodationController {
     public ResponseEntity<AccommodationImage> getAccommodationImage(@RequestParam int accommodationId) {
         log.info("🔥 Controller 진입 - accommodationId={}", accommodationId);
         AccommodationImage accommodationImage = accommodationService.getAccommodationImageById(accommodationId);
+        log.info("숙소 이미지 조회 결과: {}", accommodationImage);
         return ResponseEntity.ok(accommodationImage);
     }
 
