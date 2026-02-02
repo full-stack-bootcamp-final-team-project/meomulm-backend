@@ -7,6 +7,11 @@ import com.meomulm.accommodation.model.dto.SearchAccommodationResponse;
 import java.util.List;
 
 public interface AccommodationService {
+    /**
+     * 숙소 ID로 숙소 대표이미지 1개 조회
+     * @param accommodationId 숙소 ID
+     * @return 숙소 이미지 DTO
+     */
     AccommodationImage getAccommodationImageById(int accommodationId);
 
     /**

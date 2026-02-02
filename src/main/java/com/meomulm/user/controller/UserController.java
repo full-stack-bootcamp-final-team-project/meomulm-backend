@@ -113,4 +113,12 @@ public class UserController {
 
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteUser(@RequestHeader("Authorization") String authHeader) {
+        int currentUserId = authUtil.getCurrentUserId(authHeader);
+        userService.deleteUser(currentUserId);
+
+        return ResponseEntity.ok().build();
+    }
 }

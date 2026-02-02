@@ -52,6 +52,12 @@ public interface UserService {
      */
     void putMyPagePassword(int userId, String newPassword);
 
+    /**
+     * 회원정보 삭제
+     * @param userId 유저 ID
+     */
+    void deleteUser(int userId);
+
     // ==========================================
     //               Signup / Login
     // ==========================================
