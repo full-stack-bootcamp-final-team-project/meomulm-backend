@@ -25,7 +25,7 @@ public class AccommodationController {
      * @return 숙소 이미지 DTO + 상태코드 200
      */
     @GetMapping("/{accommodationId}")
-    public ResponseEntity<AccommodationImage> getAccommodationImage(@RequestParam int accommodationId) {
+    public ResponseEntity<AccommodationImage> getAccommodationImage(@PathVariable("accommodationId") int accommodationId) {
         log.info("🔥 Controller 진입 - accommodationId={}", accommodationId);
         AccommodationImage accommodationImage = accommodationService.getAccommodationImageById(accommodationId);
         return ResponseEntity.ok(accommodationImage);

@@ -146,6 +146,18 @@ public class UserServiceImpl implements UserService {
         log.info("✅ 비밀번호 수정 성공. userId: {}", userId);
     }
 
+    /**
+     * 회원정보 삭제
+     * @param userId 유저 ID
+     */
+    @Transactional
+    @Override
+    public void deleteUser(int userId) {
+        log.info("💡 회원정보 삭제 시작. userId: {}", userId);
+        userMapper.deleteUser(userId);
+        log.info("✅ 회원정보 삭제 성공. userId: {}", userId);
+    }
+
     // ==========================================
     //               Signup / Login
     // ==========================================

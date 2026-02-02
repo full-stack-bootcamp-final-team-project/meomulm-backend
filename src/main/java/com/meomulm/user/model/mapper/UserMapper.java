@@ -30,6 +30,8 @@ public interface UserMapper {
     // 비밀번호 수정 (마이페이지)
     void updateMyPagePassword(int userId, String userPassword);
 
+    // 회원정보 삭제
+    void deleteUser(int userId);
 
     // Signup / Login
 
