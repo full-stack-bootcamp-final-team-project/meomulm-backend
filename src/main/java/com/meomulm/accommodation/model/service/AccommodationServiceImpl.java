@@ -25,7 +25,9 @@ public class AccommodationServiceImpl implements AccommodationService {
      */
     @Override
     public AccommodationImage getAccommodationImageById(int accommodationId) {
+        log.info("🔥 Service 진입 - accommodationId={}", accommodationId);
         AccommodationImage image = accommodationMapper.selectAccommodationImageById(accommodationId);
+        log.info("🔥 Service 조회 결과 - image={}", image);
         return image;
     }
 

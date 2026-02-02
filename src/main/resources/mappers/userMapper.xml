@@ -24,7 +24,7 @@
     </update>
 
     <!-- 회원 예약 내역 조회 -->
-    <select id="selectUserReservationById" resultType="Reservation">
+    <select id="selectUserReservationById" resultType="MyReservationResponse">
         SELECT *
         FROM vw_mypage_reservation
         WHERE user_id = #{userId}
@@ -50,6 +50,12 @@
         SET user_password = #{userPassword}
         WHERE user_id = #{userId}
     </update>
+
+    <!-- 회원 삭제 -->
+    <delete id="deleteUser">
+        DELETE FROM users
+        WHERE user_id = #{userId}
+    </delete>
 
 
     <!--==========================
