@@ -25,24 +25,32 @@ public class AccommodationController {
      * @return 숙소 이미지 DTO + 상태코드 200
      */
     @GetMapping("/{accommodationId}")
-    public ResponseEntity<AccommodationImage> getAccommodationImage(@PathVariable("accommodationId") int accommodationId) {
+    public ResponseEntity<AccommodationImage> getAccommodationImage(@RequestParam int accommodationId) {
         log.info("🔥 Controller 진입 - accommodationId={}", accommodationId);
         AccommodationImage accommodationImage = accommodationService.getAccommodationImageById(accommodationId);
+        log.info("숙소 이미지 조회 결과: {}", accommodationImage);
         return ResponseEntity.ok(accommodationImage);
     }
 
-    /**
-     * 키워드로 숙소 조회
-     * @param keyword 숙소검색 요청 DTO
-     * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
-     */
-    @GetMapping("/keyword")
-    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByKeyword(
-            @RequestParam String keyword) {
-        log.info("🔥 Controller 진입 - keyword={}", keyword);
-        List<SearchAccommodationResponse> searchAccommodationResponse =
-                accommodationService.getAccommodationByKeyword(keyword);
-        return ResponseEntity.ok(searchAccommodationResponse);
+    //    /**
+//     * 키워드로 숙소 조회
+//     * @param keyword 숙소검색 요청 DTO
+//     * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
+//     */
+//    @GetMapping("/keyword")
+//    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByKeyword(
+//            @RequestParam String keyword) {
+//        log.info("🔥 Controller 진입 - keyword={}", keyword);
+//        List<SearchAccommodationResponse> searchAccommodationResponse =
+//                accommodationService.getAccommodationByKeyword(keyword);
+//        return ResponseEntity.ok(searchAccommodationResponse);
+//    }
+    @GetMapping("/search")
+    public ResponseEntity<List<SearchAccommodationResponse>> searchAccommodations(
+            @ModelAttribute SearchAccommodationRequest request) {
+        log.info("🔥 통합 검색 진입 - 파라미터: {}", request);
+        List<SearchAccommodationResponse> results = accommodationService.searchAccommodations(request);
+        return ResponseEntity.ok(results);
     }
 
     /**
