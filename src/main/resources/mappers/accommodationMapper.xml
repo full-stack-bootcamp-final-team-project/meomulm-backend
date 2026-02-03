@@ -31,9 +31,6 @@
     </select>
 
 
-
-
-
     <select id="selectAccommodations" resultType="SearchAccommodationResponse" parameterType="SearchAccommodationRequest">
         SELECT
         a.accommodation_id,
@@ -111,9 +108,23 @@
         </choose>
     </select>
 
+    <!-- 최근 본 숙소 조회 (ID 리스트 기반) -->
+    <select id="selectRecentAccommodations"
+            parameterType="list"
+            resultType="SearchAccommodationResponse">
 
-
-
+        SELECT *
+        FROM vw_searchpage_accommodation
+        WHERE accommodation_id IN
+        <foreach collection="list"
+                 item="id"
+                 open="("
+                 separator=","
+                 close=")">
+            #{id}
+        </foreach>
+        ORDER BY accommodation_id DESC
+    </select>
 
 
     <!-- 지역 별 가격 낮은 순(평점 높은 순x)으로 12개 -->

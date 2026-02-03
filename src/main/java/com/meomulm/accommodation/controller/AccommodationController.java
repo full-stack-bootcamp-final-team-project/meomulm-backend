@@ -54,6 +54,25 @@ public class AccommodationController {
     }
 
     /**
+     * 최근 본 숙소
+     * @param ids 최근 본 숙소 아이디 리스트
+     * @return 숙소검색 DTO 리스트
+     */
+    @PostMapping("/recent")
+    public ResponseEntity<List<SearchAccommodationResponse>> getRecentAccommodations(
+            @RequestBody List<Integer> ids
+    ) {
+        log.info("🔥 최근 본 숙소 조회 - ids={}", ids);
+
+        List<SearchAccommodationResponse> results =
+                accommodationService.getRecentAccommodations(ids);
+        // log.info("✅ 최근 본 숙소 저장 - results={}", results);
+
+        return ResponseEntity.ok(results);
+    }
+
+
+    /**
      * 지역별 가격 낮은 숙소 12개 조회
      * @param accommodationAddress 숙소검색 요청 DTO
      * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
