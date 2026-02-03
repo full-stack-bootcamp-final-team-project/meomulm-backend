@@ -58,7 +58,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 // env 파일 읽기
     implementation 'me.paulschwarz:spring-dotenv:4.0.0'
-
+// Stripe 결제
+    implementation 'com.stripe:stripe-java:28.2.0'
 }
 
 tasks.named('test') {

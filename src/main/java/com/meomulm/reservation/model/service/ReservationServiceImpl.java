@@ -3,7 +3,7 @@ package com.meomulm.reservation.model.service;
 import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.exception.ForbiddenException;
 import com.meomulm.common.exception.NotFoundException;
-import com.meomulm.payment.model.mapper.PaymentMapper;
+import com.meomulm.product.payment.model.mapper.PaymentMapper;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.reservation.model.dto.ReservationDeleteRequest;
 import com.meomulm.reservation.model.dto.ReservationUpdateRequest;
