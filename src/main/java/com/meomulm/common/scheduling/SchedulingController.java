@@ -31,7 +31,7 @@ public class SchedulingController {
     private final ReservationMapper reservationMapper;
     private final SimpMessagingTemplate messagingTemplate; // WebSocket 메세지 전송
 
-    @Scheduled(cron = "0 9 14 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0/20 * 16 * * *", zone = "Asia/Seoul")
     public void BirthDayNotification() {
         String nowTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         log.info("==== 생일 자동 알림 스케줄러 시작 [{}] ====", nowTime);

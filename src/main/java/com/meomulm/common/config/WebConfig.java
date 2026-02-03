@@ -17,6 +17,13 @@ public class WebConfig implements WebMvcConfigurer {
                         .allowCredentials(true)
                         .allowedMethods("GET","POST","PUT","DELETE","PATCH","OPTIONS")
                         .allowedHeaders("*");
+
+                // WebSocket CORS 설정 추가
+                registry.addMapping("/ws/**")
+                        .allowedOriginPatterns("http://localhost:*","http://10.0.2.2:*")
+                        .allowCredentials(true)
+                        .allowedMethods("GET","POST","PUT","DELETE","PATCH","OPTIONS")
+                        .allowedHeaders("*");
             }
         };
     }
