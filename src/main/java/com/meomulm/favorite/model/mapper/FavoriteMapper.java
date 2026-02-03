@@ -10,8 +10,9 @@ import java.util.List;
 @Mapper
 public interface FavoriteMapper {
     // 유저 아이디를 기반으로 찜 리스트 조회
-    List<SelectFavorite> selectFavorites(int userId);
+    List<SelectFavorite> selectAllFavorites(int userId);
 
+    Integer selectFavorite(int userId, int accommodationId);
     // 찜 목록 추가
     void insertFavorite(Favorite favorite);
 

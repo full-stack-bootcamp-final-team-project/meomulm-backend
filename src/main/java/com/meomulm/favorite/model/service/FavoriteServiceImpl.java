@@ -23,14 +23,19 @@ public class FavoriteServiceImpl implements FavoriteService {
      * @return 찜 목록 조회 DTO 리스트
      */
     @Override
-    public List<SelectFavorite> getFavorites(int userId){
-            List<SelectFavorite> favorites = favoriteMapper.selectFavorites(userId);
+    public List<SelectFavorite> getAllFavorites(int userId){
+            List<SelectFavorite> favorites = favoriteMapper.selectAllFavorites(userId);
             log.info("서비스에서 가져온 데이터들 : {}", favorites);
         if (favorites == null || favorites.isEmpty()) {
             log.info("서비스에서 가져온 데이터들 : {}", favorites);
             throw new NotFoundException("사용자의 즐겨찾기 목록이 없습니다.");
         }
             return favorites;
+    }
+
+    @Override
+    public Integer selectFavorite(int userId, int accommodationId) {
+        return favoriteMapper.selectFavorite(userId, accommodationId);
     }
 
     /**
