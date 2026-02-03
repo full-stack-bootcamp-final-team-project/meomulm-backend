@@ -5,89 +5,90 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meomulm.user.model.dto.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class KakaoServiceImpl {
 
-    @Value("${kakao_client_id}")
-    private String kakao_client_id;
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Value("${kakao_redirect-url}")
-    private String kakao_redirect_url;
-
-    public String getAccessToken(String code){
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("grant_type", "authorization_code");
-        body.add("client_id", kakao_client_id);
-        body.add("redirect_uri", kakao_redirect_url);
-        body.add("code", code);
-
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
-        RestTemplate rt = new RestTemplate();
-
-        try {
-            ResponseEntity<String> response = rt.exchange(
-                    "https://kauth.kakao.com/oauth/token",
-                    HttpMethod.POST,
-                    kakaoTokenRequest,
-                    String.class
-            );
-
-            String responseBody = response.getBody();
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(responseBody);
-            return jsonNode.get("access_token").asText();
-
-        } catch(Exception e){
-            log.error("카카오 토큰 발급 실패 : {}", e.getMessage());
-            return null;
-        }
-    }
-
+    /**
+     * 카카오 사용자 정보 조회
+     * @param accessToken 카카오 액세스 토큰
+     * @return User 객체
+     */
     public User getKakaoUserInfo(String accessToken) {
+        String url = "https://kapi.kakao.com/v2/user/me";
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
-        headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
-        RestTemplate rt = new RestTemplate();
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         try {
-            ResponseEntity<String> response = rt.exchange(
-                    "https://kapi.kakao.com/v2/user/me",
-                    HttpMethod.POST,
-                    kakaoUserInfoRequest,
+            log.info("💡 카카오 사용자 정보 요청 시작");
+            ResponseEntity<String> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    entity,
                     String.class
             );
 
-            String responseBody = response.getBody();
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(responseBody);
-            String email = jsonNode.get("kakao_account").get("email").asText();
-            String nickname = jsonNode.get("properties").get("nickname").asText();
+            log.info("✅ 카카오 API 응답: {}", response.getBody());
+
+            JsonNode jsonNode = objectMapper.readTree(response.getBody());
 
             User user = new User();
-            user.setUserEmail(email);
-            user.setUserName(nickname);
+
+            // 카카오 계정 정보
+            JsonNode kakaoAccount = jsonNode.get("kakao_account");
+            if(kakaoAccount != null) {
+                // 이메일
+                if(kakaoAccount.has("email")) {
+                    user.setUserEmail(kakaoAccount.get("email").asText());
+                }
+
+                // 이름 (프로필 닉네임 사용)
+                if(kakaoAccount.has("profile")) {
+                    JsonNode profile = kakaoAccount.get("profile");
+                    if(profile.has("nickname")) {
+                        user.setUserName(profile.get("nickname").asText());
+                    }
+                }
+
+                // 전화번호 (선택사항)
+                if(kakaoAccount.has("phone_number")) {
+                    String phone = kakaoAccount.get("phone_number").asText();
+                    user.setUserPhone(phone.replaceAll("[^0-9]", ""));
+                }
+
+                // 생년월일 (선택사항)
+                if(kakaoAccount.has("birthyear") && kakaoAccount.has("birthday")) {
+                    String birthyear = kakaoAccount.get("birthyear").asText();
+                    String birthday = kakaoAccount.get("birthday").asText();
+                    user.setUserBirth(birthyear + birthday);
+                }
+
+                // 프로필 이미지
+                if(kakaoAccount.has("profile")) {
+                    JsonNode profile = kakaoAccount.get("profile");
+                    if(profile.has("profile_image_url")) {
+                        user.setUserProfileImage(profile.get("profile_image_url").asText());
+                    }
+                }
+            }
+
+            log.info("✅ 카카오 사용자 정보 파싱 완료 - email: {}, name: {}", user.getUserEmail(), user.getUserName());
             return user;
 
-        } catch(Exception e){
-            log.error("카카오 유저 정보 조회 실패 : {}",e.getMessage());
+        } catch (Exception e) {
+            log.error("❌ 카카오 사용자 정보 조회 실패", e);
             return null;
         }
     }
