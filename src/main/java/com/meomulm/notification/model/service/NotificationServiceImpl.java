@@ -24,6 +24,13 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public void insertNotification(Notification notification) {
+        log.info("💡 회원 알림 내역 추가 시작. userId: {}", notification);
+        int result = notificationMapper.insertNotification(notification);
+        log.info("✅ 회원 알림 내역 추가 결과: {}", result != 1 ? "failed" : "successful");
+    }
+
+    @Override
     public void updateNotificationStatus(int notificationId, int currentUserId) {
         log.info("💡 회원 알림 상태 변경 시작. notificationId: {}, currentUserId: {}", notificationId, currentUserId);
         int result = notificationMapper.updateNotificationStatus(notificationId, currentUserId);

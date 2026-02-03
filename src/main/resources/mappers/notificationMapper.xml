@@ -14,7 +14,7 @@
     </select>
 
     <!-- 회원 알림 추가 -->
-    <insert id="insertNotification" parameterType="Notification">
+    <insert id="insertNotification" parameterType="Notification" useGeneratedKeys="true" keyProperty="notificationId">
         INSERT INTO notification(user_id, notification_content, notification_link_url, is_read, created_at)
         VALUES (#{userId}, #{notificationContent}, #{notificationLinkUrl}, false, NOW())
     </insert>
