@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,9 +23,9 @@ public class Reservation {
     // 예약자 전화번호
     private String bookerPhone;
     // 체크인 날짜
-    private String checkInDate;
+    private Date checkInDate;
     // 체크아웃 날짜
-    private String checkOutDate;
+    private Date checkOutDate;
     // 예약 인원 수
     private int guestCount;
     // 예약 상태
