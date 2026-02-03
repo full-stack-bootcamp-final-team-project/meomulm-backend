@@ -7,7 +7,7 @@
 <mapper namespace="com.meomulm.favorite.model.mapper.FavoriteMapper">
 
     <!-- 찜 목록 조회 -->
-    <select id="selectFavorites" resultType="SelectFavorite">
+    <select id="selectAllFavorites" resultType="SelectFavorite">
         SELECT
             f.*,
             a.accommodation_name,
@@ -27,6 +27,18 @@
                                     )
         WHERE f.user_id = #{userId}
     </select>
+
+
+    <!-- 찜 조회 -->
+    <select  id="selectFavorite" resultType="Integer">
+            SELECT favorite_id
+            FROM favorite
+            WHERE user_id = #{userId}
+              AND accommodation_id = #{accommodationId}
+
+
+    </select>
+
 
     <!-- 찜 추가 -->
     <insert id="insertFavorite" parameterType="Favorite" useGeneratedKeys="true" keyProperty="favoriteId" keyColumn="favorite_id">
