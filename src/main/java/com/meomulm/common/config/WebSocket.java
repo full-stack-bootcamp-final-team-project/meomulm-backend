@@ -2,6 +2,7 @@ package com.meomulm.common.config;
 
 import com.meomulm.common.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -20,6 +21,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 import java.util.Collections;
 
+@Slf4j
 @Configuration
 @EnableWebSocketMessageBroker
 @RequiredArgsConstructor
@@ -63,6 +65,7 @@ public class WebSocket implements WebSocketMessageBrokerConfigurer {
                         MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
                 if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+                    log.info("새로운 STOMP 연결 시도 발견!");
                     String authHeader = accessor.getFirstNativeHeader("Authorization");
 
                     if (authHeader != null && authHeader.startsWith("Bearer ")) {
