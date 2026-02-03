@@ -1,0 +1,457 @@
+2026-02-03 09:42:18.318  INFO 248 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 248 (C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main started by TJ in C:\Users\TJ\Desktop\sw\momomum\meomulm-backend)
+2026-02-03 09:42:18.321  INFO 248 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-03 09:42:18.598  INFO 248 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-03 09:42:18.599  INFO 248 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-03 09:42:22.082  INFO 248 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-03 09:42:22.102  INFO 248 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-03 09:42:22.103  INFO 248 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-03 09:42:22.192  INFO 248 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-03 09:42:22.192  INFO 248 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3592 ms
+2026-02-03 09:42:23.909  WARN 248 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: cbd8347c-d126-4ddb-95b3-8f10f54a316f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-03 09:42:24.747  INFO 248 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@41d0bcf6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@561f88e6, org.springframework.security.web.context.SecurityContextHolderFilter@6ba0c436, org.springframework.security.web.header.HeaderWriterFilter@1598f774, org.springframework.web.filter.CorsFilter@53c0493a, org.springframework.security.web.authentication.logout.LogoutFilter@10ee7fd7, com.meomulm.common.config.JwtAuthenticationFilter@17d84e5e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@77223398, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@475dd6a6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4137848, org.springframework.security.web.session.SessionManagementFilter@17fc5bad, org.springframework.security.web.access.ExceptionTranslationFilter@292f2984, org.springframework.security.web.access.intercept.AuthorizationFilter@1252f11e]
+2026-02-03 09:42:25.718  INFO 248 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-02-03 09:42:25.826  INFO 248 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-02-03 09:42:25.828  INFO 248 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-02-03 09:42:25.829  INFO 248 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@546b6f05]]
+2026-02-03 09:42:25.830  INFO 248 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-02-03 09:42:25.838  INFO 248 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Started MeomulmBackendApplication in 8.801 seconds (process running for 10.297)
+2026-02-03 09:43:14.903  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-03 09:43:14.904  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-03 09:43:14.905  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-03 09:43:14.966  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationPopularByAddress()] 요청 / ip : 127.0.0.1
+2026-02-03 09:43:14.966  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationPopularByAddress()] 요청 / ip : 127.0.0.1
+2026-02-03 09:43:14.966  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationPopularByAddress()] 요청 / ip : 127.0.0.1
+2026-02-03 09:43:14.967  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationAddress=부산
+2026-02-03 09:43:14.967  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationAddress=제주
+2026-02-03 09:43:14.967  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationAddress=서울
+2026-02-03 09:43:14.969  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationPopularByAddress() 서비스 호출 ==========
+2026-02-03 09:43:14.969  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationPopularByAddress() 서비스 호출 ==========
+2026-02-03 09:43:14.969  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationPopularByAddress() 서비스 호출 ==========
+2026-02-03 09:43:14.969  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Parameter : [부산]
+2026-02-03 09:43:14.970  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Parameter : [제주]
+2026-02-03 09:43:14.970  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] c.m.a.m.s.AccommodationServiceImpl       : 💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress=부산
+2026-02-03 09:43:14.970  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Parameter : [서울]
+2026-02-03 09:43:14.970  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.m.s.AccommodationServiceImpl       : 💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress=제주
+2026-02-03 09:43:14.970  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : 💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress=서울
+2026-02-03 09:43:14.991  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Starting...
+2026-02-03 09:43:15.968  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.zaxxer.hikari.pool.HikariPool        : MyHikariCP - Added connection org.postgresql.jdbc.PgConnection@43b1d151
+2026-02-03 09:43:15.970  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Start completed.
+2026-02-03 09:43:16.743  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] c.m.a.m.s.AccommodationServiceImpl       : ✅ 지역 별 가격 낮은 순 숙소 12개 숙소 검색 완료 - resultCount=12
+2026-02-03 09:43:16.743  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Running Time : 1773ms
+2026-02-03 09:43:16.743  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:43:16.985  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.m.s.AccommodationServiceImpl       : ✅ 지역 별 가격 낮은 순 숙소 12개 숙소 검색 완료 - resultCount=12
+2026-02-03 09:43:16.985  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Running Time : 2015ms
+2026-02-03 09:43:16.985  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:43:17.388  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : ✅ 지역 별 가격 낮은 순 숙소 12개 숙소 검색 완료 - resultCount=12
+2026-02-03 09:43:17.388  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Running Time : 2418ms
+2026-02-03 09:43:17.388  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:43:25.265  INFO 248 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.searchAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 09:43:25.266  INFO 248 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.c.AccommodationController          : 🔥 통합 검색 진입 - 파라미터: SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=200000)
+2026-02-03 09:43:25.267  INFO 248 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.searchAccommodations() 서비스 호출 ==========
+2026-02-03 09:43:25.268  INFO 248 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Parameter : [SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=200000)]
+2026-02-03 09:43:25.268  INFO 248 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 검색 시작 - 조건: SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=200000)
+2026-02-03 09:43:25.757  INFO 248 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-02-03 09:43:29.828  INFO 248 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : ✅ 검색 완료 - 결과 수: 97
+2026-02-03 09:43:29.828  INFO 248 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Running Time : 4560ms
+2026-02-03 09:43:29.828  INFO 248 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:43:31.809  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationDetailById()] 요청 / ip : 127.0.0.1
+2026-02-03 09:43:31.810  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationId=3144
+2026-02-03 09:43:31.812  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationDetailById() 서비스 호출 ==========
+2026-02-03 09:43:31.817  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Parameter : [3144]
+2026-02-03 09:43:31.818  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 상세 검색 시작 - accommodationId=3144
+2026-02-03 09:43:31.841  WARN 248 --- [http-nio-0.0.0.0-8080-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/accommodation/reviews/summary/3144.]
+2026-02-03 09:43:31.870  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] c.m.a.m.s.AccommodationServiceImpl       : ✅ 숙소 상세 검색 완료 - result=더블트리 바이 힐튼 서울 판교 레지던스
+2026-02-03 09:43:31.870  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Running Time : 52ms
+2026-02-03 09:43:31.870  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:47:02.553  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : [AuthController.login()] 요청 / ip : 127.0.0.1
+2026-02-03 09:47:02.554  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ========== UserServiceImpl.login() 서비스 호출 ==========
+2026-02-03 09:47:02.554  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Parameter : [tjee1234@email.com, tjee1234]
+2026-02-03 09:47:02.699  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] c.m.user.model.service.UserServiceImpl   : ✅ 로그인 성공 - 이메일 : tjee1234@email.com
+2026-02-03 09:47:02.699  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Running Time : 145ms
+2026-02-03 09:47:02.699  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:47:02.821  INFO 248 --- [http-nio-0.0.0.0-8080-exec-3] c.m.user.controller.AuthController       : ✅ 토큰 생성 완료 - 이메일 : tjee1234@email.com
+2026-02-03 09:47:03.081  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationPopularByAddress()] 요청 / ip : 127.0.0.1
+2026-02-03 09:47:03.081  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationAddress=서울
+2026-02-03 09:47:03.082  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationPopularByAddress() 서비스 호출 ==========
+2026-02-03 09:47:03.082  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Parameter : [서울]
+2026-02-03 09:47:03.082  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.m.s.AccommodationServiceImpl       : 💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress=서울
+2026-02-03 09:47:03.083  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationPopularByAddress()] 요청 / ip : 127.0.0.1
+2026-02-03 09:47:03.083  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationAddress=부산
+2026-02-03 09:47:03.083  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationPopularByAddress() 서비스 호출 ==========
+2026-02-03 09:47:03.083  INFO 248 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationPopularByAddress()] 요청 / ip : 127.0.0.1
+2026-02-03 09:47:03.083  INFO 248 --- [http-nio-0.0.0.0-8080-exec-4] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationAddress=제주
+2026-02-03 09:47:03.083  INFO 248 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationPopularByAddress() 서비스 호출 ==========
+2026-02-03 09:47:03.084  INFO 248 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : Parameter : [제주]
+2026-02-03 09:47:03.084  INFO 248 --- [http-nio-0.0.0.0-8080-exec-4] c.m.a.m.s.AccommodationServiceImpl       : 💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress=제주
+2026-02-03 09:47:03.083  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Parameter : [부산]
+2026-02-03 09:47:03.084  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : 💡 지역 별 가격 낮은 순 숙소 12개 검색 시작 - accommodationAddress=부산
+2026-02-03 09:47:03.244  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.m.s.AccommodationServiceImpl       : ✅ 지역 별 가격 낮은 순 숙소 12개 숙소 검색 완료 - resultCount=12
+2026-02-03 09:47:03.244  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Running Time : 162ms
+2026-02-03 09:47:03.244  INFO 248 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:47:03.249  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : ✅ 지역 별 가격 낮은 순 숙소 12개 숙소 검색 완료 - resultCount=12
+2026-02-03 09:47:03.250  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Running Time : 166ms
+2026-02-03 09:47:03.250  INFO 248 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:47:03.252  INFO 248 --- [http-nio-0.0.0.0-8080-exec-4] c.m.a.m.s.AccommodationServiceImpl       : ✅ 지역 별 가격 낮은 순 숙소 12개 숙소 검색 완료 - resultCount=12
+2026-02-03 09:47:03.252  INFO 248 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : Running Time : 168ms
+2026-02-03 09:47:03.252  INFO 248 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:47:06.674  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : [UserController.getUserInfoById()] 요청 / ip : 127.0.0.1
+2026-02-03 09:47:06.674  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ========== UserServiceImpl.getUserInfoById() 서비스 호출 ==========
+2026-02-03 09:47:06.675  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 09:47:06.675  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] c.m.user.model.service.UserServiceImpl   : 💡 회원정보 조회 시작. userId: 6
+2026-02-03 09:47:06.719  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] c.m.user.model.service.UserServiceImpl   : ✅ 회원정보 조회 성공. userId: 6
+2026-02-03 09:47:06.719  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Running Time : 44ms
+2026-02-03 09:47:06.719  INFO 248 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:47:35.601  INFO 248 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-02-03 09:47:35.605  INFO 248 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@546b6f05]]
+2026-02-03 09:47:35.605  INFO 248 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-02-03 09:47:35.647  INFO 248 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Shutdown initiated...
+2026-02-03 09:47:35.684  INFO 248 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Shutdown completed.
+2026-02-03 09:49:42.535  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 7536 (C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main started by TJ in C:\Users\TJ\Desktop\sw\momomum\meomulm-backend)
+2026-02-03 09:49:42.537  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-03 09:49:42.588  INFO 7536 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-03 09:49:42.589  INFO 7536 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-03 09:49:44.439  INFO 7536 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-03 09:49:44.452  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-03 09:49:44.452  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-03 09:49:44.505  INFO 7536 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-03 09:49:44.505  INFO 7536 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1916 ms
+2026-02-03 09:49:45.835  WARN 7536 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 6863180f-ffc2-4a76-a30e-bf24d741b519
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-03 09:49:46.277  INFO 7536 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@307fb03d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@15e267c2, org.springframework.security.web.context.SecurityContextHolderFilter@6496d1bd, org.springframework.security.web.header.HeaderWriterFilter@66ba82d9, org.springframework.web.filter.CorsFilter@1699b8b5, org.springframework.security.web.authentication.logout.LogoutFilter@364b3530, com.meomulm.common.config.JwtAuthenticationFilter@1c3de178, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ba30c3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5a8fa3a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43358a7b, org.springframework.security.web.session.SessionManagementFilter@2e4146e2, org.springframework.security.web.access.ExceptionTranslationFilter@6a4ddea1, org.springframework.security.web.access.intercept.AuthorizationFilter@1953457e]
+2026-02-03 09:49:46.854  INFO 7536 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-02-03 09:49:46.901  INFO 7536 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-02-03 09:49:46.903  INFO 7536 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-02-03 09:49:46.904  INFO 7536 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3f0026a1]]
+2026-02-03 09:49:46.905  INFO 7536 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-02-03 09:49:46.913  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Started MeomulmBackendApplication in 5.297 seconds (process running for 6.61)
+2026-02-03 09:49:50.625  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-03 09:49:50.626  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-03 09:49:50.627  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-03 09:49:50.686  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.searchAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 09:49:50.687  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.c.AccommodationController          : 🔥 통합 검색 진입 - 파라미터: SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=200000)
+2026-02-03 09:49:50.690  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.searchAccommodations() 서비스 호출 ==========
+2026-02-03 09:49:50.691  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Parameter : [SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=200000)]
+2026-02-03 09:49:50.691  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 검색 시작 - 조건: SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=200000)
+2026-02-03 09:49:50.734  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Starting...
+2026-02-03 09:49:51.143  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] com.zaxxer.hikari.pool.HikariPool        : MyHikariCP - Added connection org.postgresql.jdbc.PgConnection@81777f9
+2026-02-03 09:49:51.145  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Start completed.
+2026-02-03 09:49:52.578  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : ✅ 검색 완료 - 결과 수: 97
+2026-02-03 09:49:52.578  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Running Time : 1887ms
+2026-02-03 09:49:52.578  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:50:11.460  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationDetailById()] 요청 / ip : 127.0.0.1
+2026-02-03 09:50:11.460  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-3] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationId=3144
+2026-02-03 09:50:11.460  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationDetailById() 서비스 호출 ==========
+2026-02-03 09:50:11.461  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Parameter : [3144]
+2026-02-03 09:50:11.461  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-3] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 상세 검색 시작 - accommodationId=3144
+2026-02-03 09:50:11.471  WARN 7536 --- [http-nio-0.0.0.0-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/accommodation/reviews/summary/3144.]
+2026-02-03 09:50:11.499  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-3] c.m.a.m.s.AccommodationServiceImpl       : ✅ 숙소 상세 검색 완료 - result=더블트리 바이 힐튼 서울 판교 레지던스
+2026-02-03 09:50:11.499  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Running Time : 38ms
+2026-02-03 09:50:11.499  INFO 7536 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 09:50:46.893  INFO 7536 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-02-03 10:04:32.486  INFO 7536 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 11 class path changes (0 additions, 11 deletions, 0 modifications)
+2026-02-03 10:04:32.492  INFO 7536 --- [Thread-5] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-02-03 10:04:32.493  INFO 7536 --- [Thread-5] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3f0026a1]]
+2026-02-03 10:04:32.536  INFO 7536 --- [Thread-5] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-02-03 10:04:32.559  INFO 7536 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Shutdown initiated...
+2026-02-03 10:04:32.624  INFO 7536 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Shutdown completed.
+2026-02-03 10:04:33.015  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 7536 (C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main started by TJ in C:\Users\TJ\Desktop\sw\momomum\meomulm-backend)
+2026-02-03 10:04:33.016  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-03 10:04:34.836  INFO 7536 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-03 10:04:34.839  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-03 10:04:34.840  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-03 10:04:34.862  INFO 7536 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-03 10:04:34.862  INFO 7536 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1843 ms
+2026-02-03 10:04:35.127  WARN 7536 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accommodationController' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\controller\AccommodationController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accommodationServiceImpl' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\model\service\AccommodationServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accommodationMapper' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\model\mapper\AccommodationMapper.class]: Cannot resolve reference to bean 'sqlSessionTemplate' while setting bean property 'sqlSessionTemplate'
+2026-02-03 10:04:35.127  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-03 10:04:35.133  INFO 7536 --- [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-03 10:04:35.168 ERROR 7536 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accommodationController' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\controller\AccommodationController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accommodationServiceImpl' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\model\service\AccommodationServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accommodationMapper' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\model\mapper\AccommodationMapper.class]: Cannot resolve reference to bean 'sqlSessionTemplate' while setting bean property 'sqlSessionTemplate'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:241)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1354)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:960)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347)
+	at com.meomulm.MeomulmBackendApplication.main(MeomulmBackendApplication.java:10)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accommodationServiceImpl' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\model\service\AccommodationServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'accommodationMapper' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\model\mapper\AccommodationMapper.class]: Cannot resolve reference to bean 'sqlSessionTemplate' while setting bean property 'sqlSessionTemplate'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:241)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1354)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789)
+	... 22 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'accommodationMapper' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\accommodation\model\mapper\AccommodationMapper.class]: Cannot resolve reference to bean 'sqlSessionTemplate' while setting bean property 'sqlSessionTemplate'
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1684)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1433)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789)
+	... 36 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionTemplate' defined in class path resource [com/meomulm/common/config/DBConfig.class]: Unsatisfied dependency expressed through method 'sqlSessionTemplate' parameter 0: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/meomulm/common/config/DBConfig.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\resources\main\mappers\notificationMapper.xml]'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:802)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1164)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 50 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/meomulm/common/config/DBConfig.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\resources\main\mappers\notificationMapper.xml]'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:655)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:643)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1164)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:911)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789)
+	... 60 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\resources\main\mappers\notificationMapper.xml]'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651)
+	... 74 common frames omitted
+Caused by: java.io.IOException: Failed to parse mapping resource: 'file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\resources\main\mappers\notificationMapper.xml]'
+	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:695)
+	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:572)
+	at org.mybatis.spring.SqlSessionFactoryBean.getObject(SqlSessionFactoryBean.java:712)
+	at com.meomulm.common.config.DBConfig.sqlSessionFactory(DBConfig.java:56)
+	at com.meomulm.common.config.DBConfig$$SpringCGLIB$$0.CGLIB$sqlSessionFactory$1(<generated>)
+	at com.meomulm.common.config.DBConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331)
+	at com.meomulm.common.config.DBConfig$$SpringCGLIB$$0.sqlSessionFactory(<generated>)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140)
+	... 75 common frames omitted
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\resources\main\mappers\notificationMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'Notification'.  Cause: java.lang.ClassNotFoundException: Cannot find class: Notification
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:125)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.parse(XMLMapperBuilder.java:98)
+	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:693)
+	... 86 common frames omitted
+Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'Notification'.  Cause: java.lang.ClassNotFoundException: Cannot find class: Notification
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:103)
+	at org.apache.ibatis.builder.xml.XMLStatementBuilder.parseStatementNode(XMLStatementBuilder.java:105)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:141)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:133)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:123)
+	... 88 common frames omitted
+Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'Notification'.  Cause: java.lang.ClassNotFoundException: Cannot find class: Notification
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:128)
+	at org.apache.ibatis.builder.BaseBuilder.resolveAlias(BaseBuilder.java:132)
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:101)
+	... 92 common frames omitted
+Caused by: java.lang.ClassNotFoundException: Cannot find class: Notification
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:226)
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:103)
+	at org.apache.ibatis.io.Resources.classForName(Resources.java:322)
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:124)
+	... 94 common frames omitted
+
+2026-02-03 10:04:37.369  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 7536 (C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main started by TJ in C:\Users\TJ\Desktop\sw\momomum\meomulm-backend)
+2026-02-03 10:04:37.369  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-03 10:04:37.978  INFO 7536 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-03 10:04:37.981  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-03 10:04:37.981  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-03 10:04:38.100  INFO 7536 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-02-03 10:04:38.100  INFO 7536 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 729 ms
+2026-02-03 10:04:38.550  WARN 7536 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 0f55b778-c377-465c-9908-dc3c09c86e7e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-03 10:04:38.632  INFO 7536 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3b6f1d29, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a091ef1, org.springframework.security.web.context.SecurityContextHolderFilter@472807db, org.springframework.security.web.header.HeaderWriterFilter@bdd2c89, org.springframework.web.filter.CorsFilter@56375365, org.springframework.security.web.authentication.logout.LogoutFilter@11f28f43, org.springframework.security.web.session.ConcurrentSessionFilter@7ec0bfb6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@13748288, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1f7e7404, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@fd1c92f, org.springframework.security.web.session.SessionManagementFilter@4727df6f, org.springframework.security.web.access.ExceptionTranslationFilter@786c0c2c, org.springframework.security.web.access.intercept.AuthorizationFilter@4c82a7b3]
+2026-02-03 10:04:39.487  INFO 7536 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-02-03 10:04:39.512  INFO 7536 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-02-03 10:04:39.517  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Started MeomulmBackendApplication in 2.208 seconds (process running for 899.115)
+2026-02-03 10:04:39.524  INFO 7536 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration matched:
+      - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+
+Negative matches:
+-----------------
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutorVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+   WebSocketMessagingAutoConfiguration.WebSocketMessageConverterConfiguration:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration,com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) did not find any beans of type org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required classes 'com.fasterxml.jackson.databind.ObjectMapper', 'org.springframework.messaging.simp.config.AbstractMessageBrokerConfiguration' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-02-03 10:05:32.190  INFO 7536 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2026-02-03 10:05:32.290  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 7536 (C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main started by TJ in C:\Users\TJ\Desktop\sw\momomum\meomulm-backend)
+2026-02-03 10:05:32.290  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-03 10:05:33.325  INFO 7536 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-03 10:05:33.326  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-03 10:05:33.326  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-03 10:05:33.353  INFO 7536 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-02-03 10:05:33.354  INFO 7536 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1062 ms
+2026-02-03 10:05:33.886  WARN 7536 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\user\controller\AuthController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userServiceImpl' defined in file [C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main\com\meomulm\user\model\service\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 1: No qualifying bean of type 'org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2026-02-03 10:05:33.887  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-03 10:05:33.894  INFO 7536 --- [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-03 10:05:33.903 ERROR 7536 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 1 of constructor in com.meomulm.user.model.service.UserServiceImpl required a bean of type 'org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder' in your configuration.
+
+2026-02-03 10:05:35.432  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 7536 (C:\Users\TJ\Desktop\sw\momomum\meomulm-backend\build\classes\java\main started by TJ in C:\Users\TJ\Desktop\sw\momomum\meomulm-backend)
+2026-02-03 10:05:35.432  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-03 10:05:35.924  INFO 7536 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-03 10:05:35.925  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-03 10:05:35.926  INFO 7536 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-03 10:05:35.944  INFO 7536 --- [restartedMain] o.a.c.c.C.[Tomcat-2].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-02-03 10:05:35.944  INFO 7536 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 509 ms
+2026-02-03 10:05:36.382  WARN 7536 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c99201bf-0d78-40d6-81b5-a316830117a0
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-03 10:05:36.568  INFO 7536 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@25a0f21e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@18550e68, org.springframework.security.web.context.SecurityContextHolderFilter@7c7d5bdb, org.springframework.security.web.header.HeaderWriterFilter@309d06c9, org.springframework.web.filter.CorsFilter@312fe31c, org.springframework.security.web.authentication.logout.LogoutFilter@60cbb062, com.meomulm.common.config.JwtAuthenticationFilter@4a37beb2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@788b8323, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@20f869b5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@48340e08, org.springframework.security.web.session.SessionManagementFilter@8cbc37c, org.springframework.security.web.access.ExceptionTranslationFilter@615ca5c2, org.springframework.security.web.access.intercept.AuthorizationFilter@27abc938]
+2026-02-03 10:05:36.863  INFO 7536 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-02-03 10:05:36.875  INFO 7536 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-02-03 10:05:36.876  INFO 7536 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-02-03 10:05:36.876  INFO 7536 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1fc546a]]
+2026-02-03 10:05:36.876  INFO 7536 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-02-03 10:05:36.879  INFO 7536 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Started MeomulmBackendApplication in 1.484 seconds (process running for 956.47)
+2026-02-03 10:05:36.880  INFO 7536 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   WebSocketMessagingAutoConfiguration.WebSocketMessageConverterConfiguration matched:
+      - @ConditionalOnClass found required classes 'com.fasterxml.jackson.databind.ObjectMapper', 'org.springframework.messaging.simp.config.AbstractMessageBrokerConfiguration' (OnClassCondition)
+      - @ConditionalOnBean (types: org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration,com.fasterxml.jackson.databind.ObjectMapper; SearchStrategy: all) found beans 'jacksonObjectMapper', 'org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration' (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) found beans of type 'java.util.concurrent.Executor' clientInboundChannelExecutor, clientOutboundChannelExecutor, brokerChannelExecutor (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-02-03 10:06:36.891  INFO 7536 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
