@@ -118,42 +118,43 @@ public class AuthController {
      */
     @PostMapping("/kakao")
     public ResponseEntity<?> kakaoLogin(@RequestBody Map<String, String> data) {
-        String code = data.get("code");
-        log.info("카카오 로그인 요청 - code : {}", code);
+        String accessToken = data.get("accessToken");
+        log.info("💡 카카오 로그인 요청 - accessToken 앞 20자: {}",
+                accessToken != null && accessToken.length() > 20 ? accessToken.substring(0, 20) : "null");
 
-        if(code == null || code.isEmpty()){
-            log.error("카카오 code 가 null 이거나 비어있습니다.");
-            return ResponseEntity.status(400).body("인증 코드가 없습니다.");
+        if(accessToken == null || accessToken.isEmpty()){
+            log.error("❌ 카카오 accessToken이 null 이거나 비어있습니다.");
+            return ResponseEntity.status(400).body(Map.of("error", "액세스 토큰이 없습니다."));
         }
 
-        String accessToken = kakaoService.getAccessToken(code);
-        if(accessToken == null) {
-            log.error("카카오 액세스 토큰 발급 실패");
-            return ResponseEntity.status(400).body("카카오 토큰 발급 실패");
-        }
-
-        log.info("카카오 액세스 토큰 발급 성공");
         User kakaoUser = kakaoService.getKakaoUserInfo(accessToken);
         if(kakaoUser == null) {
-            log.error("카카오 사용자 정보 조회 실패");
-            return ResponseEntity.status(400).body("카카오 유저 정보 조회 실패");
+            log.error("❌ 카카오 사용자 정보 조회 실패");
+            return ResponseEntity.status(400).body(Map.of("error", "카카오 유저 정보 조회 실패"));
         }
 
-        log.info("카카오 사용자 정보 조회 성공 - email : {}", kakaoUser.getUserEmail());
+        log.info("✅ 카카오 사용자 정보 조회 성공 - email: {}", kakaoUser.getUserEmail());
+
         User existUser = userService.getUserByUserEmail(kakaoUser.getUserEmail());
+
         if(existUser != null){
             String token = jwtUtil.generateToken(existUser.getUserId(), existUser.getUserEmail());
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.setToken(token);
 
-            log.info("카카오 로그인 성공 : {}", existUser.getUserEmail());
+            log.info("✅ 카카오 로그인 성공: {}", existUser.getUserEmail());
             return ResponseEntity.ok(loginResponse);
 
         } else {
+            // 미가입 회원인 경우
             Map<String, Object> response = new HashMap<>();
             response.put("message", "need_signup");
-            response.put("kakaoUser", kakaoUser);
-            log.info("카카오 로그인 - 미가입 회원 : {}", kakaoUser.getUserEmail());
+            response.put("kakaoUser", Map.of(
+                    "userEmail", kakaoUser.getUserEmail(),
+                    "userName", kakaoUser.getUserName() != null ? kakaoUser.getUserName() : "",
+                    "userProfileImage", kakaoUser.getUserProfileImage() != null ? kakaoUser.getUserProfileImage() : ""
+            ));
+            log.info("⚠️ 카카오 로그인 - 미가입 회원: {}", kakaoUser.getUserEmail());
             return ResponseEntity.status(202).body(response);
         }
     }
