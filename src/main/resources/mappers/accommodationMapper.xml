@@ -61,21 +61,25 @@
             </if>
 
             <if test="latitude != null and longitude != null">
+                AND a.accommodation_latitude IS NOT NULL
+                AND a.accommodation_longitude IS NOT NULL
+
                 AND (
                 6371 * acos(
                 cos(radians(#{latitude}))
-                * cos(radians(NULLIF(a.accommodation_latitude, '')::DOUBLE PRECISION))
-                * cos(radians(NULLIF(a.accommodation_longitude, '')::DOUBLE PRECISION) - radians(#{longitude}))
+                * cos(radians(a.accommodation_latitude::DOUBLE PRECISION))
+                * cos(radians(a.accommodation_longitude::DOUBLE PRECISION) - radians(#{longitude}))
                 + sin(radians(#{latitude}))
-                * sin(radians(NULLIF(a.accommodation_latitude, '')::DOUBLE PRECISION))
+                * sin(radians(a.accommodation_latitude::DOUBLE PRECISION))
                 )
                 ) &lt;= 5
             </if>
 
-            <if test="minPrice != null">
+            <if test="minPrice != null and minPrice > 0">
                 AND (SELECT MIN(p.product_price) FROM product p WHERE p.accommodation_id = a.accommodation_id) >= #{minPrice}
             </if>
-            <if test="maxPrice != null">
+
+            <if test="maxPrice != null and maxPrice > 0">
                 AND (SELECT MIN(p.product_price) FROM product p WHERE p.accommodation_id = a.accommodation_id) &lt;= #{maxPrice}
             </if>
 
