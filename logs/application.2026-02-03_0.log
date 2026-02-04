@@ -512,3 +512,227 @@ This generated password is for development use only. Your security configuration
 2026-02-03 18:12:36.105  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
 2026-02-03 18:12:36.196  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : Running Time : 111ms
 2026-02-03 18:12:36.196  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:15.697  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.searchAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:15.697  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] c.m.a.c.AccommodationController          : 🔥 통합 검색 진입 - 파라미터: SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=2000000)
+2026-02-03 18:17:15.699  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.searchAccommodations() 서비스 호출 ==========
+2026-02-03 18:17:15.699  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : Parameter : [SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=2000000)]
+2026-02-03 18:17:15.699  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 검색 시작 - 조건: SearchAccommodationRequest(keyword=서울, accommodationAddress=null, longitude=null, latitude=null, facilities=null, types=null, minPrice=0, maxPrice=2000000)
+2026-02-03 18:17:17.463  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] c.m.a.m.s.AccommodationServiceImpl       : ✅ 검색 완료 - 결과 수: 108
+2026-02-03 18:17:17.463  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : Running Time : 1764ms
+2026-02-03 18:17:17.463  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:29.006  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationDetailById()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:29.006  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationId=3103
+2026-02-03 18:17:29.006  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationDetailById() 서비스 호출 ==========
+2026-02-03 18:17:29.006  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Parameter : [3103]
+2026-02-03 18:17:29.006  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 상세 검색 시작 - accommodationId=3103
+2026-02-03 18:17:29.016  WARN 772 --- [http-nio-0.0.0.0-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/accommodation/reviews/summary/3103.]
+2026-02-03 18:17:29.044  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : ✅ 숙소 상세 검색 완료 - result=국제청소년센터 유스호스텔
+2026-02-03 18:17:29.044  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : 숙소 상세 검색 완료 - result=[]
+2026-02-03 18:17:29.044  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Running Time : 38ms
+2026-02-03 18:17:29.044  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:29.131  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:29.131  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[3103, 5229, 3044, 3144, 3114]
+2026-02-03 18:17:29.131  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:17:29.131  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : Parameter : [[3103, 5229, 3044, 3144, 3114]]
+2026-02-03 18:17:29.133  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:29.133  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.selectFavorite() 서비스 호출 ==========
+2026-02-03 18:17:29.133  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 3103]
+2026-02-03 18:17:29.175  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Running Time : 42ms
+2026-02-03 18:17:29.175  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:29.253  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : Running Time : 122ms
+2026-02-03 18:17:29.253  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:29.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:29.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[3103, 5229, 3044, 3144, 3114]
+2026-02-03 18:17:29.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:17:29.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Parameter : [[3103, 5229, 3044, 3144, 3114]]
+2026-02-03 18:17:29.383  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Running Time : 122ms
+2026-02-03 18:17:29.383  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:54.265  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationDetailById()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:54.265  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationId=3114
+2026-02-03 18:17:54.265  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationDetailById() 서비스 호출 ==========
+2026-02-03 18:17:54.265  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : Parameter : [3114]
+2026-02-03 18:17:54.265  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 상세 검색 시작 - accommodationId=3114
+2026-02-03 18:17:54.267  WARN 772 --- [http-nio-0.0.0.0-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/accommodation/reviews/summary/3114.]
+2026-02-03 18:17:54.305  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] c.m.a.m.s.AccommodationServiceImpl       : ✅ 숙소 상세 검색 완료 - result=르아브르
+2026-02-03 18:17:54.305  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] c.m.a.m.s.AccommodationServiceImpl       : 숙소 상세 검색 완료 - result=[]
+2026-02-03 18:17:54.305  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : Running Time : 40ms
+2026-02-03 18:17:54.305  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:54.415  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:54.415  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[3114, 3103, 5229, 3044, 3144]
+2026-02-03 18:17:54.415  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:17:54.415  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Parameter : [[3114, 3103, 5229, 3044, 3144]]
+2026-02-03 18:17:54.419  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:54.421  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.selectFavorite() 서비스 호출 ==========
+2026-02-03 18:17:54.421  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 3114]
+2026-02-03 18:17:54.440  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : Running Time : 19ms
+2026-02-03 18:17:54.440  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:54.488  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Running Time : 73ms
+2026-02-03 18:17:54.488  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:54.496  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:54.496  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[3114, 3103, 5229, 3044, 3144]
+2026-02-03 18:17:54.496  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:17:54.496  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Parameter : [[3114, 3103, 5229, 3044, 3144]]
+2026-02-03 18:17:54.581  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Running Time : 85ms
+2026-02-03 18:17:54.581  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:56.484  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationDetailById()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:56.484  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationId=3044
+2026-02-03 18:17:56.485  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationDetailById() 서비스 호출 ==========
+2026-02-03 18:17:56.485  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Parameter : [3044]
+2026-02-03 18:17:56.485  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 상세 검색 시작 - accommodationId=3044
+2026-02-03 18:17:56.488  WARN 772 --- [http-nio-0.0.0.0-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/accommodation/reviews/summary/3044.]
+2026-02-03 18:17:56.521  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.m.s.AccommodationServiceImpl       : ✅ 숙소 상세 검색 완료 - result=맹그로브 동대문
+2026-02-03 18:17:56.521  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.m.s.AccommodationServiceImpl       : 숙소 상세 검색 완료 - result=[AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/26/3379726_image2_1.jpg), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/27/3379727_image2_1.jpg), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/28/3379728_image2_1.jpg), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/29/3379729_image2_1.jpg), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/30/3379730_image2_1.jpg), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/31/3379731_image2_1.jpg), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/32/3379732_image2_1.jpg), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/33/3379733_image2_1.jpg), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/34/3379734_image2_1.jpg)]
+2026-02-03 18:17:56.521  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Running Time : 36ms
+2026-02-03 18:17:56.522  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:56.604  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:56.605  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.selectFavorite() 서비스 호출 ==========
+2026-02-03 18:17:56.605  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 3044]
+2026-02-03 18:17:56.606  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:56.606  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[3044, 3114, 3103, 5229, 3144]
+2026-02-03 18:17:56.607  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:17:56.607  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : Parameter : [[3044, 3114, 3103, 5229, 3144]]
+2026-02-03 18:17:56.619  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Running Time : 14ms
+2026-02-03 18:17:56.619  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:56.695  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : Running Time : 88ms
+2026-02-03 18:17:56.696  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:17:56.750  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:17:56.750  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[3044, 3114, 3103, 5229, 3144]
+2026-02-03 18:17:56.750  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:17:56.750  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Parameter : [[3044, 3114, 3103, 5229, 3144]]
+2026-02-03 18:17:56.833  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Running Time : 83ms
+2026-02-03 18:17:56.833  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:32.965  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getAllFavorites()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:32.965  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.getAllFavorites() 서비스 호출 ==========
+2026-02-03 18:18:32.966  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 18:18:33.021  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] c.m.f.model.service.FavoriteServiceImpl  : 서비스에서 가져온 데이터들 : [SelectFavorite(favoriteId=69, userId=6, accommodationId=3044, createdAt=2026-02-03 09:09:38.43495, accommodationName=맹그로브 동대문, accommodationAddress=서울특별시 중구 퇴계로 334 (광희동2가), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/26/3379726_image2_1.jpg), SelectFavorite(favoriteId=70, userId=6, accommodationId=5229, createdAt=2026-02-03 09:12:35.094837, accommodationName=헤이, 서귀포, accommodationAddress=제주특별자치도 서귀포시 태평로 363 (서귀동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/48/2877348_image2_1.JPG), SelectFavorite(favoriteId=64, userId=6, accommodationId=3144, createdAt=2026-02-03 09:01:09.684842, accommodationName=더블트리 바이 힐튼 서울 판교 레지던스, accommodationAddress=경기도 성남시 분당구 백현로 26 (정자동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/60/3341860_image2_1.jpg)]
+2026-02-03 18:18:33.025  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : Running Time : 59ms
+2026-02-03 18:18:33.025  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:36.266  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationDetailById()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:36.266  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationId=3528
+2026-02-03 18:18:36.266  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationDetailById() 서비스 호출 ==========
+2026-02-03 18:18:36.266  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Parameter : [3528]
+2026-02-03 18:18:36.266  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 상세 검색 시작 - accommodationId=3528
+2026-02-03 18:18:36.269  WARN 772 --- [http-nio-0.0.0.0-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/accommodation/reviews/summary/3528.]
+2026-02-03 18:18:36.306  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : ✅ 숙소 상세 검색 완료 - result=탑모텔
+2026-02-03 18:18:36.306  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : 숙소 상세 검색 완료 - result=[AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/28/1958028_image2_1.JPG), AccommodationImage(accommodationImageId=0, accommodationId=0, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/39/1958039_image2_1.JPG)]
+2026-02-03 18:18:36.306  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Running Time : 40ms
+2026-02-03 18:18:36.306  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:36.379  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:36.379  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[3528, 3044, 3114, 3103, 5229, 3144]
+2026-02-03 18:18:36.379  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:18:36.379  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Parameter : [[3528, 3044, 3114, 3103, 5229, 3144]]
+2026-02-03 18:18:36.379  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:36.380  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.selectFavorite() 서비스 호출 ==========
+2026-02-03 18:18:36.380  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 3528]
+2026-02-03 18:18:36.392  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Running Time : 12ms
+2026-02-03 18:18:36.392  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:36.487  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Running Time : 108ms
+2026-02-03 18:18:36.487  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:36.543  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:36.544  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[3528, 3044, 3114, 3103, 5229, 3144]
+2026-02-03 18:18:36.544  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:18:36.544  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : Parameter : [[3528, 3044, 3114, 3103, 5229, 3144]]
+2026-02-03 18:18:36.642  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : Running Time : 98ms
+2026-02-03 18:18:36.642  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:37.253  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.postFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:37.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.postFavorite() 서비스 호출 ==========
+2026-02-03 18:18:37.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 3528]
+2026-02-03 18:18:37.276  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Running Time : 15ms
+2026-02-03 18:18:37.276  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:37.287  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:37.288  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.selectFavorite() 서비스 호출 ==========
+2026-02-03 18:18:37.288  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 3528]
+2026-02-03 18:18:37.301  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : Running Time : 13ms
+2026-02-03 18:18:37.301  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:39.081  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getAllFavorites()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:39.082  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.getAllFavorites() 서비스 호출 ==========
+2026-02-03 18:18:39.082  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 18:18:39.107  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] c.m.f.model.service.FavoriteServiceImpl  : 서비스에서 가져온 데이터들 : [SelectFavorite(favoriteId=69, userId=6, accommodationId=3044, createdAt=2026-02-03 09:09:38.43495, accommodationName=맹그로브 동대문, accommodationAddress=서울특별시 중구 퇴계로 334 (광희동2가), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/26/3379726_image2_1.jpg), SelectFavorite(favoriteId=70, userId=6, accommodationId=5229, createdAt=2026-02-03 09:12:35.094837, accommodationName=헤이, 서귀포, accommodationAddress=제주특별자치도 서귀포시 태평로 363 (서귀동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/48/2877348_image2_1.JPG), SelectFavorite(favoriteId=71, userId=6, accommodationId=3528, createdAt=2026-02-03 09:18:37.672526, accommodationName=탑모텔, accommodationAddress=부산광역시 동구 중앙대로196번길 12-15, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/28/1958028_image2_1.JPG), SelectFavorite(favoriteId=64, userId=6, accommodationId=3144, createdAt=2026-02-03 09:01:09.684842, accommodationName=더블트리 바이 힐튼 서울 판교 레지던스, accommodationAddress=경기도 성남시 분당구 백현로 26 (정자동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/60/3341860_image2_1.jpg)]
+2026-02-03 18:18:39.107  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : Running Time : 25ms
+2026-02-03 18:18:39.107  INFO 772 --- [http-nio-0.0.0.0-8080-exec-4] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:47.058  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.searchByLocation()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:47.059  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - location=37.569482,126.984667
+2026-02-03 18:18:47.059  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationByLocation() 서비스 호출 ==========
+2026-02-03 18:18:47.059  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Parameter : [37.569482, 126.984667]
+2026-02-03 18:18:47.060  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : 💡 지도 5km 반경 숙소 검색 시작 - latitude=37.569482, longitude=126.984667
+2026-02-03 18:18:48.120  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.a.m.s.AccommodationServiceImpl       : ✅ 지도 5km 반경 숙소 검색 완료 - resultCount=50
+2026-02-03 18:18:48.120  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Running Time : 1061ms
+2026-02-03 18:18:48.120  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:54.238  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : [UserController.getUserInfoById()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:54.238  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ========== UserServiceImpl.getUserInfoById() 서비스 호출 ==========
+2026-02-03 18:18:54.238  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 18:18:54.238  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] c.m.user.model.service.UserServiceImpl   : 💡 회원정보 조회 시작. userId: 6
+2026-02-03 18:18:54.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] c.m.user.model.service.UserServiceImpl   : ✅ 회원정보 조회 성공. userId: 6
+2026-02-03 18:18:54.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : Running Time : 23ms
+2026-02-03 18:18:54.261  INFO 772 --- [http-nio-0.0.0.0-8080-exec-2] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:18:56.640  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : [ReviewController.getReviewByUserId()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:56.641  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : ========== ReviewServiceImpl.getReviewByUserId() 서비스 호출 ==========
+2026-02-03 18:18:56.641  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 18:18:56.665  WARN 772 --- [http-nio-0.0.0.0-8080-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.meomulm.common.exception.NotFoundException: 작성한 리뷰가 없습니다.]
+2026-02-03 18:18:58.221  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getAllFavorites()] 요청 / ip : 127.0.0.1
+2026-02-03 18:18:58.222  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.getAllFavorites() 서비스 호출 ==========
+2026-02-03 18:18:58.222  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 18:18:58.246  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] c.m.f.model.service.FavoriteServiceImpl  : 서비스에서 가져온 데이터들 : [SelectFavorite(favoriteId=69, userId=6, accommodationId=3044, createdAt=2026-02-03 09:09:38.43495, accommodationName=맹그로브 동대문, accommodationAddress=서울특별시 중구 퇴계로 334 (광희동2가), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/26/3379726_image2_1.jpg), SelectFavorite(favoriteId=70, userId=6, accommodationId=5229, createdAt=2026-02-03 09:12:35.094837, accommodationName=헤이, 서귀포, accommodationAddress=제주특별자치도 서귀포시 태평로 363 (서귀동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/48/2877348_image2_1.JPG), SelectFavorite(favoriteId=71, userId=6, accommodationId=3528, createdAt=2026-02-03 09:18:37.672526, accommodationName=탑모텔, accommodationAddress=부산광역시 동구 중앙대로196번길 12-15, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/28/1958028_image2_1.JPG), SelectFavorite(favoriteId=64, userId=6, accommodationId=3144, createdAt=2026-02-03 09:01:09.684842, accommodationName=더블트리 바이 힐튼 서울 판교 레지던스, accommodationAddress=경기도 성남시 분당구 백현로 26 (정자동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/60/3341860_image2_1.jpg)]
+2026-02-03 18:18:58.246  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : Running Time : 24ms
+2026-02-03 18:18:58.246  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:00.143  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : [UserController.getUserReservationById()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:00.143  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : ========== UserServiceImpl.getUserReservationById() 서비스 호출 ==========
+2026-02-03 18:19:00.144  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 18:19:00.144  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] c.m.user.model.service.UserServiceImpl   : 💡 예약내역 조회 시작. userId: 6
+2026-02-03 18:19:00.173  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] c.m.user.model.service.UserServiceImpl   : ✅ 예약내역 조회 성공. userId: 6
+2026-02-03 18:19:00.173  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : Running Time : 29ms
+2026-02-03 18:19:00.173  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:18.184  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getAllFavorites()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:18.185  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.getAllFavorites() 서비스 호출 ==========
+2026-02-03 18:19:18.185  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 18:19:18.209  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] c.m.f.model.service.FavoriteServiceImpl  : 서비스에서 가져온 데이터들 : [SelectFavorite(favoriteId=69, userId=6, accommodationId=3044, createdAt=2026-02-03 09:09:38.43495, accommodationName=맹그로브 동대문, accommodationAddress=서울특별시 중구 퇴계로 334 (광희동2가), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/26/3379726_image2_1.jpg), SelectFavorite(favoriteId=70, userId=6, accommodationId=5229, createdAt=2026-02-03 09:12:35.094837, accommodationName=헤이, 서귀포, accommodationAddress=제주특별자치도 서귀포시 태평로 363 (서귀동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/48/2877348_image2_1.JPG), SelectFavorite(favoriteId=71, userId=6, accommodationId=3528, createdAt=2026-02-03 09:18:37.672526, accommodationName=탑모텔, accommodationAddress=부산광역시 동구 중앙대로196번길 12-15, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/28/1958028_image2_1.JPG), SelectFavorite(favoriteId=64, userId=6, accommodationId=3144, createdAt=2026-02-03 09:01:09.684842, accommodationName=더블트리 바이 힐튼 서울 판교 레지던스, accommodationAddress=경기도 성남시 분당구 백현로 26 (정자동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/60/3341860_image2_1.jpg)]
+2026-02-03 18:19:18.209  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : Running Time : 24ms
+2026-02-03 18:19:18.209  INFO 772 --- [http-nio-0.0.0.0-8080-exec-7] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:20.681  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getAccommodationDetailById()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:20.681  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.c.AccommodationController          : 🔥 Controller 진입 - accommodationId=5314
+2026-02-03 18:19:20.681  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getAccommodationDetailById() 서비스 호출 ==========
+2026-02-03 18:19:20.681  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Parameter : [5314]
+2026-02-03 18:19:20.681  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : 💡 숙소 상세 검색 시작 - accommodationId=5314
+2026-02-03 18:19:20.683  WARN 772 --- [http-nio-0.0.0.0-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource api/accommodation/reviews/summary/5314.]
+2026-02-03 18:19:20.716  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : ✅ 숙소 상세 검색 완료 - result=펠리스타운
+2026-02-03 18:19:20.716  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] c.m.a.m.s.AccommodationServiceImpl       : 숙소 상세 검색 완료 - result=[]
+2026-02-03 18:19:20.716  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : Running Time : 35ms
+2026-02-03 18:19:20.716  INFO 772 --- [http-nio-0.0.0.0-8080-exec-1] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:20.783  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:20.783  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[5314, 3528, 3044, 3114, 3103, 5229, 3144]
+2026-02-03 18:19:20.783  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:19:20.783  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : Parameter : [[5314, 3528, 3044, 3114, 3103, 5229, 3144]]
+2026-02-03 18:19:20.787  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:20.788  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.selectFavorite() 서비스 호출 ==========
+2026-02-03 18:19:20.788  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 5314]
+2026-02-03 18:19:20.808  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : Running Time : 20ms
+2026-02-03 18:19:20.808  INFO 772 --- [http-nio-0.0.0.0-8080-exec-8] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:20.906  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : Running Time : 123ms
+2026-02-03 18:19:20.906  INFO 772 --- [http-nio-0.0.0.0-8080-exec-9] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:20.968  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : [AccommodationController.getRecentAccommodations()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:20.968  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] c.m.a.c.AccommodationController          : 🔥 최근 본 숙소 조회 - ids=[5314, 3528, 3044, 3114, 3103, 5229, 3144]
+2026-02-03 18:19:20.968  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : ========== AccommodationServiceImpl.getRecentAccommodations() 서비스 호출 ==========
+2026-02-03 18:19:20.968  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : Parameter : [[5314, 3528, 3044, 3114, 3103, 5229, 3144]]
+2026-02-03 18:19:21.078  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : Running Time : 110ms
+2026-02-03 18:19:21.078  INFO 772 --- [http-nio-0.0.0.0-8080-exec-6] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:21.413  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.postFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:21.420  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.postFavorite() 서비스 호출 ==========
+2026-02-03 18:19:21.420  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 5314]
+2026-02-03 18:19:21.431  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : Running Time : 11ms
+2026-02-03 18:19:21.431  INFO 772 --- [http-nio-0.0.0.0-8080-exec-5] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:21.495  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getFavorite()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:21.496  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.selectFavorite() 서비스 호출 ==========
+2026-02-03 18:19:21.496  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Parameter : [6, 5314]
+2026-02-03 18:19:21.516  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : Running Time : 20ms
+2026-02-03 18:19:21.516  INFO 772 --- [http-nio-0.0.0.0-8080-exec-3] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:19:23.264  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : [FavoriteController.getAllFavorites()] 요청 / ip : 127.0.0.1
+2026-02-03 18:19:23.264  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : ========== FavoriteServiceImpl.getAllFavorites() 서비스 호출 ==========
+2026-02-03 18:19:23.264  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : Parameter : [6]
+2026-02-03 18:19:23.296  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] c.m.f.model.service.FavoriteServiceImpl  : 서비스에서 가져온 데이터들 : [SelectFavorite(favoriteId=69, userId=6, accommodationId=3044, createdAt=2026-02-03 09:09:38.43495, accommodationName=맹그로브 동대문, accommodationAddress=서울특별시 중구 퇴계로 334 (광희동2가), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/26/3379726_image2_1.jpg), SelectFavorite(favoriteId=70, userId=6, accommodationId=5229, createdAt=2026-02-03 09:12:35.094837, accommodationName=헤이, 서귀포, accommodationAddress=제주특별자치도 서귀포시 태평로 363 (서귀동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/48/2877348_image2_1.JPG), SelectFavorite(favoriteId=71, userId=6, accommodationId=3528, createdAt=2026-02-03 09:18:37.672526, accommodationName=탑모텔, accommodationAddress=부산광역시 동구 중앙대로196번길 12-15, accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/28/1958028_image2_1.JPG), SelectFavorite(favoriteId=72, userId=6, accommodationId=5314, createdAt=2026-02-03 09:19:21.82914, accommodationName=펠리스타운, accommodationAddress=제주특별자치도 서귀포시 성산읍 시흥하동로50번길 23, accommodationImageUrl=null), SelectFavorite(favoriteId=64, userId=6, accommodationId=3144, createdAt=2026-02-03 09:01:09.684842, accommodationName=더블트리 바이 힐튼 서울 판교 레지던스, accommodationAddress=경기도 성남시 분당구 백현로 26 (정자동), accommodationImageUrl=http://tong.visitkorea.or.kr/cms/resource/60/3341860_image2_1.jpg)]
+2026-02-03 18:19:23.296  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : Running Time : 32ms
+2026-02-03 18:19:23.296  INFO 772 --- [http-nio-0.0.0.0-8080-exec-10] com.meomulm.common.aop.LoggingAspect     : ===================================================================================
+2026-02-03 18:35:37.728  INFO 772 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-02-03 18:35:37.728  INFO 772 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@10065638]]
+2026-02-03 18:35:37.728  INFO 772 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-02-03 18:35:37.739  INFO 772 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Shutdown initiated...
+2026-02-03 18:35:37.743  INFO 772 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : MyHikariCP - Shutdown completed.
