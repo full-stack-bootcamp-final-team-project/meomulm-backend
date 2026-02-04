@@ -10,8 +10,8 @@ public class ValidateUtil {
     public void validateEmail(String email) {
         String regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 
-        if (email == null || email.isEmpty()) {
-            throw new BadRequestException("이메일이 필수 입력 사항입니다.");
+        if (email.isEmpty()) {
+            throw new BadRequestException("이메일은 필수 입력 사항입니다.");
         }
 
         if(!email.matches(regexp)) {
@@ -26,7 +26,7 @@ public class ValidateUtil {
             throw new BadRequestException("비밀번호는 필수 입력 사항입니다.");
         }
 
-        if (password.matches(regexp)) {
+        if (!password.matches(regexp)) {
             throw new BadRequestException("비밀번호 형식이 올바르지 않습니다.");
         }
     }
@@ -42,7 +42,7 @@ public class ValidateUtil {
             throw new BadRequestException("이름은 최소 2글자 이상이여야 합니다.");
         }
 
-        if(name.matches(regexp)){
+        if(!name.matches(regexp)){
             throw new BadRequestException("이름 형식이 올바르지 않습니다.");
         }
     }
@@ -58,8 +58,19 @@ public class ValidateUtil {
             throw new BadRequestException("전화번호는 최소 10자 최대 13자까지 가능합니다.");
         }
 
-        if(phone.matches(regexp)) {
+        if(!phone.matches(regexp)) {
             throw new BadRequestException("전화번호 형식이 올바르지 않습니다.");
+        }
+    }
+
+    public void validateBirth(String birth) {
+        String regexp = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$";
+        if (birth == null || birth.isEmpty()) {
+            throw new BadRequestException("생년월일은 필수 입력 사항입니다.");
+        }
+
+        if(!birth.matches(regexp)) {
+            throw new BadRequestException("생년월일 형식이 올바르지 않습니다.(- 입력 필수)");
         }
     }
 }

@@ -191,6 +191,7 @@ public class UserServiceImpl implements UserService {
         validateUtil.validatePassword(user.getUserPassword());
         validateUtil.validateName(user.getUserName());
         validateUtil.validatePhone(user.getUserPhone());
+        validateUtil.validateBirth(user.getUserBirth());
 
 
         String encodePw = bCryptPasswordEncoder.encode(user.getUserPassword());
