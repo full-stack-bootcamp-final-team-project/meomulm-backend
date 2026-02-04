@@ -3,6 +3,7 @@ package com.meomulm.reservation.model.service;
 import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.exception.ForbiddenException;
 import com.meomulm.common.exception.NotFoundException;
+import com.meomulm.common.util.ValidateUtil;
 import com.meomulm.product.payment.model.mapper.PaymentMapper;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.reservation.model.dto.ReservationDeleteRequest;
@@ -20,8 +21,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationMapper reservationMapper;
     private final PaymentMapper paymentMapper;
+    private final ValidateUtil validateUtil;
 
-    private boolean isNotExist(String str) {
+/*    private boolean isNotExist(String str) {
         return str == null || str.trim().isEmpty();
     }
 
@@ -35,7 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (phone == null) return false;
         String regex = "^010-?\\d{4}-?\\d{4}$";
         return phone.matches(regex);
-    }
+    }*/
 
     private String changePhoneForm(String phone) {
         if (phone == null) return null;
@@ -52,6 +54,12 @@ public class ReservationServiceImpl implements ReservationService {
         if (reservation == null) {
             throw new BadRequestException("예약 정보가 전달되지 않았습니다.");
         }
+
+        // 정규식 검증
+        validateUtil.validateEmail(reservation.getBookerEmail());
+        validateUtil.validateName(reservation.getBookerName());
+        validateUtil.validatePhone(reservation.getBookerPhone());
+        /*
         if (isNotExist(reservation.getBookerName())
                 || isNotExist(reservation.getBookerEmail())
                 || isNotExist(reservation.getBookerPhone())) {
@@ -63,6 +71,7 @@ public class ReservationServiceImpl implements ReservationService {
         if (!isValidPhone(reservation.getBookerPhone())) {
             throw new BadRequestException("연락처는 010-1234-5678 또는 01012345678 형식으로 입력해주세요.");
         }
+        */
         reservation.setBookerPhone(changePhoneForm(reservation.getBookerPhone()));
         reservationMapper.insertReservation(reservation);
     }
