@@ -1,4 +1,4 @@
-package com.meomulm.payment.model.dto;
+package com.meomulm.product.payment.model.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Payment {
-    // 결제 아이디
+    // 결제  아이디
     private int paymentId;
     // 예약 아이디
     private int reservationId;
