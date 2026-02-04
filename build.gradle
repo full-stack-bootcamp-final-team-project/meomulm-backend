@@ -59,6 +59,9 @@ dependencies {
 // env 파일 읽기
     implementation 'me.paulschwarz:spring-dotenv:4.0.0'
 
+    // stripe
+    implementation 'com.stripe:stripe-java:31.3.0'
+
 }
 
 tasks.named('test') {
