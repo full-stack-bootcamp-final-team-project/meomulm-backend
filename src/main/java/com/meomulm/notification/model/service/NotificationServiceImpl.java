@@ -31,16 +31,16 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void updateNotificationStatus(int notificationId, int currentUserId) {
-        log.info("💡 회원 알림 상태 변경 시작. notificationId: {}, currentUserId: {}", notificationId, currentUserId);
-        int result = notificationMapper.updateNotificationStatus(notificationId, currentUserId);
+    public void updateNotificationStatus(int notificationId) {
+        log.info("💡 회원 알림 상태 변경 시작. notificationId: {}", notificationId);
+        int result = notificationMapper.updateNotificationStatus(notificationId);
         log.info("✅ 회원 알림 상태 변경 결과: {}", result != 1 ? "failed" : "successful");
     }
 
     @Override
-    public void deleteNotification(int notificationId, int currentUserId) {
-        log.info("💡 회원 알림 삭제 시작. notificationId: {}, currentUserId: {}", notificationId, currentUserId);
-        int result = notificationMapper.deleteNotification(notificationId, currentUserId);
+    public void deleteNotification(int notificationId) {
+        log.info("💡 회원 알림 삭제 시작. notificationId: {}", notificationId);
+        int result = notificationMapper.deleteNotification(notificationId);
         log.info("✅ 회원 알림 삭제 결과: {}", result != 1 ? "failed" : "successful");
     }
 }
