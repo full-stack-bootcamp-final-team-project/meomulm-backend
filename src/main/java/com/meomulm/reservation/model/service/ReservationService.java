@@ -26,5 +26,12 @@ public interface ReservationService {
      * @param reservation 예약 DTO
      * @param loginUserId 로그인한 유저 ID
      */
+    void putReservation(ReservationDeleteRequest reservation, int loginUserId);
+
+    /**
+     * 예약 삭제 (미결제 종료)
+     * @param reservation 예약 DTO
+     * @param loginUserId 로그인한 유저 ID
+     */
     void deleteReservation(ReservationDeleteRequest reservation, int loginUserId);
 }
