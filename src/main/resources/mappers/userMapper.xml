@@ -5,6 +5,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meomulm.user.model.mapper.UserMapper">
+
+
+    <select id="selectTodayBirthdayList" resultType="User">
+        SELECT
+            user_id,
+            user_name,
+            user_birth
+        FROM users
+        WHERE
+            /* user_birth가 'YYYY-MM-DD' 문자열일 때 월-일(MM-DD)만 추출하여 비교 */
+            RIGHT(user_birth, 5) = TO_CHAR(CURRENT_DATE, 'MM-DD')
+    </select>
+
+
     <!--==========================
                 MyPage
     ===========================-->

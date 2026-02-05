@@ -6,6 +6,44 @@
 
 <mapper namespace="com.meomulm.reservation.model.mapper.ReservationMapper">
 
+
+<!--    <select id="selectTomorrowCheckInList" resultType="Reservation">-->
+<!--        SELECT-->
+<!--            reservation_id, user_id-->
+<!--        FROM reservation-->
+<!--        WHERE TO_CHAR(check_in_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE + 1, 'YYYY-MM-DD')-->
+<!--          AND status = 'CONFIRMED'-->
+<!--    </select>-->
+
+<!--    <select id="selectTodayCheckOutList" resultType="Reservation">-->
+<!--        SELECT-->
+<!--            reservation_id, user_id-->
+<!--        FROM reservation-->
+<!--        WHERE TO_CHAR(check_out_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')-->
+<!--          AND status = 'CONFIRMED'-->
+<!--    </select>-->
+
+    <select id="selectReservationWithNames" resultType="ReservationDTO">
+        SELECT
+        r.reservation_id,
+        r.user_id,
+        a.accommodation_name,
+        r.product_id
+        FROM reservations r
+        JOIN product p ON r.product_id = p.product_id
+        JOIN accommodation a ON p.accommodation_id = a.accommodation_id
+        WHERE r.status = 'PAID'
+        <choose>
+            <when test="type == 'CHECK_IN'">
+                AND r.check_in_date = CURRENT_DATE + INTERVAL '1 day'
+            </when>
+            <when test="type == 'CHECK_OUT'">
+                AND r.check_out_date = CURRENT_DATE
+            </when>
+        </choose>
+    </select>
+
+
     <!-- 예약 조회 (예약Id) -->
     <select id="selectReservationById">
         SELECT *

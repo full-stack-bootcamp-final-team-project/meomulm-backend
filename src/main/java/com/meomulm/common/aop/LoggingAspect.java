@@ -23,10 +23,25 @@ public class LoggingAspect {
     public void beforeController(JoinPoint jp) {
         String className = jp.getTarget().getClass().getSimpleName();
         String methodName = jp.getSignature().getName() + "()";
-        HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String ip = getRemoteAddr(req);
+//        HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+//        String ip = getRemoteAddr(req);
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(String.format("[%s.%s] 요청 / ip : %s", className, methodName, ip));
+
+        // 1. 현재 요청의 Attributes 가져오기 (없으면 null 반환)
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("[%s.%s] 요청 / ip : %s", className, methodName, ip));
+
+        if (attributes != null) {
+            // 2. 일반적인 HTTP 요청인 경우
+            HttpServletRequest req = attributes.getRequest();
+            String ip = getRemoteAddr(req);
+            sb.append(String.format("[%s.%s] 요청 / ip : %s", className, methodName, ip));
+        } else {
+            // 3. 스케줄러 등 HTTP 요청 외부에서 실행된 경우
+            sb.append(String.format("[%s.%s] 시스템 스케줄러 실행", className, methodName));
+        }
 
         /*
         if(req.getSession().getAttribute("loginUser") != null) {
