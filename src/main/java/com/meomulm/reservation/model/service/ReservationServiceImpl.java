@@ -92,6 +92,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             int generatedId = n.getNotificationId();
 
+            // meomulm://accommodation-detail/5262
+
             Map<String, Object> notification = new HashMap<>();
             notification.put("id", generatedId);
             notification.put("notificationContent", "예약 완료! 예약 내역에서 확인해보세요.");
