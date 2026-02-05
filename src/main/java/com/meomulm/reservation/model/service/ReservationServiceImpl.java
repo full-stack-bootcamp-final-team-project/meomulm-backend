@@ -127,7 +127,7 @@ public class ReservationServiceImpl implements ReservationService {
             Notification n = new Notification();
             n.setUserId(isExistReservation.getUserId());
             n.setNotificationContent("예약이 정상적으로 취소 처리되었습니다.");
-            n.setNotificationLinkUrl("meomulm://mypage/my-reservation?tab=2");
+            n.setNotificationLinkUrl("/mypage/my-reservation?tab=2");
             notificationService.insertNotification(n);
 
             int generatedId = n.getNotificationId();
@@ -136,7 +136,7 @@ public class ReservationServiceImpl implements ReservationService {
             notification.put("id", generatedId);
             notification.put("userId", isExistReservation.getUserId());
             notification.put("notificationContent", "예약이 정상적으로 취소 처리되었습니다.");
-            notification.put("notificationLinkUrl", "meomulm://mypage/my-reservation?tab=2");
+            notification.put("notificationLinkUrl", "/mypage/my-reservation?tab=2");
             notification.put("timestamp", System.currentTimeMillis());
             messagingTemplate.convertAndSendToUser(String.valueOf(isExistReservation.getUserId()), "/queue/notifications", notification);
             log.info("String.valueOf(target.getUserId()) : {}", isExistReservation.getUserId());
