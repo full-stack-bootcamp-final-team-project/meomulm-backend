@@ -23,5 +23,5 @@ public interface PaymentService {
      * Stripe 결제 확인 후 DB 저장
      * @param request  paymentIntentId + reservationId
      */
-    void confirmPayment(ConfirmPaymentRequest request);
+    void confirmPayment(ConfirmPaymentRequest request, int loginUserId);
 }
