@@ -1,6 +1,7 @@
 package com.meomulm.product.payment.controller;
 
 import com.meomulm.common.util.AuthUtil;
+import com.meomulm.common.util.JwtUtil;
 import com.meomulm.product.payment.model.dto.ConfirmPaymentRequest;
 import com.meomulm.product.payment.model.dto.CreatePaymentIntentRequest;
 import com.meomulm.product.payment.model.dto.CreatePaymentIntentResponse;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PaymentController {
 
+    private final JwtUtil jwtUtil;
     private final PaymentService paymentService;
     private final AuthUtil authUtil;
 
@@ -30,7 +32,8 @@ public class PaymentController {
             @PathVariable int reservationId) {
 
         authUtil.getCurrentUserId(authHeader);
-        paymentService.postPayment(payment, reservationId);
+        int loginUserId = jwtUtil.getUserIdFromToken(authHeader.substring(7));;
+        paymentService.postPayment(payment, reservationId, loginUserId);
         return ResponseEntity.ok().build();
     }
 

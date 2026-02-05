@@ -2,6 +2,8 @@ package com.meomulm.product.payment.model.service;
 
 import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.exception.NotFoundException;
+import com.meomulm.notification.model.dto.Notification;
+import com.meomulm.notification.model.service.NotificationService;
 import com.meomulm.product.payment.model.dto.*;
 import com.meomulm.product.payment.model.mapper.PaymentMapper;
 import com.meomulm.reservation.model.dto.Reservation;
@@ -10,6 +12,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +26,14 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentMapper paymentMapper;
     private final ReservationMapper reservationMapper;
+    private final NotificationService notificationService;
+    private final SimpMessagingTemplate messagingTemplate; // WebSocket 메세지 전송
+
 
 
     @Transactional
     @Override
-    public void postPayment(Payment payment, int reservationId) {
+    public void postPayment(Payment payment, int reservationId, int loginUserId) {
         if (payment == null) {
             throw new BadRequestException("결제 정보가 전달되지 않았습니다.");
         }
@@ -38,6 +44,30 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setReservationId(reservationId);
         paymentMapper.insertPayment(payment);
         reservationMapper.updateStatusToPaid(payment.getReservationId());
+
+        try{
+            Notification n = new Notification();
+            n.setUserId(loginUserId);
+            n.setNotificationContent("예약 완료! 예약 내역에서 확인해보세요.");
+            n.setNotificationLinkUrl("meomulm://mypage/my-reservation?tab=0");
+            notificationService.insertNotification(n);
+
+            int generatedId = n.getNotificationId();
+
+            // meomulm://accommodation-detail/5262
+
+            Map<String, Object> notification = new HashMap<>();
+            notification.put("id", generatedId);
+            notification.put("notificationContent", "예약 완료! 예약 내역에서 확인해보세요.");
+            notification.put("notificationLinkUrl", "meomulm://mypage/my-reservation?tab=0");
+            notification.put("userId", loginUserId);
+            notification.put("timestamp", System.currentTimeMillis());
+            messagingTemplate.convertAndSendToUser(String.valueOf(loginUserId), "/queue/notifications", notification);
+            log.info("String.valueOf(target.getUserId()) : {}", loginUserId);
+            log.info("예약 확정 알림 전송, 저장 완료");
+        } catch (Exception e) {
+            log.error("예약 확정 알림 처리 실패: {}", e.getMessage());
+        }
     }
 
     // ============================================================

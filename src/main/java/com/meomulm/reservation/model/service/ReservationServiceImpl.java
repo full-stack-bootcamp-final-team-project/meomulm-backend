@@ -83,26 +83,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setBookerPhone(changePhoneForm(reservation.getBookerPhone()));
         reservationMapper.insertReservation(reservation);
 
-        try{
-            Notification n = new Notification();
-            n.setUserId(reservation.getUserId());
-            n.setNotificationContent("예약 완료! 예약 내역에서 확인해보세요.");
-//            n.setNotificationLinkUrl("myReservation");
-            notificationService.insertNotification(n);
 
-            int generatedId = n.getNotificationId();
-
-            Map<String, Object> notification = new HashMap<>();
-            notification.put("id", generatedId);
-            notification.put("notificationContent", "예약 완료! 예약 내역에서 확인해보세요.");
-            notification.put("userId", reservation.getUserId());
-            notification.put("timestamp", System.currentTimeMillis());
-            messagingTemplate.convertAndSendToUser(String.valueOf(reservation.getUserId()), "/queue/notifications", notification);
-            log.info("String.valueOf(target.getUserId()) : {}", reservation.getUserId());
-            log.info("예약 확정 알림 전송, 저장 완료");
-        } catch (Exception e) {
-            log.error("예약 확정 알림 처리 실패 (ID: {}): {}", reservation.getReservationId(), e.getMessage());
-        }
 
     }
 
@@ -146,14 +127,16 @@ public class ReservationServiceImpl implements ReservationService {
             Notification n = new Notification();
             n.setUserId(isExistReservation.getUserId());
             n.setNotificationContent("예약이 정상적으로 취소 처리되었습니다.");
+            n.setNotificationLinkUrl("meomulm://mypage/my-reservation?tab=2");
             notificationService.insertNotification(n);
 
             int generatedId = n.getNotificationId();
 
             Map<String, Object> notification = new HashMap<>();
             notification.put("id", generatedId);
-            notification.put("notificationContent", "예약이 정상적으로 취소 처리되었습니다.");
             notification.put("userId", isExistReservation.getUserId());
+            notification.put("notificationContent", "예약이 정상적으로 취소 처리되었습니다.");
+            notification.put("notificationLinkUrl", "meomulm://mypage/my-reservation?tab=2");
             notification.put("timestamp", System.currentTimeMillis());
             messagingTemplate.convertAndSendToUser(String.valueOf(isExistReservation.getUserId()), "/queue/notifications", notification);
             log.info("String.valueOf(target.getUserId()) : {}", isExistReservation.getUserId());

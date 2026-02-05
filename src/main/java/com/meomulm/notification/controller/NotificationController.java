@@ -36,33 +36,31 @@ public class NotificationController {
 
     /**
      * 알림 읽음 처리 (is_read 상태 업데이트)
-     * @param authHeader JWT 토큰 헤더
      * @param notificationId 알림 고유 번호
      */
     @PatchMapping("/list/{notificationId}")
     public ResponseEntity<Void> updateNotificationStatus(
-            @RequestHeader("Authorization") String authHeader,
+//            @RequestHeader("Authorization") String authHeader,
             @PathVariable("notificationId") int notificationId) {
 
-        int currentUserId = authUtil.getCurrentUserId(authHeader);
-        notificationService.updateNotificationStatus(notificationId, currentUserId);
-        log.info("Notification read: userId={}, notificationId={}", currentUserId, notificationId);
+//        int currentUserId = authUtil.getCurrentUserId(authHeader);
+        notificationService.updateNotificationStatus(notificationId);
+        log.info("Notification read: notificationId={}", notificationId);
         return ResponseEntity.ok().build();
     }
 
     /**
      * 알림 삭제
-     * @param authHeader JWT 토큰 헤더
      * @param notificationId 알림 고유 번호
      */
     @DeleteMapping("/list/{notificationId}")
     public ResponseEntity<Void> deleteNotification(
-            @RequestHeader("Authorization") String authHeader,
+//            @RequestHeader("Authorization") String authHeader,
             @PathVariable("notificationId") int notificationId) {
 
-        int currentUserId = authUtil.getCurrentUserId(authHeader);
-        notificationService.deleteNotification(notificationId, currentUserId);
-        log.info("Notification deleted: userId={}, notificationId={}", currentUserId, notificationId);
+//        int currentUserId = authUtil.getCurrentUserId(authHeader);
+        notificationService.deleteNotification(notificationId);
+        log.info("Notification deleted: notificationId={}", notificationId);
         return ResponseEntity.ok().build();
     }
 }

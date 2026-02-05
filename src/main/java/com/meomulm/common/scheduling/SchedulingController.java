@@ -92,15 +92,16 @@ public class SchedulingController {
                 Notification n = new Notification();
                 n.setUserId(res.getUserId());
                 n.setNotificationContent("내일은 [" + res.getAccommodationName() + "] 체크인 날입니다!");
-                n.setNotificationLinkUrl("/reservation/detail/" + res.getReservationId());
+                n.setNotificationLinkUrl("meomulm://mypage/my-reservation?tab=0");
                 notificationService.insertNotification(n);
 
                 int generatedId = n.getNotificationId();
 
                 Map<String, Object> notification = new HashMap<>();
                 notification.put("id", generatedId);
-                notification.put("notificationContent", "내일은 [" + res.getAccommodationName() + "] 체크인 날입니다!");
                 notification.put("userId", res.getUserId());
+                notification.put("notificationContent", "내일은 [" + res.getAccommodationName() + "] 체크인 날입니다!");
+                notification.put("notificationLinkUrl", "meomulm://mypage/my-reservation?tab=0");
                 notification.put("timestamp", System.currentTimeMillis());
                 messagingTemplate.convertAndSendToUser(String.valueOf(res.getUserId()), "/queue/notifications", notification);
                 log.info("String.valueOf(target.getUserId()) : {}", res.getUserId());
@@ -122,15 +123,16 @@ public class SchedulingController {
                 Notification n = new Notification();
                 n.setUserId(target.getUserId());
                 n.setNotificationContent("숙소는 어떠셨나요? [" + target.getAccommodationName() + "] 리뷰를 남겨주세요!");
-                n.setNotificationLinkUrl("/review/write/" + target.getReservationId());
+                n.setNotificationLinkUrl("meomulm://mypage/my-reservation?tab=1");
                 notificationService.insertNotification(n);
 
                 int generatedId = n.getNotificationId();
 
                 Map<String, Object> notification = new HashMap<>();
                 notification.put("id", generatedId);
-                notification.put("notificationContent", "숙소는 어떠셨나요? [" + target.getAccommodationName() + "] 리뷰를 남겨주세요!");
                 notification.put("userId", target.getUserId());
+                notification.put("notificationContent", "숙소는 어떠셨나요? [" + target.getAccommodationName() + "] 리뷰를 남겨주세요!");
+                notification.put("notificationLinkUrl", "meomulm://mypage/my-reservation?tab=1");
                 notification.put("timestamp", System.currentTimeMillis());
                 messagingTemplate.convertAndSendToUser(String.valueOf(target.getUserId()), "/queue/notifications", notification);
                 log.info("String.valueOf(target.getUserId()) : {}", target.getUserId());

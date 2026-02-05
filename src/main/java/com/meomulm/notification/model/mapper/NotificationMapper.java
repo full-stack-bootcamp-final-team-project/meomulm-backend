@@ -9,6 +9,6 @@ import java.util.List;
 public interface NotificationMapper {
     List<Notification> selectNotificationByUserId(int userId);
     int insertNotification(Notification notification);
-    int updateNotificationStatus(int notificationId, int currentUserId);
-    int deleteNotification(int notificationId, int currentUserId);
+    int updateNotificationStatus(int notificationId);
+    int deleteNotification(int notificationId);
 }

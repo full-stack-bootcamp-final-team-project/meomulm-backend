@@ -10,7 +10,7 @@ public interface PaymentService {
     /**
      * 결제정보  추가
      */
-    void postPayment(Payment payment, int reservationId);
+    void postPayment(Payment payment, int reservationId, int loginUserId);
 
     /**
      * Stripe PaymentIntent 생성
