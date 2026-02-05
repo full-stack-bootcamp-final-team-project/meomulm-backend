@@ -60,14 +60,23 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("*"));         // Flutter 에뮬레이터 및 React 로컬 환경 허용
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+
+        config.setAllowedOriginPatterns(List.of(
+                "http://localhost:*",
+                "http://10.0.2.2:*",
+                "https://*.onrender.com",
+                "https://meomulm.com",
+                "https://www.meomulm.com"
+        ));
+
+        config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); // 쿠키/인증 헤더 허용
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+
 
 }
