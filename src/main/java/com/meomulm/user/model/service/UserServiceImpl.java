@@ -61,6 +61,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void putUserInfo(User user, int currentUserId) {
+        // 정규식 검증 (이름, 전화번호)
+        validateUtil.validateName(user.getUserName());
+        validateUtil.validatePhone(user.getUserPhone());
+
         log.info("💡 회원정보 수정 시작. userId: {}", currentUserId);
         userMapper.updateUserInfo(user.getUserName(), user.getUserPhone(), currentUserId);
 
@@ -145,6 +149,9 @@ public class UserServiceImpl implements UserService {
             log.warn("⚠️ 새 비밀번호가 존재하지 않음. userId: {}", userId);
             throw new NotFoundException("입력한 새 비밀번호가 존재하지 않습니다.");
         }
+
+        // 정규식 검증 (새 비밀번호)
+        validateUtil.validatePassword(newPassword);
 
         userMapper.updateMyPagePassword(userId, bCryptPasswordEncoder.encode(newPassword));
         log.info("✅ 비밀번호 수정 성공. userId: {}", userId);
