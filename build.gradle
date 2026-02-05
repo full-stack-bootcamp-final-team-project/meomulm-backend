@@ -64,6 +64,9 @@ dependencies {
     // stripe
     implementation 'com.stripe:stripe-java:31.3.0'
 
+    // websocket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
 }
 
 tasks.named('test') {

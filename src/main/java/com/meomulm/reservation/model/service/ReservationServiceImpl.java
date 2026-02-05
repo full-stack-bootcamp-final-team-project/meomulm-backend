@@ -4,6 +4,8 @@ import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.exception.ForbiddenException;
 import com.meomulm.common.exception.NotFoundException;
 import com.meomulm.common.util.ValidateUtil;
+import com.meomulm.notification.model.dto.Notification;
+import com.meomulm.notification.model.service.NotificationService;
 import com.meomulm.product.payment.model.mapper.PaymentMapper;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.reservation.model.dto.ReservationDeleteRequest;
@@ -11,8 +13,12 @@ import com.meomulm.reservation.model.dto.ReservationUpdateRequest;
 import com.meomulm.reservation.model.mapper.ReservationMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -22,6 +28,8 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationMapper reservationMapper;
     private final PaymentMapper paymentMapper;
     private final ValidateUtil validateUtil;
+    private final NotificationService notificationService;
+    private final SimpMessagingTemplate messagingTemplate; // WebSocket 메세지 전송
 
 /*    private boolean isNotExist(String str) {
         return str == null || str.trim().isEmpty();
@@ -74,6 +82,28 @@ public class ReservationServiceImpl implements ReservationService {
         */
         reservation.setBookerPhone(changePhoneForm(reservation.getBookerPhone()));
         reservationMapper.insertReservation(reservation);
+
+        try{
+            Notification n = new Notification();
+            n.setUserId(reservation.getUserId());
+            n.setNotificationContent("예약 완료! 예약 내역에서 확인해보세요.");
+//            n.setNotificationLinkUrl("myReservation");
+            notificationService.insertNotification(n);
+
+            int generatedId = n.getNotificationId();
+
+            Map<String, Object> notification = new HashMap<>();
+            notification.put("id", generatedId);
+            notification.put("notificationContent", "예약 완료! 예약 내역에서 확인해보세요.");
+            notification.put("userId", reservation.getUserId());
+            notification.put("timestamp", System.currentTimeMillis());
+            messagingTemplate.convertAndSendToUser(String.valueOf(reservation.getUserId()), "/queue/notifications", notification);
+            log.info("String.valueOf(target.getUserId()) : {}", reservation.getUserId());
+            log.info("예약 확정 알림 전송, 저장 완료");
+        } catch (Exception e) {
+            log.error("예약 확정 알림 처리 실패 (ID: {}): {}", reservation.getReservationId(), e.getMessage());
+        }
+
     }
 
     /**
@@ -111,6 +141,26 @@ public class ReservationServiceImpl implements ReservationService {
         }
         reservationMapper.deleteReservation(reservation.getReservationId());
         paymentMapper.deletePayment(reservation.getReservationId());
+
+        try{
+            Notification n = new Notification();
+            n.setUserId(isExistReservation.getUserId());
+            n.setNotificationContent("예약이 정상적으로 취소 처리되었습니다.");
+            notificationService.insertNotification(n);
+
+            int generatedId = n.getNotificationId();
+
+            Map<String, Object> notification = new HashMap<>();
+            notification.put("id", generatedId);
+            notification.put("notificationContent", "예약이 정상적으로 취소 처리되었습니다.");
+            notification.put("userId", isExistReservation.getUserId());
+            notification.put("timestamp", System.currentTimeMillis());
+            messagingTemplate.convertAndSendToUser(String.valueOf(isExistReservation.getUserId()), "/queue/notifications", notification);
+            log.info("String.valueOf(target.getUserId()) : {}", isExistReservation.getUserId());
+            log.info("예약 취소 알림 전송, 저장 완료");
+        } catch (Exception e) {
+            log.error("예약 취소 알림 처리 실패 (ID: {}): {}", isExistReservation.getReservationId(), e.getMessage());
+        }
     }
 
 }
