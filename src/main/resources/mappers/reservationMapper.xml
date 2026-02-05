@@ -93,9 +93,15 @@
     </update>
 
     <!-- 예약 취소 (상태 변경) -->
-    <update id="deleteReservation">
+    <update id="putReservation">
         UPDATE reservation
         SET status = 'CANCELED'
         WHERE reservation_id = #{reservationId}
     </update>
+
+    <!-- 예약 삭제(미결제 종료) -->
+    <delete id="deleteReservation">
+        DELETE FROM reservation
+        WHERE reservation_id = #{reservationId}
+    </delete>
 </mapper>

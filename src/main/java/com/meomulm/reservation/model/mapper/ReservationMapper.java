@@ -37,5 +37,8 @@ public interface ReservationMapper {
     void updateStatusToUsed(int reservationId);
 
     // 예약 취소 (상태 변경)
+    void putReservation(int reservationId);
+
+    // 예약 삭제(미결제 종료)
     void deleteReservation(int reservationId);
 }

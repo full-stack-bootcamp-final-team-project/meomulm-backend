@@ -63,6 +63,17 @@ public class ReservationController {
     /**
      * 예약 취소 (기존 유지)
      */
+    @PutMapping
+    public ResponseEntity<Void> putReservation(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestBody ReservationDeleteRequest reservation) {
+
+        int loginUserId = authUtil.getCurrentUserId(authHeader);
+        reservationService.putReservation(reservation, loginUserId);
+        return ResponseEntity.ok().build();
+    }
+
+
     @DeleteMapping
     public ResponseEntity<Void> deleteReservation(
             @RequestHeader("Authorization") String authHeader,

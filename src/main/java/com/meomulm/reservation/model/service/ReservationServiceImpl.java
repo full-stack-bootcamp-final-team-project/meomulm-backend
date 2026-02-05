@@ -131,7 +131,7 @@ public class ReservationServiceImpl implements ReservationService {
      */
     @Transactional
     @Override
-    public void deleteReservation(ReservationDeleteRequest reservation, int loginUserId) {
+    public void putReservation(ReservationDeleteRequest reservation, int loginUserId) {
         Reservation isExistReservation = reservationMapper.selectReservationById(reservation.getReservationId());
         if(isExistReservation == null) {
             throw new NotFoundException("취소하려는 예약을 찾을 수 없습니다.");
@@ -139,7 +139,7 @@ public class ReservationServiceImpl implements ReservationService {
         if(isExistReservation.getUserId() != loginUserId){
             throw new ForbiddenException("예약자 본인만 취소할 수 있습니다.");
         }
-        reservationMapper.deleteReservation(reservation.getReservationId());
+        reservationMapper.putReservation(reservation.getReservationId());
         paymentMapper.deletePayment(reservation.getReservationId());
 
         try{
@@ -161,6 +161,23 @@ public class ReservationServiceImpl implements ReservationService {
         } catch (Exception e) {
             log.error("예약 취소 알림 처리 실패 (ID: {}): {}", isExistReservation.getReservationId(), e.getMessage());
         }
+    }
+
+
+    /**
+     * 예약 삭제 (미결제 종료)
+     * @param reservation 예약 DTO
+     * @param loginUserId 로그인한 유저 ID
+     */
+    @Transactional
+    @Override
+    public void deleteReservation(ReservationDeleteRequest reservation, int loginUserId) {
+        Reservation isExistReservation = reservationMapper.selectReservationById(reservation.getReservationId());
+        if(isExistReservation == null) {
+            throw new NotFoundException("취소하려는 예약을 찾을 수 없습니다.");
+        }
+        reservationMapper.deleteReservation(reservation.getReservationId());
+
     }
 
 }
