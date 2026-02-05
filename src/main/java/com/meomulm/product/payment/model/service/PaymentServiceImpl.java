@@ -44,31 +44,10 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setReservationId(reservationId);
         paymentMapper.insertPayment(payment);
         reservationMapper.updateStatusToPaid(payment.getReservationId());
-
-        try{
-            Notification n = new Notification();
-            n.setUserId(loginUserId);
-            n.setNotificationContent("예약 완료! 예약 내역에서 확인해보세요.");
-            n.setNotificationLinkUrl("meomulm://mypage/my-reservation?tab=0");
-            notificationService.insertNotification(n);
-
-            int generatedId = n.getNotificationId();
-
-            // meomulm://accommodation-detail/5262
-
-            Map<String, Object> notification = new HashMap<>();
-            notification.put("id", generatedId);
-            notification.put("notificationContent", "예약 완료! 예약 내역에서 확인해보세요.");
-            notification.put("notificationLinkUrl", "meomulm://mypage/my-reservation?tab=0");
-            notification.put("userId", loginUserId);
-            notification.put("timestamp", System.currentTimeMillis());
-            messagingTemplate.convertAndSendToUser(String.valueOf(loginUserId), "/queue/notifications", notification);
-            log.info("String.valueOf(target.getUserId()) : {}", loginUserId);
-            log.info("예약 확정 알림 전송, 저장 완료");
-        } catch (Exception e) {
-            log.error("예약 확정 알림 처리 실패: {}", e.getMessage());
-        }
     }
+
+
+
 
     // ============================================================
     // Stripe 테스트 API 구현
@@ -133,7 +112,7 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Transactional
     @Override
-    public void confirmPayment(ConfirmPaymentRequest request) {
+    public void confirmPayment(ConfirmPaymentRequest request, int loginUserId) {
 
         // ── 입력값 검증 ──
         if (request.getPaymentIntentId() == null || request.getPaymentIntentId().isBlank()) {
@@ -171,9 +150,37 @@ public class PaymentServiceImpl implements PaymentService {
             log.info("[Stripe] 결제 확인 & DB 저장 완료 | reservationId={}, paymentIntentId={}",
                     request.getReservationId(), request.getPaymentIntentId());
 
+            Notification n = new Notification();
+            n.setUserId(loginUserId);
+            n.setNotificationContent("예약 완료! 예약 내역에서 확인해보세요.");
+            n.setNotificationLinkUrl("meomulm://mypage/my-reservation?tab=0");
+            notificationService.insertNotification(n);
+
+            int generatedId = n.getNotificationId();
+
+            // meomulm://accommodation-detail/5262
+
+            Map<String, Object> notification = new HashMap<>();
+            notification.put("id", generatedId);
+            notification.put("notificationContent", "예약 완료! 예약 내역에서 확인해보세요.");
+            notification.put("notificationLinkUrl", "meomulm://mypage/my-reservation?tab=0");
+            notification.put("userId", loginUserId);
+            notification.put("timestamp", System.currentTimeMillis());
+            messagingTemplate.convertAndSendToUser(String.valueOf(loginUserId), "/queue/notifications", notification);
+            log.info("String.valueOf(target.getUserId()) : {}", loginUserId);
+            log.info("예약 확정 알림 전송, 저장 완료");
+
         } catch (StripeException e) {
             log.error("[Stripe] PaymentIntent 조회 실패 | msg={}", e.getMessage());
             throw new BadRequestException("Stripe 결제 확인에 실패했습니다: " + e.getMessage());
         }
     }
 }
+
+/*
+try{
+
+        } catch (Exception e) {
+            log.error("예약 확정 알림 처리 실패: {}", e.getMessage());
+        }
+ */

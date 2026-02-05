@@ -83,7 +83,8 @@ public class PaymentController {
             @RequestBody ConfirmPaymentRequest request) {
 
         authUtil.getCurrentUserId(authHeader);
-        paymentService.confirmPayment(request);
+        int loginUserId = jwtUtil.getUserIdFromToken(authHeader.substring(7));;
+        paymentService.confirmPayment(request, loginUserId);
         return ResponseEntity.ok().build();
     }
 }
