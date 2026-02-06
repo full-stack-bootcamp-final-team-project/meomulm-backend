@@ -4,7 +4,7 @@
 
     <!-- 새 대화 생성 -->
     <insert id="createConversation" parameterType="ChatConversation"
-            useGeneratedKeys="true" keyProperty="chatConversationsId">
+            useGeneratedKeys="true" keyProperty="chatConversationId">
         INSERT INTO chat_conversations (user_id, created_at, updated_at)
         VALUES (#{userId}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     </insert>
@@ -39,7 +39,7 @@
     </select>
 
     <!-- 대화 업데이트 -->
-    <update id="updateConversation" parameterType="long">
+    <update id="updateConversation" parameterType="int">
         UPDATE chat_conversations
         SET updated_at = CURRENT_TIMESTAMP
         WHERE chat_conversations_id = #{chatConversationsId}
