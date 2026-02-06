@@ -32,6 +32,12 @@ public interface AccommodationService {
      */
     List<SearchAccommodationResponse> searchAccommodations(SearchAccommodationRequest request);
 
+    /**
+     * 최근 본 숙소
+     * @param ids 최근 본 숙소 아이디 리스트
+     * @return 숙소검색 DTO 리스트
+     */
+    List<SearchAccommodationResponse> getRecentAccommodations(List<Integer> ids);
 
     /**
      * 지역별 가격 낮은 숙소 12개 조회

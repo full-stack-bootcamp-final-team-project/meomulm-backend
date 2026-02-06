@@ -10,7 +10,10 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    // My Page
+
+
+    // 오늘이 생일인 회원 리스트 조회
+    List<User> selectTodayBirthdayList();
 
     // 회원정보 조회
     User selectUserInfoById(int userId);

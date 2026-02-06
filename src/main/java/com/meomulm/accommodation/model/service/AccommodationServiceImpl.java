@@ -105,10 +105,27 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
 
+    /**
+     * 최근 숙소 조회
+     * @param ids 최근 본 숙소 아이디 리스트
+     * @return 숙소검색 DTO 리스트
+     */
+    @Override
+    public List<SearchAccommodationResponse> getRecentAccommodations(List<Integer> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
 
+        // 숙소 ID 목록 조회
+        List<SearchAccommodationResponse> responses =
+                accommodationMapper.selectRecentAccommodations(ids);
 
+        // 이미지 세팅
+        setAccommodationImages(responses);
+        // log.info("✅ 최근 본 숙소 리스트 - responses={}", responses);
 
-
+        return responses;
+    }
 
 
     /**
@@ -186,6 +203,7 @@ public class AccommodationServiceImpl implements AccommodationService {
         accommodationDetail.setAccommodationImages(getAccommodationImagesById(accommodationDetail.getAccommodationId()));
 
         log.info("✅ 숙소 상세 검색 완료 - result={}", accommodationDetail.getAccommodationName());
+        log.info("숙소 상세 검색 완료 - result={}", accommodationDetail.getAccommodationImages());
 
         return accommodationDetail;
     }
