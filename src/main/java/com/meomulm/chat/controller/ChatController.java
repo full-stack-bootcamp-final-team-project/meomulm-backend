@@ -25,7 +25,7 @@ public class ChatController {
      * POST /api/chat/message
      */
     @PostMapping("/{message}")
-    public ResponseEntity<ChatMessage> sendMessage(@RequestHeader(value = "Authorization") String authHeader, @PathVariable String message) {
+    public ResponseEntity<ChatMessage> sendMessage(@RequestHeader(value = "Authorization") String authHeader, @RequestBody String message) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
         ChatMessage response = chatService.sendMessage(currentUserId, message);
         return ResponseEntity.ok(response);
@@ -37,7 +37,7 @@ public class ChatController {
      */
     @GetMapping("/conversations/{conversationId}")
     public ResponseEntity<List<ChatMessage>> getUserConversationHistory(
-            @PathVariable Long conversationId
+            @PathVariable int conversationId
     ){
         try {
             log.info("대화 목록 조회 요청 - 대화방 ID: {}",conversationId);

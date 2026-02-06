@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ChatConversation {
     // 대화방 고유 ID
-    private Long chatConversationId;
+    private int chatConversationId;
     // 사용자 ID
     private int userId;
     // 대화방 생성 시간

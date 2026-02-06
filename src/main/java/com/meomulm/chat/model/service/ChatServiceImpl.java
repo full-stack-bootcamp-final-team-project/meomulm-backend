@@ -15,7 +15,6 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService {
-
     private final ChatKnowMapper chatKnowMapper;
     private final ChatMapper chatMapper;
     private final GeminiService geminiService;
@@ -29,7 +28,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     @Transactional
     public ChatMessage sendMessage(int userId, String message) {
-        Long conversationId = 0L;
+        int conversationId = 0;
         // 새 대화인 경우 생성
         if (message == null) {
             ChatConversation conversation = new ChatConversation();
@@ -70,7 +69,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<ChatMessage> getConversationHistory(Long conversationId) {
+    public List<ChatMessage> getConversationHistory(int conversationId) {
         log.info("대화 기록 조회 - 대화방 ID: {}", conversationId);
         return chatKnowMapper.getMessages(conversationId);
     }
@@ -84,7 +83,7 @@ public class ChatServiceImpl implements ChatService {
     /**
      * 지식 베이스와 인텐트를 활용한 지능형 응답 생성
      */
-    private String generateIntelligentResponse(String message, Long conversationId, int userId) {
+    private String generateIntelligentResponse(String message, int conversationId, int userId) {
         String normalizedMessage = message.toLowerCase().trim();
 
         // 1단계: 인텐트 기반 응답 시도
@@ -210,7 +209,7 @@ public class ChatServiceImpl implements ChatService {
     /**
      * 컨텍스트 기반 응답
      */
-    private String getContextBasedResponse(Long conversationId, String message) {
+    private String getContextBasedResponse(int conversationId, String message) {
         ChatbotContext context = chatMapper.getContext(conversationId, "last_topic");
 
         if (context != null) {
@@ -234,7 +233,7 @@ public class ChatServiceImpl implements ChatService {
     /**
      * 컨텍스트 저장
      */
-    private void saveContext(Long conversationId, String key, String value) {
+    private void saveContext(int conversationId, String key, String value) {
         try {
             ChatbotContext context = new ChatbotContext();
             context.setConversationId(conversationId);

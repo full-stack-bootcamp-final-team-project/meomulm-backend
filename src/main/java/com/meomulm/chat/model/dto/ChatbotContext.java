@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ChatbotContext {
     private Long chatbotContextId;
     // 어느 대화방의 맥락인가
-    private Long conversationId;
+    private int conversationId;
     // 맥락 키 "last_topic" "user_name"
     private String contextKey;
     // 맥락 값 "greeting" "홍길동"

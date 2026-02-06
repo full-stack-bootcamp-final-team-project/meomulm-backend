@@ -8,7 +8,7 @@ import java.util.List;
 public interface ChatService {
     ChatMessage sendMessage(int userId, String message);
 
-    List<ChatMessage> getConversationHistory(Long conversationId);
+    List<ChatMessage> getConversationHistory(int conversationId);
 
     List<ChatConversation> getUserConversations(int userId);
 }

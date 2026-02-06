@@ -13,9 +13,9 @@ public interface ChatKnowMapper {
 
     ChatConversation getConversation(Long id);
 
-    List<ChatMessage> getMessages(Long conversationId);
+    List<ChatMessage> getMessages(int conversationId);
 
     List<ChatConversation> getUserConversations(int userId);
 
-    void updateConversation(Long id);
+    void updateConversation(int id);
 }
