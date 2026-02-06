@@ -91,7 +91,7 @@ public class ReviewServiceImpl implements ReviewService {
 
         int result = reviewMapper.insertReview(review);
 
-        if (result != 0) {
+        if (result == 0) {
             throw new BadRequestException("리뷰 저장에 실패했습니다.");
         }
     }
