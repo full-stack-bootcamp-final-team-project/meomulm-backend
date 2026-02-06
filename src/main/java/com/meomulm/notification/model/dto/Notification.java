@@ -16,6 +16,6 @@ public class Notification {
     private String notificationContent;
     private String notificationLinkUrl;
     private boolean isRead;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
 }
