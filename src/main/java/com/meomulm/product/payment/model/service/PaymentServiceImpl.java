@@ -153,7 +153,7 @@ public class PaymentServiceImpl implements PaymentService {
             Notification n = new Notification();
             n.setUserId(loginUserId);
             n.setNotificationContent("예약 완료! 예약 내역에서 확인해보세요.");
-            n.setNotificationLinkUrl("meomulm://mypage/my-reservation?tab=0");
+            n.setNotificationLinkUrl("/mypage/reservation?tab=0");
             notificationService.insertNotification(n);
 
             int generatedId = n.getNotificationId();
@@ -163,7 +163,7 @@ public class PaymentServiceImpl implements PaymentService {
             Map<String, Object> notification = new HashMap<>();
             notification.put("id", generatedId);
             notification.put("notificationContent", "예약 완료! 예약 내역에서 확인해보세요.");
-            notification.put("notificationLinkUrl", "meomulm://mypage/my-reservation?tab=0");
+            notification.put("notificationLinkUrl", "/mypage/reservation?tab=0");
             notification.put("userId", loginUserId);
             notification.put("timestamp", System.currentTimeMillis());
             messagingTemplate.convertAndSendToUser(String.valueOf(loginUserId), "/queue/notifications", notification);
