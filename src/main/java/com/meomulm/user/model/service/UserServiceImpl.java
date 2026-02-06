@@ -3,6 +3,7 @@ package com.meomulm.user.model.service;
 import com.meomulm.common.exception.BadRequestException;
 import com.meomulm.common.exception.NotFoundException;
 import com.meomulm.common.util.FileUploadService;
+import com.meomulm.common.util.ValidateUtil;
 import com.meomulm.reservation.model.dto.Reservation;
 import com.meomulm.user.model.dto.MyReservationResponse;
 import com.meomulm.user.model.dto.User;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final FileUploadService fileUploadService;
+    private final ValidateUtil validateUtil;
+
+
 
     // ==========================================
     //                  My Page
@@ -57,6 +61,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void putUserInfo(User user, int currentUserId) {
+        // 정규식 검증 (이름, 전화번호)
+        validateUtil.validateName(user.getUserName());
+        validateUtil.validatePhone(user.getUserPhone());
+
         log.info("💡 회원정보 수정 시작. userId: {}", currentUserId);
         userMapper.updateUserInfo(user.getUserName(), user.getUserPhone(), currentUserId);
 
@@ -142,6 +150,9 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("입력한 새 비밀번호가 존재하지 않습니다.");
         }
 
+        // 정규식 검증 (새 비밀번호)
+        validateUtil.validatePassword(newPassword);
+
         userMapper.updateMyPagePassword(userId, bCryptPasswordEncoder.encode(newPassword));
         log.info("✅ 비밀번호 수정 성공. userId: {}", userId);
     }
@@ -181,6 +192,14 @@ public class UserServiceImpl implements UserService {
             log.warn("❌ 이미 존재하는 전화번호 : {}", existingPhone);
             throw new NotFoundException("이미 존재하는 전화번호입니다.");
         }
+
+        // 정규식 검증
+        validateUtil.validateEmail(user.getUserEmail());
+        validateUtil.validatePassword(user.getUserPassword());
+        validateUtil.validateName(user.getUserName());
+        validateUtil.validatePhone(user.getUserPhone());
+        validateUtil.validateBirth(user.getUserBirth());
+
 
         String encodePw = bCryptPasswordEncoder.encode(user.getUserPassword());
         user.setUserPassword(encodePw);
@@ -258,6 +277,8 @@ public class UserServiceImpl implements UserService {
             log.warn("⚠️ 새 비밀번호가 존재하지 않음 userId: {}", userId);
             throw new BadRequestException("새 비밀번호가 존재하지 않습니다.");
         }
+
+        validateUtil.validatePassword(newPassword);
 
         int result = userMapper.updateUserPassword(userId, bCryptPasswordEncoder.encode(newPassword));
 

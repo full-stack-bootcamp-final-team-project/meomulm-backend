@@ -25,7 +25,8 @@ public interface AccommodationMapper {
     // 키워드 / 현위치 / 필터링 통합 조회
     List<SearchAccommodationResponse> selectAccommodations(SearchAccommodationRequest request);
 
-
+    // 최근 본 숙소 조회
+    List<SearchAccommodationResponse> selectRecentAccommodations(List<Integer> ids);
 
     // 지역별 가격 낮은 순 숙소 12개 조회
     List<SearchAccommodationResponse> selectAccommodationPopularByAddress(String accommodationAddress);

@@ -5,6 +5,7 @@ import com.meomulm.user.model.dto.LoginRequest;
 import com.meomulm.user.model.dto.LoginResponse;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.service.KakaoServiceImpl;
+import com.meomulm.user.model.service.NaverServiceImpl;
 import com.meomulm.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ public class AuthController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
     private final KakaoServiceImpl kakaoService;
+    private final NaverServiceImpl naverService;
 
     /**
      * 회원가입
@@ -155,6 +157,37 @@ public class AuthController {
                     "userProfileImage", kakaoUser.getUserProfileImage() != null ? kakaoUser.getUserProfileImage() : ""
             ));
             log.info("⚠️ 카카오 로그인 - 미가입 회원: {}", kakaoUser.getUserEmail());
+            return ResponseEntity.status(202).body(response);
+        }
+    }
+
+    @PostMapping("/naver")
+    public ResponseEntity<?> naverLogin(@RequestBody Map<String, String> data) {
+        String accessToken = data.get("accessToken");
+
+        if (accessToken == null || accessToken.isEmpty()) {
+            return ResponseEntity.status(400).body(Map.of("error", "액세스 토큰이 없습니다."));
+        }
+
+        User naverUser = naverService.getNaverUserInfo(accessToken);
+        if (naverUser == null) {
+            return ResponseEntity.status(400).body(Map.of("error", "네이버 유저 정보 조회 실패"));
+        }
+
+        User existUser = userService.getUserByUserEmail(naverUser.getUserEmail());
+
+        if (existUser != null) {
+            String token = jwtUtil.generateToken(existUser.getUserId(), existUser.getUserEmail());
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setToken(token);
+            return ResponseEntity.ok(loginResponse);
+        } else {
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "need_signup");
+            response.put("naverUser", Map.of(
+                    "userEmail", naverUser.getUserEmail(),
+                    "userName", naverUser.getUserName() != null ? naverUser.getUserName() : ""
+            ));
             return ResponseEntity.status(202).body(response);
         }
     }

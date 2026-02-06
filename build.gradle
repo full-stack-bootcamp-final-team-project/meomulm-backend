@@ -51,15 +51,22 @@ dependencies {
 //  테스트
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 // MyBatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
 
 // 로그
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+
 // env 파일 읽기
     implementation 'me.paulschwarz:spring-dotenv:4.0.0'
-// Stripe 결제
-    implementation 'com.stripe:stripe-java:28.2.0'
+
+    // stripe
+    implementation 'com.stripe:stripe-java:31.3.0'
+
+    // websocket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
 }
 
 tasks.named('test') {

@@ -25,12 +25,27 @@ public class FavoriteController {
      * @return 찜 목록 조회 DTO 리스트 + 상태코드 200
      */
     @GetMapping
-    public ResponseEntity<List<SelectFavorite>> getFavorites(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<List<SelectFavorite>> getAllFavorites(@RequestHeader("Authorization") String authHeader) {
         int currentUserId = authUtil.getCurrentUserId(authHeader);
 
-        List<SelectFavorite> favorites = favoriteService.getFavorites(currentUserId);
+        List<SelectFavorite> favorites = favoriteService.getAllFavorites(currentUserId);
         return ResponseEntity.ok(favorites);
     }
+
+
+    @GetMapping("/accommodation")
+    public ResponseEntity<Integer> getFavorite(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestParam int accommodationId) {
+
+        int currentUserId = authUtil.getCurrentUserId(authHeader);
+
+        // 특정 숙소 찜 여부 조회
+        Integer favoriteId = favoriteService.selectFavorite(currentUserId, accommodationId);
+
+        return ResponseEntity.ok(favoriteId != null ? favoriteId : 0);
+    }
+
 
     /**
      * 사용자 찜 추가하기

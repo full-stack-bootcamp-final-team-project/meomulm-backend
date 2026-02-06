@@ -25,7 +25,7 @@ public class AccommodationController {
      * @return 숙소 이미지 DTO + 상태코드 200
      */
     @GetMapping("/{accommodationId}")
-    public ResponseEntity<AccommodationImage> getAccommodationImage(@RequestParam int accommodationId) {
+    public ResponseEntity<AccommodationImage> getAccommodationImage(@PathVariable int accommodationId) {
         log.info("🔥 Controller 진입 - accommodationId={}", accommodationId);
         AccommodationImage accommodationImage = accommodationService.getAccommodationImageById(accommodationId);
         log.info("숙소 이미지 조회 결과: {}", accommodationImage);
@@ -52,6 +52,25 @@ public class AccommodationController {
         List<SearchAccommodationResponse> results = accommodationService.searchAccommodations(request);
         return ResponseEntity.ok(results);
     }
+
+    /**
+     * 최근 본 숙소
+     * @param ids 최근 본 숙소 아이디 리스트
+     * @return 숙소검색 DTO 리스트
+     */
+    @PostMapping("/recent")
+    public ResponseEntity<List<SearchAccommodationResponse>> getRecentAccommodations(
+            @RequestBody List<Integer> ids
+    ) {
+        log.info("🔥 최근 본 숙소 조회 - ids={}", ids);
+
+        List<SearchAccommodationResponse> results =
+                accommodationService.getRecentAccommodations(ids);
+        // log.info("✅ 최근 본 숙소 저장 - results={}", results);
+
+        return ResponseEntity.ok(results);
+    }
+
 
     /**
      * 지역별 가격 낮은 숙소 12개 조회
