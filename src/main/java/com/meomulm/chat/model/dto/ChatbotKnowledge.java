@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ChatbotKnowledge {
     // 지식 고유 ID
-    private Long id;
+    private Long chatbotKnowledgeId;
     // 카테고리 (인사, 날씨, 시간 등)
     private String category;
     // 키워드 배열 ["안녕", "하이", "헬로"]

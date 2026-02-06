@@ -2,8 +2,6 @@ package com.meomulm.chat.controller;
 
 import com.meomulm.chat.model.dto.ChatConversation;
 import com.meomulm.chat.model.dto.ChatMessage;
-import com.meomulm.chat.model.dto.ChatRequest;
-import com.meomulm.chat.model.dto.ChatResponse;
 import com.meomulm.chat.model.service.ChatService;
 import com.meomulm.common.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,31 +24,11 @@ public class ChatController {
      * 메세지 전송 API
      * POST /api/chat/message
      */
-    @PostMapping("/message")
-    public ResponseEntity<ChatResponse> sendMessage(@RequestBody ChatRequest request) {
-        try {
-            log.info("메세지 요청 수신 - 사용자: {}, 메세지: {}",
-                    request.getUserId(), request.getMessage());
-
-            // 입력 검증
-            if(request.getUserId() == null || request.getUserId().isEmpty()) {
-                log.warn("사용자 ID가 없습니다.");
-                return ResponseEntity.badRequest().build();
-            }
-
-            if(request.getMessage() == null || request.getMessage().isEmpty()) {
-                log.warn("메세지가 비어있습니다.");
-                return ResponseEntity.badRequest().build();
-            }
-
-            ChatResponse response = chatService.sendMessage(request);
-            log.info("메세지 처리 완료 - 대화방 ID: {}",response.getConversationId());
-
-            return ResponseEntity.ok(response);
-        }catch (Exception e){
-            log.error("메세지 전송 중 오류 발생", e);
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @PostMapping("/{message}")
+    public ResponseEntity<ChatMessage> sendMessage(@RequestHeader(value = "Authorization") String authHeader, @PathVariable String message) {
+        int currentUserId = authUtil.getCurrentUserId(authHeader);
+        ChatMessage response = chatService.sendMessage(currentUserId, message);
+        return ResponseEntity.ok(response);
     }
 
     /**
@@ -88,9 +66,8 @@ public class ChatController {
             int currentUserId = authUtil.getCurrentUserId(authHeader);
 
             log.info("사용자 대화 목록 조회 요청 - 사용자 ID: {}",currentUserId);
-            String userIdStr = String.valueOf(currentUserId);
 
-            List<ChatConversation> conversations = chatService.getUserConversations(userIdStr);;
+            List<ChatConversation> conversations = chatService.getUserConversations(currentUserId);;
             log.info("사용자 대화 목록 조회 완료 - 대화 수 : {}",conversations.size());
 
             return ResponseEntity.ok(conversations);

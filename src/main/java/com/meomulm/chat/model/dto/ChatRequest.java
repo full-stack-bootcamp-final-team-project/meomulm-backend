@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChatRequest {
     // 요청한 사용자 ID
-    private String userId;
+    private int userId;
     // 사용자가 보낸 메세지
     private String message;
     // 기존 대화방 ID

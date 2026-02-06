@@ -28,17 +28,14 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     @Transactional
-    public ChatResponse sendMessage(ChatRequest request) {
-        log.info("메시지 수신 - 사용자: {}, 메시지: {}", request.getUserId(), request.getMessage());
-
-        Long conversationId = request.getConversationId();
-
+    public ChatMessage sendMessage(int userId, String message) {
+        Long conversationId = 0L;
         // 새 대화인 경우 생성
-        if (conversationId == null) {
+        if (message == null) {
             ChatConversation conversation = new ChatConversation();
-            conversation.setUserId(request.getUserId());
+            conversation.setUserId(userId);
             chatKnowMapper.createConversation(conversation);
-            conversationId = conversation.getId();
+            conversationId = conversation.getChatConversationId();
             log.info("새 대화방 생성 - ID: {}", conversationId);
         } else {
             chatKnowMapper.updateConversation(conversationId);
@@ -48,13 +45,12 @@ public class ChatServiceImpl implements ChatService {
         // 사용자 메시지 저장
         ChatMessage userMessage = new ChatMessage();
         userMessage.setConversationId(conversationId);
-        userMessage.setMessage(request.getMessage());
+        userMessage.setMessage(message);
         userMessage.setIsUserMessage(true);
         chatKnowMapper.saveMessage(userMessage);
 
         // AI 응답 생성 (지식 베이스 활용)
-//        String botResponse = generateIntelligentResponse(request.getMessage(), conversationId);
-        String botResponse = generateIntelligentResponse(request.getMessage(), conversationId, request.getUserId());
+        String botResponse = generateIntelligentResponse(message, conversationId, userId);
         log.info("봇 응답 생성: {}", botResponse);
 
         // 봇 응답 저장
@@ -65,10 +61,10 @@ public class ChatServiceImpl implements ChatService {
         chatKnowMapper.saveMessage(botMessage);
 
         // 응답 생성
-        ChatResponse response = new ChatResponse();
+        ChatMessage response = new ChatMessage();
         response.setConversationId(conversationId);
         response.setMessage(botResponse);
-        response.setTimestamp(LocalDateTime.now());
+        response.setCreatedAt(LocalDateTime.now());
 
         return response;
     }
@@ -80,7 +76,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<ChatConversation> getUserConversations(String userId) {
+    public List<ChatConversation> getUserConversations(int userId) {
         log.info("사용자 대화 목록 조회 - 사용자 ID: {}", userId);
         return chatKnowMapper.getUserConversations(userId);
     }
@@ -88,7 +84,7 @@ public class ChatServiceImpl implements ChatService {
     /**
      * 지식 베이스와 인텐트를 활용한 지능형 응답 생성
      */
-    private String generateIntelligentResponse(String message, Long conversationId, String userId) {
+    private String generateIntelligentResponse(String message, Long conversationId, int userId) {
         String normalizedMessage = message.toLowerCase().trim();
 
         // 1단계: 인텐트 기반 응답 시도
@@ -130,9 +126,7 @@ public class ChatServiceImpl implements ChatService {
             // [A] 예약 정보 조회 시도
             if (message.contains("예약") || message.contains("내역")) {
                 try {
-                    // String 타입인 userId를 int로 바꿔서 Mapper에 전달!
-                    int idForMapper = Integer.parseInt(userId);
-                    var reservations = userMapper.selectUserReservationById(idForMapper);
+                    var reservations = userMapper.selectUserReservationById(userId);
 
                     if (reservations != null && !reservations.isEmpty()) {
                         dbContext.append("\n[고객 예약 정보]\n");

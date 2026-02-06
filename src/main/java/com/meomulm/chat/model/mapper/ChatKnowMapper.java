@@ -15,7 +15,7 @@ public interface ChatKnowMapper {
 
     List<ChatMessage> getMessages(Long conversationId);
 
-    List<ChatConversation> getUserConversations(String userId);
+    List<ChatConversation> getUserConversations(int userId);
 
     void updateConversation(Long id);
 }
