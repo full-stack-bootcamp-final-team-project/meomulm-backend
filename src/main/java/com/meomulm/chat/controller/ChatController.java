@@ -5,6 +5,7 @@ import com.meomulm.chat.model.dto.ChatMessage;
 import com.meomulm.chat.model.dto.ChatRequest;
 import com.meomulm.chat.model.dto.ChatResponse;
 import com.meomulm.chat.model.service.ChatService;
+import com.meomulm.common.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/chat")
 @RequiredArgsConstructor
 public class ChatController {
-
+    private final AuthUtil authUtil;
     private final ChatService chatService;
 
     /**
@@ -77,17 +78,19 @@ public class ChatController {
 
     /**
      * 사용자의 모든 대화방 기록 메세지 기록 조회
-     * GET /api/chat/conversations/{userId}
+     * GET /api/chat/conversations
      */
-    @GetMapping("/conversations/{userId}")
+    @GetMapping("/conversations")
     public ResponseEntity<List<ChatConversation>> getUserConversations(
-            @PathVariable String userId
+            @RequestHeader("Authorization") String authHeader
     ){
         try {
-            log.info("사용자 대화 목록 조회 요청 - 사용자 ID: {}",userId);
+            int currentUserId = authUtil.getCurrentUserId(authHeader);
 
-            List<ChatConversation> conversations = chatService.getUserConversations(userId);
+            log.info("사용자 대화 목록 조회 요청 - 사용자 ID: {}",currentUserId);
+            String userIdStr = String.valueOf(currentUserId);
 
+            List<ChatConversation> conversations = chatService.getUserConversations(userIdStr);;
             log.info("사용자 대화 목록 조회 완료 - 대화 수 : {}",conversations.size());
 
             return ResponseEntity.ok(conversations);
