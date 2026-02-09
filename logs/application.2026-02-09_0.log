@@ -1,0 +1,203 @@
+2026-02-09 20:18:33.457  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 58841 (/Users/svv/Downloads/full_stack/TeamProject/momum/meomulm-backend/build/classes/java/main started by svv in /Users/svv/Downloads/full_stack/TeamProject/momum/meomulm-backend)
+2026-02-09 20:18:33.457  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-09 20:18:34.014  INFO 58841 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-09 20:18:34.016  INFO 58841 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-09 20:18:34.016  INFO 58841 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-09 20:18:34.023  INFO 58841 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-09 20:18:34.023  INFO 58841 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 563 ms
+2026-02-09 20:18:34.274  WARN 58841 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 3dde04f0-9348-45a6-bb2d-0a63d97faf34
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-09 20:18:34.369  INFO 58841 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2b384f61, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8a224fc, org.springframework.security.web.context.SecurityContextHolderFilter@5b16d10, org.springframework.security.web.header.HeaderWriterFilter@14beb211, org.springframework.web.filter.CorsFilter@1c3b30fb, org.springframework.security.web.authentication.logout.LogoutFilter@2640bf2d, com.meomulm.common.config.JwtAuthenticationFilter@917e9c9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ac0cea0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1b8fd5d3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e9e43bf, org.springframework.security.web.session.SessionManagementFilter@2cf3fb13, org.springframework.security.web.access.ExceptionTranslationFilter@60a3f5ab, org.springframework.security.web.access.intercept.AuthorizationFilter@3fcda744]
+2026-02-09 20:18:34.515  INFO 58841 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-02-09 20:18:34.522  INFO 58841 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-02-09 20:18:34.522  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-02-09 20:18:34.523  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@639377a5]]
+2026-02-09 20:18:34.523  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-02-09 20:18:34.526  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Started MeomulmBackendApplication in 1.093 seconds (process running for 734.883)
+2026-02-09 20:18:34.526  INFO 58841 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-09 20:18:35.945  INFO 58841 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 43 class path changes (29 additions, 0 deletions, 14 modifications)
+2026-02-09 20:18:35.951  INFO 58841 --- [Thread-8] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-02-09 20:18:35.951  INFO 58841 --- [Thread-8] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@639377a5]]
+2026-02-09 20:18:35.952  INFO 58841 --- [Thread-8] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-02-09 20:18:36.097  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 58841 (/Users/svv/Downloads/full_stack/TeamProject/momum/meomulm-backend/build/classes/java/main started by svv in /Users/svv/Downloads/full_stack/TeamProject/momum/meomulm-backend)
+2026-02-09 20:18:36.097  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-09 20:18:36.718  INFO 58841 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-09 20:18:36.720  INFO 58841 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-09 20:18:36.720  INFO 58841 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-09 20:18:36.733  INFO 58841 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-09 20:18:36.734  INFO 58841 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 636 ms
+2026-02-09 20:18:37.131  WARN 58841 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: ef4b1172-cdae-479c-8bb7-676fe45aaf21
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-09 20:18:37.308  INFO 58841 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@65bb68be, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3b2e32f2, org.springframework.security.web.context.SecurityContextHolderFilter@75cba0ed, org.springframework.security.web.header.HeaderWriterFilter@59d35c21, org.springframework.web.filter.CorsFilter@474008ef, org.springframework.security.web.authentication.logout.LogoutFilter@7ba4bdf6, com.meomulm.common.config.JwtAuthenticationFilter@25d829a8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1eff220f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d0e57a5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@72816c07, org.springframework.security.web.session.SessionManagementFilter@6fbc2f80, org.springframework.security.web.access.ExceptionTranslationFilter@73430398, org.springframework.security.web.access.intercept.AuthorizationFilter@33b0c888]
+2026-02-09 20:18:37.453  INFO 58841 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-02-09 20:18:37.460  INFO 58841 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-02-09 20:18:37.460  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-02-09 20:18:37.460  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1e7c334b]]
+2026-02-09 20:18:37.460  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-02-09 20:18:37.462  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Started MeomulmBackendApplication in 1.401 seconds (process running for 737.819)
+2026-02-09 20:18:37.462  INFO 58841 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-09 20:18:39.511  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-09 20:18:39.512  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-09 20:18:39.514  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-02-09 20:18:39.534  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-2] c.meomulm.common.config.WebSocketConfig  : 🔌 WebSocket 연결 시도
+2026-02-09 20:18:39.537  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-2] c.meomulm.common.config.WebSocketConfig  : ✅ WebSocket 인증 성공 - userId: 6
+2026-02-09 20:18:52.093  INFO 58841 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 14 class path changes (0 additions, 0 deletions, 14 modifications)
+2026-02-09 20:18:52.102  WARN 58841 --- [Thread-12] w.s.h.ExceptionWebSocketHandlerDecorator : Unhandled exception after connection closed for ExceptionWebSocketHandlerDecorator [delegate=LoggingWebSocketHandlerDecorator [delegate=SubProtocolWebSocketHandler[StompSubProtocolHandler[v10.stomp, v11.stomp, v12.stomp]]]]
+
+org.springframework.messaging.MessageDeliveryException: Failed to send message to ExecutorSubscribableChannel[clientInboundChannel]
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:149)
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:125)
+	at org.springframework.web.socket.messaging.StompSubProtocolHandler.afterSessionEnded(StompSubProtocolHandler.java:685)
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.clearSession(SubProtocolWebSocketHandler.java:531)
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.afterConnectionClosed(SubProtocolWebSocketHandler.java:400)
+	at org.springframework.web.socket.handler.WebSocketHandlerDecorator.afterConnectionClosed(WebSocketHandlerDecorator.java:85)
+	at org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator.afterConnectionClosed(LoggingWebSocketHandlerDecorator.java:72)
+	at org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator.afterConnectionClosed(ExceptionWebSocketHandlerDecorator.java:78)
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.onClose(StandardWebSocketHandlerAdapter.java:144)
+	at org.apache.tomcat.websocket.WsSession.fireEndpointOnClose(WsSession.java:662)
+	at org.apache.tomcat.websocket.WsSession.doClose(WsSession.java:588)
+	at org.apache.tomcat.websocket.WsSession.doClose(WsSession.java:554)
+	at org.apache.tomcat.websocket.WsSession.close(WsSession.java:542)
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketSession.closeInternal(StandardWebSocketSession.java:235)
+	at org.springframework.web.socket.adapter.AbstractWebSocketSession.close(AbstractWebSocketSession.java:144)
+	at org.springframework.web.socket.handler.WebSocketSessionDecorator.close(WebSocketSessionDecorator.java:160)
+	at org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator.close(ConcurrentWebSocketSessionDecorator.java:271)
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.stop(SubProtocolWebSocketHandler.java:289)
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.stop(SubProtocolWebSocketHandler.java:302)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStop(DefaultLifecycleProcessor.java:344)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.stop(DefaultLifecycleProcessor.java:483)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.stopBeans(DefaultLifecycleProcessor.java:313)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onClose(DefaultLifecycleProcessor.java:214)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1137)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1091)
+	at org.springframework.boot.devtools.restart.Restarter.stop(Restarter.java:308)
+	at org.springframework.boot.devtools.restart.Restarter.lambda$restart$1(Restarter.java:250)
+	at org.springframework.boot.devtools.restart.Restarter$LeakSafeThread.run(Restarter.java:607)
+Caused by: org.springframework.core.task.TaskRejectedException: ExecutorService in shutdown state did not accept task: org.springframework.messaging.support.ExecutorSubscribableChannel$SendTask@2ad78819
+	at org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor.execute(ThreadPoolTaskExecutor.java:365)
+	at org.springframework.messaging.support.ExecutorSubscribableChannel.sendInternal(ExecutorSubscribableChannel.java:103)
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:139)
+	... 29 common frames omitted
+Caused by: java.util.concurrent.RejectedExecutionException: Task org.springframework.messaging.support.ExecutorSubscribableChannel$SendTask@2ad78819 rejected from org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor$1@44f1696b[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 9]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2081)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:841)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1376)
+	at org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor$1.execute(ThreadPoolTaskExecutor.java:269)
+	at org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor.execute(ThreadPoolTaskExecutor.java:362)
+	... 31 common frames omitted
+
+2026-02-09 20:18:52.104  INFO 58841 --- [Thread-12] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-02-09 20:18:52.104  INFO 58841 --- [Thread-12] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1e7c334b]]
+2026-02-09 20:18:52.104  INFO 58841 --- [Thread-12] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-02-09 20:18:52.169  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 58841 (/Users/svv/Downloads/full_stack/TeamProject/momum/meomulm-backend/build/classes/java/main started by svv in /Users/svv/Downloads/full_stack/TeamProject/momum/meomulm-backend)
+2026-02-09 20:18:52.169  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-09 20:18:52.388  INFO 58841 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-09 20:18:52.388  INFO 58841 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-09 20:18:52.388  INFO 58841 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-09 20:18:52.392  INFO 58841 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-09 20:18:52.392  INFO 58841 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 222 ms
+2026-02-09 20:18:52.574  WARN 58841 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 2c003d1b-21d6-4fdf-8ea3-3a58cedc826e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-09 20:18:52.653  INFO 58841 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@15d15b68, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@67339a52, org.springframework.security.web.context.SecurityContextHolderFilter@6a9a0471, org.springframework.security.web.header.HeaderWriterFilter@2e5133c0, org.springframework.web.filter.CorsFilter@be4705f, org.springframework.security.web.authentication.logout.LogoutFilter@24cadb43, com.meomulm.common.config.JwtAuthenticationFilter@2fa39a2a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@70b890d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@20e3651f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5eb125b9, org.springframework.security.web.session.SessionManagementFilter@5d7686c, org.springframework.security.web.access.ExceptionTranslationFilter@3e5a64d3, org.springframework.security.web.access.intercept.AuthorizationFilter@4422345e]
+2026-02-09 20:18:52.770  INFO 58841 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-02-09 20:18:52.777  INFO 58841 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-02-09 20:18:52.777  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-02-09 20:18:52.777  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2fe0e5d]]
+2026-02-09 20:18:52.777  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-02-09 20:18:52.779  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Started MeomulmBackendApplication in 0.622 seconds (process running for 753.136)
+2026-02-09 20:18:52.780  INFO 58841 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-09 20:18:55.121  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-09 20:18:55.121  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-09 20:18:55.122  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-09 20:18:55.127  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-2] c.meomulm.common.config.WebSocketConfig  : 🔌 WebSocket 연결 시도
+2026-02-09 20:18:55.129  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-2] c.meomulm.common.config.WebSocketConfig  : ✅ WebSocket 인증 성공 - userId: 6
+2026-02-09 20:19:10.890  INFO 58841 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-09 20:19:10.902  WARN 58841 --- [Thread-17] w.s.h.ExceptionWebSocketHandlerDecorator : Unhandled exception after connection closed for ExceptionWebSocketHandlerDecorator [delegate=LoggingWebSocketHandlerDecorator [delegate=SubProtocolWebSocketHandler[StompSubProtocolHandler[v10.stomp, v11.stomp, v12.stomp]]]]
+
+org.springframework.messaging.MessageDeliveryException: Failed to send message to ExecutorSubscribableChannel[clientInboundChannel]
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:149)
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:125)
+	at org.springframework.web.socket.messaging.StompSubProtocolHandler.afterSessionEnded(StompSubProtocolHandler.java:685)
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.clearSession(SubProtocolWebSocketHandler.java:531)
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.afterConnectionClosed(SubProtocolWebSocketHandler.java:400)
+	at org.springframework.web.socket.handler.WebSocketHandlerDecorator.afterConnectionClosed(WebSocketHandlerDecorator.java:85)
+	at org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator.afterConnectionClosed(LoggingWebSocketHandlerDecorator.java:72)
+	at org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator.afterConnectionClosed(ExceptionWebSocketHandlerDecorator.java:78)
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketHandlerAdapter.onClose(StandardWebSocketHandlerAdapter.java:144)
+	at org.apache.tomcat.websocket.WsSession.fireEndpointOnClose(WsSession.java:662)
+	at org.apache.tomcat.websocket.WsSession.doClose(WsSession.java:588)
+	at org.apache.tomcat.websocket.WsSession.doClose(WsSession.java:554)
+	at org.apache.tomcat.websocket.WsSession.close(WsSession.java:542)
+	at org.springframework.web.socket.adapter.standard.StandardWebSocketSession.closeInternal(StandardWebSocketSession.java:235)
+	at org.springframework.web.socket.adapter.AbstractWebSocketSession.close(AbstractWebSocketSession.java:144)
+	at org.springframework.web.socket.handler.WebSocketSessionDecorator.close(WebSocketSessionDecorator.java:160)
+	at org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator.close(ConcurrentWebSocketSessionDecorator.java:271)
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.stop(SubProtocolWebSocketHandler.java:289)
+	at org.springframework.web.socket.messaging.SubProtocolWebSocketHandler.stop(SubProtocolWebSocketHandler.java:302)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStop(DefaultLifecycleProcessor.java:344)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.stop(DefaultLifecycleProcessor.java:483)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.stopBeans(DefaultLifecycleProcessor.java:313)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onClose(DefaultLifecycleProcessor.java:214)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1137)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1091)
+	at org.springframework.boot.devtools.restart.Restarter.stop(Restarter.java:308)
+	at org.springframework.boot.devtools.restart.Restarter.lambda$restart$1(Restarter.java:250)
+	at org.springframework.boot.devtools.restart.Restarter$LeakSafeThread.run(Restarter.java:607)
+Caused by: org.springframework.core.task.TaskRejectedException: ExecutorService in shutdown state did not accept task: org.springframework.messaging.support.ExecutorSubscribableChannel$SendTask@4fc3c70e
+	at org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor.execute(ThreadPoolTaskExecutor.java:365)
+	at org.springframework.messaging.support.ExecutorSubscribableChannel.sendInternal(ExecutorSubscribableChannel.java:103)
+	at org.springframework.messaging.support.AbstractMessageChannel.send(AbstractMessageChannel.java:139)
+	... 29 common frames omitted
+Caused by: java.util.concurrent.RejectedExecutionException: Task org.springframework.messaging.support.ExecutorSubscribableChannel$SendTask@4fc3c70e rejected from org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor$1@78c62b4f[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 9]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2081)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:841)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1376)
+	at org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor$1.execute(ThreadPoolTaskExecutor.java:269)
+	at org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor.execute(ThreadPoolTaskExecutor.java:362)
+	... 31 common frames omitted
+
+2026-02-09 20:19:10.906  INFO 58841 --- [Thread-17] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-02-09 20:19:10.906  INFO 58841 --- [Thread-17] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2fe0e5d]]
+2026-02-09 20:19:10.906  INFO 58841 --- [Thread-17] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-02-09 20:19:10.989  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Starting MeomulmBackendApplication using Java 21.0.8 with PID 58841 (/Users/svv/Downloads/full_stack/TeamProject/momum/meomulm-backend/build/classes/java/main started by svv in /Users/svv/Downloads/full_stack/TeamProject/momum/meomulm-backend)
+2026-02-09 20:19:10.989  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-02-09 20:19:11.257  INFO 58841 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-09 20:19:11.257  INFO 58841 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-09 20:19:11.257  INFO 58841 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-02-09 20:19:11.261  INFO 58841 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-09 20:19:11.261  INFO 58841 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 271 ms
+2026-02-09 20:19:11.436  WARN 58841 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c9aa968c-99cc-45a3-86a4-96ecb93a4108
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-09 20:19:11.518  INFO 58841 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@353d07b8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@654a5699, org.springframework.security.web.context.SecurityContextHolderFilter@5d7875cf, org.springframework.security.web.header.HeaderWriterFilter@7e791c14, org.springframework.web.filter.CorsFilter@781005dc, org.springframework.security.web.authentication.logout.LogoutFilter@72a44076, com.meomulm.common.config.JwtAuthenticationFilter@460ea665, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@12decfa, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3782d977, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@51e7a3f, org.springframework.security.web.session.SessionManagementFilter@64d7ec42, org.springframework.security.web.access.ExceptionTranslationFilter@54110311, org.springframework.security.web.access.intercept.AuthorizationFilter@3de80372]
+2026-02-09 20:19:11.635  INFO 58841 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-02-09 20:19:11.642  INFO 58841 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-02-09 20:19:11.642  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-02-09 20:19:11.642  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@32afbdeb]]
+2026-02-09 20:19:11.642  INFO 58841 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-02-09 20:19:11.644  INFO 58841 --- [restartedMain] com.meomulm.MeomulmBackendApplication    : Started MeomulmBackendApplication in 0.667 seconds (process running for 772.001)
+2026-02-09 20:19:11.644  INFO 58841 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-02-09 20:19:13.965  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-09 20:19:13.966  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-09 20:19:13.970  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-02-09 20:19:13.982  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-2] c.meomulm.common.config.WebSocketConfig  : 🔌 WebSocket 연결 시도
+2026-02-09 20:19:13.984  INFO 58841 --- [http-nio-0.0.0.0-8080-exec-2] c.meomulm.common.config.WebSocketConfig  : ✅ WebSocket 인증 성공 - userId: 6
