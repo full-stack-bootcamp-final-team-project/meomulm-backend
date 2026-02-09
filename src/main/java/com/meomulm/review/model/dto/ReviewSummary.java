@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewSummary {
-    private double averageRating;  // 평균 평점
-    private int totalCount;        // 총 리뷰 개수
-    private String latestContent;  // 가장 최근 리뷰 내용
+    // 평균 평점
+    private double averageRating;
+    // 총 리뷰 개수
+    private int totalCount;
+    // 가장 최근 리뷰 내용
+    private String latestContent;
 }

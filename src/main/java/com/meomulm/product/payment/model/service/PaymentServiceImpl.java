@@ -176,11 +176,3 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 }
-
-/*
-try{
-
-        } catch (Exception e) {
-            log.error("예약 확정 알림 처리 실패: {}", e.getMessage());
-        }
- */
