@@ -4,7 +4,7 @@
 <mapper namespace="com.meomulm.chat.model.mapper.ChatMapper">
     <!-- 키워드로 지식 검색 -->
     <select id="findByKeyword" parameterType="string" resultType="ChatbotKnowledge">
-        SELECT id, category, keywords, question, answer, priority, is_active, created_at, updated_at
+        SELECT chatbot_knowledge_id, category, keywords, question, answer, priority, is_active, created_at, updated_at
         FROM chatbot_knowledge
         WHERE is_active = true
           AND #{keyword} = ANY(keywords)
@@ -14,7 +14,7 @@
 
     <!-- 카테고리별 지식 조회 -->
     <select id="findByCategory" parameterType="string" resultType="ChatbotKnowledge">
-        SELECT id, category, keywords, question, answer, priority, is_active, created_at, updated_at
+        SELECT chatbot_knowledge_id, category, keywords, question, answer, priority, is_active, created_at, updated_at
         FROM chatbot_knowledge
         WHERE category = #{category}
           AND is_active = true
@@ -23,7 +23,7 @@
 
     <!-- 모든 활성 지식 조회 -->
     <select id="findAllActive" resultType="ChatbotKnowledge">
-        SELECT id, category, keywords, question, answer, priority, is_active, created_at, updated_at
+        SELECT chatbot_knowledge_id, category, keywords, question, answer, priority, is_active, created_at, updated_at
         FROM chatbot_knowledge
         WHERE is_active = true
         ORDER BY category, priority DESC
@@ -31,7 +31,7 @@
 
     <!-- 인텐트 이름으로 조회 -->
     <select id="findIntentByName" parameterType="string" resultType="ChatbotIntent">
-        SELECT id, intent_name, description, patterns, responses, is_active, created_at
+        SELECT chatbot_intent_id, intent_name, description, patterns, responses, is_active, created_at
         FROM chatbot_intents
         WHERE intent_name = #{intentName}
           AND is_active = true
@@ -39,7 +39,7 @@
 
     <!-- 패턴으로 인텐트 검색 -->
     <select id="findIntentByPattern" parameterType="string" resultType="ChatbotIntent">
-        SELECT id, intent_name, description, patterns, responses, is_active, created_at
+        SELECT chatbot_intent_id, intent_name, description, patterns, responses, is_active, created_at
         FROM chatbot_intents
         WHERE is_active = true
           AND #{pattern} = ANY(patterns)
@@ -48,7 +48,7 @@
 
     <!-- 모든 활성 인텐트 조회 -->
     <select id="findAllIntents" resultType="ChatbotIntent">
-        SELECT id, intent_name, description, patterns, responses, is_active, created_at
+        SELECT chatbot_intent_id, intent_name, description, patterns, responses, is_active, created_at
         FROM chatbot_intents
         WHERE is_active = true
     </select>
@@ -61,7 +61,7 @@
 
     <!-- 컨텍스트 조회 -->
     <select id="getContext" resultType="ChatbotContext">
-        SELECT id, conversation_id, context_key, context_value, expires_at, created_at
+        SELECT chatbot_context_id, conversation_id, context_key, context_value, expires_at, created_at
         FROM chatbot_context
         WHERE conversation_id = #{conversationId}
           AND context_key = #{contextKey}
