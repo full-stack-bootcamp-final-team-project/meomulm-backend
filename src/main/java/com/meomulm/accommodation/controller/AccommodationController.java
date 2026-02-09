@@ -32,19 +32,11 @@ public class AccommodationController {
         return ResponseEntity.ok(accommodationImage);
     }
 
-    //    /**
-//     * 키워드로 숙소 조회
-//     * @param keyword 숙소검색 요청 DTO
-//     * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
-//     */
-//    @GetMapping("/keyword")
-//    public ResponseEntity<List<SearchAccommodationResponse>> getAccommodationByKeyword(
-//            @RequestParam String keyword) {
-//        log.info("🔥 Controller 진입 - keyword={}", keyword);
-//        List<SearchAccommodationResponse> searchAccommodationResponse =
-//                accommodationService.getAccommodationByKeyword(keyword);
-//        return ResponseEntity.ok(searchAccommodationResponse);
-//    }
+    /**
+     * 필터로 숙소 조회
+     * @param request 숙소검색 요청 DTO
+     * @return 숙소검색 응답 DTO 리스트 + 상태코드 200
+     */
     @GetMapping("/search")
     public ResponseEntity<List<SearchAccommodationResponse>> searchAccommodations(
             @ModelAttribute SearchAccommodationRequest request) {
