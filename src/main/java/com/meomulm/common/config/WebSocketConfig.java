@@ -25,35 +25,39 @@ import java.util.Collections;
 @Configuration
 @EnableWebSocketMessageBroker
 @RequiredArgsConstructor
-public class WebSocket implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtUtil jwtUtil;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-
-        /*
-        공용 (broadcast)      /topic/notifications            현재 연결된 모든 클라이언트     "전체 공지, 실시간 피드 등"
-        개인 (user-specific)  /user/123/queue/notifications   userId가 123인 클라이언트만     "팔로우 알림, DM, 좋아요 알림 등"
-
-        messagingTemplate.convertAndSend        (        "/topic/notifications", notification );
-        messagingTemplate.convertAndSendToUser  ( "123", "/queue/notifications", notification );
-         */
-
         registry.enableSimpleBroker("/topic", "/queue");
         registry.setApplicationDestinationPrefixes("/app");
-
         registry.setUserDestinationPrefix("/user");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-
+        // 1. 웹 브라우저용 (SockJS)
         registry.addEndpoint("/ws")
-
-                .setAllowedOriginPatterns("*")
-
+                .setAllowedOriginPatterns(
+                        "http://localhost:*",
+                        "http://10.0.2.2:*",
+                        "https://*.onrender.com",
+                        "https://meomulm.com",
+                        "https://www.meomulm.com"
+                )
                 .withSockJS();
+
+        // 2. 네이티브 WebSocket용 (Flutter, React Native 등)
+        registry.addEndpoint("/ws-native")
+                .setAllowedOriginPatterns(
+                        "http://localhost:*",
+                        "http://10.0.2.2:*",
+                        "https://*.onrender.com",
+                        "https://meomulm.com",
+                        "https://www.meomulm.com"
+                );
     }
 
     @Override
@@ -65,18 +69,37 @@ public class WebSocket implements WebSocketMessageBrokerConfigurer {
                         MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
                 if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-                    log.info("새로운 STOMP 연결 시도 발견!");
+                    log.info("🔌 WebSocket 연결 시도");
+
                     String authHeader = accessor.getFirstNativeHeader("Authorization");
 
                     if (authHeader != null && authHeader.startsWith("Bearer ")) {
                         String token = authHeader.substring(7);
 
-                        if (jwtTokenProvider.validateToken(token)) {
-                            Authentication auth = jwtTokenProvider.getAuthentication(token);
-                            accessor.setUser(auth);
-                        } else {
-                            throw new MessageDeliveryException("인증 토큰이 유효하지 않습니다.");
+                        try {
+                            if (jwtUtil.validateToken(token)) {
+                                int userId = jwtUtil.getUserIdFromToken(token);
+
+                                Authentication auth = new UsernamePasswordAuthenticationToken(
+                                        String.valueOf(userId),
+                                        null,
+                                        Collections.emptyList()
+                                );
+
+                                accessor.setUser(auth);
+                                log.info("✅ WebSocket 인증 성공 - userId: {}", userId);
+                            } else {
+                                log.warn("⚠️ 유효하지 않은 토큰");
+                                throw new MessageDeliveryException("유효하지 않은 토큰입니다.");
+                            }
+                        } catch (Exception e) {
+                            log.error("❌ WebSocket 인증 실패: {}", e.getMessage());
+                            throw new MessageDeliveryException("인증에 실패했습니다.");
                         }
+                    } else {
+                        log.warn("⚠️ Authorization 헤더 없음");
+                        // 개발 중 인증 없이 연결 허용 (선택사항)
+                        // throw new MessageDeliveryException("인증 토큰이 필요합니다.");
                     }
                 }
                 return message;

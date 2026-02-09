@@ -45,10 +45,14 @@ public class SecurityConfig {
                                 "/api/auth/login",
                                 "/api/auth/signup",
                                 "/api/auth/check",
-                                "/ws/**",      // WebSocket 연결 엔드포인트 허용
-                                "/info/**"     // SockJS 정보 경로 허용
+                                "/ws/**",
+                                "/ws-native/**",
+                                "/app/**",
+                                "/topic/**",
+                                "/queue/**",
+                                "/user/**"
                         ).permitAll()
-                        .anyRequest().permitAll() // 개발 중에는 전체 허용, 운영 시 .authenticated()로 변경
+                        .anyRequest().permitAll()
                 )
 
                 // 6. JWT 필터 등록 (UsernamePasswordAuthenticationFilter 직전에 실행)
