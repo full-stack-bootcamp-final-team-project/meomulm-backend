@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatRequest {
-    // 요청한 사용자 ID
-    private int userId;
-    // 사용자가 보낸 메세지
+    // 사용자가 보낸 메세지 (필수)
     private String message;
-    // 기존 대화방 ID
-    private int conversationId;
+
+    // 요청한 사용자 ID (선택, 프론트에서 보내지 않음 - 토큰으로 처리)
+    private Integer userId;
+
+    // 기존 대화방 ID (선택, 프론트에서 보내지 않음)
+    private Integer conversationId;
 }
