@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatMessage {
-    private Long chatMessageId;
+    private Long chatMessagesId;
     // 어느 대화방의 메세지인가
     private int conversationId;
     // 메세지 내용

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ChatbotIntent {
     // 고유 ID
-    private Long chatbotIntentId;
+    private Long chatbotIntentsId;
     // 인텐트 이름
     private String intentName;
     private String description;
