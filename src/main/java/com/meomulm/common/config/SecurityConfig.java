@@ -45,10 +45,14 @@ public class SecurityConfig {
                                 "/api/auth/login",
                                 "/api/auth/signup",
                                 "/api/auth/check",
-                                "/ws/**",      // WebSocket 연결 엔드포인트 허용
-                                "/info/**"     // SockJS 정보 경로 허용
+                                "/ws/**",
+                                "/ws-native/**",
+                                "/app/**",
+                                "/topic/**",
+                                "/queue/**",
+                                "/user/**"
                         ).permitAll()
-                        .anyRequest().permitAll() // 개발 중에는 전체 허용, 운영 시 .authenticated()로 변경
+                        .anyRequest().permitAll()
                 )
 
                 // 6. JWT 필터 등록 (UsernamePasswordAuthenticationFilter 직전에 실행)
@@ -60,14 +64,23 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("*"));         // Flutter 에뮬레이터 및 React 로컬 환경 허용
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+
+        config.setAllowedOriginPatterns(List.of(
+                "http://localhost:*",
+                "http://10.0.2.2:*",
+                "https://*.onrender.com",
+                "https://meomulm.com",
+                "https://www.meomulm.com"
+        ));
+
+        config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); // 쿠키/인증 헤더 허용
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+
 
 }
