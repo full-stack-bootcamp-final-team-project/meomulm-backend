@@ -21,6 +21,7 @@ public class NotificationController {
 
     /**
      * 회원 알림 조회
+     *
      * @param authHeader JWT 토큰 헤더
      * @return 회원 알림 리스트
      */
@@ -36,14 +37,13 @@ public class NotificationController {
 
     /**
      * 알림 읽음 처리 (is_read 상태 업데이트)
+     *
      * @param notificationId 알림 고유 번호
      */
     @PatchMapping("/list/{notificationId}")
     public ResponseEntity<Void> updateNotificationStatus(
-//            @RequestHeader("Authorization") String authHeader,
             @PathVariable("notificationId") int notificationId) {
 
-//        int currentUserId = authUtil.getCurrentUserId(authHeader);
         notificationService.updateNotificationStatus(notificationId);
         log.info("Notification read: notificationId={}", notificationId);
         return ResponseEntity.ok().build();
@@ -51,14 +51,13 @@ public class NotificationController {
 
     /**
      * 알림 삭제
+     *
      * @param notificationId 알림 고유 번호
      */
     @DeleteMapping("/list/{notificationId}")
     public ResponseEntity<Void> deleteNotification(
-//            @RequestHeader("Authorization") String authHeader,
             @PathVariable("notificationId") int notificationId) {
 
-//        int currentUserId = authUtil.getCurrentUserId(authHeader);
         notificationService.deleteNotification(notificationId);
         log.info("Notification deleted: notificationId={}", notificationId);
         return ResponseEntity.ok().build();

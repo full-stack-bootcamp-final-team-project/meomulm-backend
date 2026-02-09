@@ -31,22 +31,6 @@ public class ReservationServiceImpl implements ReservationService {
     private final NotificationService notificationService;
     private final SimpMessagingTemplate messagingTemplate; // WebSocket 메세지 전송
 
-/*    private boolean isNotExist(String str) {
-        return str == null || str.trim().isEmpty();
-    }
-
-    private boolean isValidEmail(String email) {
-        if (email == null) return false;
-        String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
-        return email.matches(regex);
-    }
-
-    private boolean isValidPhone(String phone) {
-        if (phone == null) return false;
-        String regex = "^010-?\\d{4}-?\\d{4}$";
-        return phone.matches(regex);
-    }*/
-
     private String changePhoneForm(String phone) {
         if (phone == null) return null;
         return phone.replace("-", "");
@@ -67,19 +51,6 @@ public class ReservationServiceImpl implements ReservationService {
         validateUtil.validateEmail(reservation.getBookerEmail());
         validateUtil.validateName(reservation.getBookerName());
         validateUtil.validatePhone(reservation.getBookerPhone());
-        /*
-        if (isNotExist(reservation.getBookerName())
-                || isNotExist(reservation.getBookerEmail())
-                || isNotExist(reservation.getBookerPhone())) {
-            throw new BadRequestException("예약자 정보는 필수입니다.");
-        }
-        if (!isValidEmail(reservation.getBookerEmail())) {
-            throw new BadRequestException("유효하지 않은 이메일 형식입니다.");
-        }
-        if (!isValidPhone(reservation.getBookerPhone())) {
-            throw new BadRequestException("연락처는 010-1234-5678 또는 01012345678 형식으로 입력해주세요.");
-        }
-        */
         reservation.setBookerPhone(changePhoneForm(reservation.getBookerPhone()));
         reservationMapper.insertReservation(reservation);
 
