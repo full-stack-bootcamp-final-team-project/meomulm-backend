@@ -32,7 +32,7 @@ public class ChatServiceImpl implements ChatService {
         ChatConversation conversation = new ChatConversation();
         conversation.setUserId(userId);
         chatKnowMapper.createConversation(conversation);
-        int conversationId = conversation.getChatConversationsId();
+        int conversationId = conversation.getChatConversationId();
         log.info("새 대화방 생성 - ID: {}", conversationId);
 
         // 사용자 메시지 저장
@@ -55,7 +55,7 @@ public class ChatServiceImpl implements ChatService {
 
         // 응답 생성
         ChatMessage response = new ChatMessage();
-        response.setChatMessagesId(botMessage.getChatMessagesId());
+        response.setChatMessageId(botMessage.getChatMessageId());
         response.setConversationId(conversationId);
         response.setMessage(botResponse);
         response.setCreatedAt(LocalDateTime.now());

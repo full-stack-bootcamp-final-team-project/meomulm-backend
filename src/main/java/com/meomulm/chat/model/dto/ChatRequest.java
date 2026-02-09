@@ -13,5 +13,5 @@ public class ChatRequest {
     // 사용자가 보낸 메세지
     private String message;
     // 기존 대화방 ID
-    private Long conversationId;
+    private int conversationId;
 }

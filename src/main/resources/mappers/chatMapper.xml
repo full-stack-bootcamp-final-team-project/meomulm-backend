@@ -31,7 +31,7 @@
 
     <!-- 인텐트 이름으로 조회 -->
     <select id="findIntentByName" parameterType="string" resultType="ChatbotIntent">
-        SELECT chatbot_intents_id, intent_name, description, patterns, responses, is_active, created_at
+        SELECT chatbot_intent_id, intent_name, description, patterns, responses, is_active, created_at
         FROM chatbot_intents
         WHERE intent_name = #{intentName}
           AND is_active = true
@@ -39,7 +39,7 @@
 
     <!-- 패턴으로 인텐트 검색 -->
     <select id="findIntentByPattern" parameterType="string" resultType="ChatbotIntent">
-        SELECT chatbot_intents_id, intent_name, description, patterns, responses, is_active, created_at
+        SELECT chatbot_intent_id, intent_name, description, patterns, responses, is_active, created_at
         FROM chatbot_intents
         WHERE is_active = true
           AND #{pattern} = ANY(patterns)
@@ -48,7 +48,7 @@
 
     <!-- 모든 활성 인텐트 조회 -->
     <select id="findAllIntents" resultType="ChatbotIntent">
-        SELECT chatbot_intents_id, intent_name, description, patterns, responses, is_active, created_at
+        SELECT chatbot_intent_id, intent_name, description, patterns, responses, is_active, created_at
         FROM chatbot_intents
         WHERE is_active = true
     </select>

@@ -55,6 +55,10 @@ public class ChatController {
     }
 
     /**
+     * 비로그인 시
+     */
+
+    /**
      * 사용자의 모든 대화방 기록 메세지 기록 조회
      * GET /api/chat/conversations
      */

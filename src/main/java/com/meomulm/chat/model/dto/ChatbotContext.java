@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatbotContext {
-    private Long chatbotContextId;
+    private int chatbotContextId;
     // 어느 대화방의 맥락인가
     private int conversationId;
     // 맥락 키 "last_topic" "user_name"
