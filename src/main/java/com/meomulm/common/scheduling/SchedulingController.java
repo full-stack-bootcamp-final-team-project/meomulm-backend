@@ -31,7 +31,7 @@ public class SchedulingController {
     private final ReservationMapper reservationMapper;
     private final SimpMessagingTemplate messagingTemplate; // WebSocket 메세지 전송
 
-    @Scheduled(cron = "0/20 * 16 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 23 * * *", zone = "Asia/Seoul")
     public void BirthDayNotification() {
         String nowTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         log.info("==== 생일 자동 알림 스케줄러 시작 [{}] ====", nowTime);
@@ -143,8 +143,3 @@ public class SchedulingController {
         }
     }
 }
-
-// 링크 경로는 제대로 작성되어 있는가?
-// 딥 링크 사용하려면 어떻게 수정해야 하고, 플러터에서 어떤 세팅을 해야 하는가?
-
-// DB 저장하기 전에 개인 알림 보내기
