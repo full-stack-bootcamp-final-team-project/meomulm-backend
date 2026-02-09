@@ -103,7 +103,7 @@
 
         <choose>
             <when test="accommodationAddress != null">
-                ORDER BY min_price ASC NULLS LAST
+                ORDER BY min_price NULLS LAST
                 LIMIT 12
             </when>
             <otherwise>

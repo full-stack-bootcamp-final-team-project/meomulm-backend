@@ -11,7 +11,7 @@ public interface ReviewService {
     /**
      * 숙소별 리뷰 약식 조회
      * @param accommodationId 숙소 ID
-     * @return
+     * @return 숙소 정보 반환
      */
     ReviewSummary getReviewSummaryByAccommodationId(int accommodationId);
 

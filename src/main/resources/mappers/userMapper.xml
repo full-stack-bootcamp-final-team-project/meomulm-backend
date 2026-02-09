@@ -138,8 +138,4 @@
         WHERE user_phone = #{userPhone}
     </select>
 
-
-    <!-- SNS 로그인 -->
-
-
 </mapper>
