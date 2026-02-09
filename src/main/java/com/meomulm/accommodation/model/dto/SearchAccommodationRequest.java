@@ -20,11 +20,15 @@ public class SearchAccommodationRequest {
 //    private double latitude;
 
 
+    // --- 검색 한도 파라미터 ---
+    private Integer lastIndex;              // 지금까지 몇 개 읽었는지 (시작점)
+    private Integer searchLimit;            // 한 번에 추가로 가져올 개수
+
     // --- 기본 검색 파라미터 ---
-    private String keyword;               // 숙소명 또는 지역명 키워드
-    private String accommodationAddress;  // 인기 숙소 조회용 주소
-    private Double longitude;             // 현위치 경도
-    private Double latitude;              // 현위치 위도
+    private String keyword;                 // 숙소명 또는 지역명 키워드
+    private String accommodationAddress;    // 인기 숙소 조회용 주소
+    private Double longitude;               // 현위치 경도
+    private Double latitude;                // 현위치 위도
 
     /*
     위도(latitude)와 경도(longitude)를 double에서 Double (Wrapper 클래스)로 변경하는 것이 안전.

@@ -31,6 +31,8 @@
     </select>
 
 
+    <!-- 키워드, 위도/경도, 필터 조회  -->
+    <!-- 기존 lastIndex는 건너뛰고, 다음 limit 조회 -->
     <select id="selectAccommodations" resultType="SearchAccommodationResponse" parameterType="SearchAccommodationRequest">
         SELECT
         a.accommodation_id,
@@ -39,31 +41,35 @@
         a.accommodation_latitude,
         a.accommodation_longitude,
         c.category_code,
-        -- 최저가 계산 (객실 테이블 조인)
-        (SELECT MIN(p.product_price)
-        FROM product p
-        WHERE p.accommodation_id = a.accommodation_id) AS min_price,
-        -- 평점 평균 (리뷰 테이블 조인)
-        COALESCE((SELECT AVG(r.rating)
-        FROM review r
-        WHERE r.accommodation_id = a.accommodation_id), 0) AS avg_rating,
-        -- 리뷰 개수
-        (SELECT COUNT(r.review_id)
-        FROM review r
-        WHERE r.accommodation_id = a.accommodation_id) AS review_count
+        p_sub.min_price, -- 미리 계산된 최저가 사용
+        COALESCE(r_sub.avg_rating, 0) AS avg_rating, -- 미리 계산된 평점 사용
+        COALESCE(r_sub.review_count, 0) AS review_count -- 미리 계산된 리뷰수 사용
         FROM accommodation a
         LEFT JOIN category c ON a.category_id = c.category_id
         LEFT JOIN accommodation_facility f ON a.accommodation_id = f.accommodation_id
+        -- [최적화] 숙소별 최저가를 한 번에 조인
+        LEFT JOIN (
+        SELECT accommodation_id, MIN(product_price) AS min_price
+        FROM product
+        GROUP BY accommodation_id
+        ) p_sub ON a.accommodation_id = p_sub.accommodation_id
+        -- [최적화] 숙소별 리뷰 통계를 한 번에 조인
+        LEFT JOIN (
+        SELECT
+        accommodation_id,
+        AVG(rating) AS avg_rating,
+        COUNT(review_id) AS review_count
+        FROM review
+        GROUP BY accommodation_id
+        ) r_sub ON a.accommodation_id = r_sub.accommodation_id
         <where>
             <if test="keyword != null and keyword != ''">
                 AND (a.accommodation_name ILIKE '%' || #{keyword} || '%'
                 OR a.accommodation_address ILIKE '%' || #{keyword} || '%')
             </if>
-
             <if test="latitude != null and longitude != null">
                 AND a.accommodation_latitude IS NOT NULL
                 AND a.accommodation_longitude IS NOT NULL
-
                 AND (
                 6371 * acos(
                 cos(radians(#{latitude}))
@@ -74,43 +80,31 @@
                 )
                 ) &lt;= 5
             </if>
-
             <if test="minPrice != null and minPrice > 0">
-                AND (SELECT MIN(p.product_price) FROM product p WHERE p.accommodation_id = a.accommodation_id) >= #{minPrice}
+                AND p_sub.min_price >= #{minPrice}
             </if>
-
             <if test="maxPrice != null and maxPrice > 0">
-                AND (SELECT MIN(p.product_price) FROM product p WHERE p.accommodation_id = a.accommodation_id) &lt;= #{maxPrice}
+                AND p_sub.min_price &lt;= #{maxPrice}
             </if>
-
             <if test="types != null and !types.isEmpty()">
                 AND c.category_code IN
                 <foreach collection="types" item="type" open="(" separator="," close=")">
                     #{type}
                 </foreach>
             </if>
-
             <if test="facilities != null and !facilities.isEmpty()">
                 <foreach collection="facilities" item="facility">
                     AND f.${facility} = true
                 </foreach>
             </if>
-
-            <if test="accommodationAddress != null and accommodationAddress != ''">
-                AND a.accommodation_address ILIKE '%' || #{accommodationAddress} || '%'
-            </if>
         </where>
-
-        <choose>
-            <when test="accommodationAddress != null">
-                ORDER BY min_price ASC NULLS LAST
-                LIMIT 12
-            </when>
-            <otherwise>
-                ORDER BY a.accommodation_id DESC
-            </otherwise>
-        </choose>
+        ORDER BY a.accommodation_id DESC
+        <if test="searchLimit != null and lastIndex != null">
+            LIMIT #{searchLimit} OFFSET #{lastIndex}
+        </if>
     </select>
+
+
 
     <!-- 최근 본 숙소 조회 (ID 리스트 기반) -->
     <select id="selectRecentAccommodations"
