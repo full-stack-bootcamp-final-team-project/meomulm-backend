@@ -24,6 +24,8 @@ public class SearchAccommodationRequest {
     private Integer lastIndex;              // 지금까지 몇 개 읽었는지 (시작점)
     private Integer searchLimit;            // 한 번에 추가로 가져올 개수
 
+    private Integer guestNumber;            // 인원 수
+
     // --- 기본 검색 파라미터 ---
     private String keyword;                 // 숙소명 또는 지역명 키워드
     private String accommodationAddress;    // 인기 숙소 조회용 주소

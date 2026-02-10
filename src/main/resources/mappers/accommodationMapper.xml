@@ -41,19 +41,20 @@
         a.accommodation_latitude,
         a.accommodation_longitude,
         c.category_code,
-        p_sub.min_price, -- 미리 계산된 최저가 사용
-        COALESCE(r_sub.avg_rating, 0) AS avg_rating, -- 미리 계산된 평점 사용
-        COALESCE(r_sub.review_count, 0) AS review_count -- 미리 계산된 리뷰수 사용
+        p_sub.min_price,                                -- 숙소별 객실 최저가
+        COALESCE(r_sub.avg_rating, 0) AS avg_rating,    -- 숙소별 평점
+        COALESCE(r_sub.review_count, 0) AS review_count -- 숙소별 리뷰수
         FROM accommodation a
         LEFT JOIN category c ON a.category_id = c.category_id
         LEFT JOIN accommodation_facility f ON a.accommodation_id = f.accommodation_id
-        -- [최적화] 숙소별 최저가를 한 번에 조인
-        LEFT JOIN (
+        -- 숙소별 객실 인원수 수용 여부 및 최저가
+        INNER JOIN (
         SELECT accommodation_id, MIN(product_price) AS min_price
         FROM product
+        where product_maximum_number >= #{guestNumber}
         GROUP BY accommodation_id
         ) p_sub ON a.accommodation_id = p_sub.accommodation_id
-        -- [최적화] 숙소별 리뷰 통계를 한 번에 조인
+        -- 숙소별 리뷰 통계
         LEFT JOIN (
         SELECT
         accommodation_id,
