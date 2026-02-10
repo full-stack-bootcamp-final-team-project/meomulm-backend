@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -89,15 +90,13 @@ public class AccommodationServiceImpl implements AccommodationService {
     public List<SearchAccommodationResponse> searchAccommodations(SearchAccommodationRequest request) {
         log.info("💡 숙소 검색 시작 - 조건: {}", request);
 
-        // 1. 매퍼 호출 (동적 쿼리 수행)
         List<SearchAccommodationResponse> responses = accommodationMapper.selectAccommodations(request);
 
         if (responses == null || responses.isEmpty()) {
-            log.warn("❌ 검색 결과 없음");
-            throw new NotFoundException("조건에 맞는 숙소가 존재하지 않습니다.");
+            log.info("✅ 검색 결과 없음 (끝 도달)");
+            return new ArrayList<>(); // 빈 리스트 반환
         }
 
-        // 2. 각 숙소별 이미지 설정 (기존 메서드 재사용)
         setAccommodationImages(responses);
 
         log.info("✅ 검색 완료 - 결과 수: {}", responses.size());
