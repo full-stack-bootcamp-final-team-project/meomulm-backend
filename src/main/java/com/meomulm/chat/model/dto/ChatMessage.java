@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatMessage {
-    private Long id;
+    private int chatMessageId;
     // 어느 대화방의 메세지인가
-    private Long conversationId;
+    private int conversationId;
     // 메세지 내용
     private String message;
     // 사용자 메세지(true) vs 봇 메세지 (false)
