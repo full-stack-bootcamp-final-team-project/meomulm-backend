@@ -50,16 +50,22 @@ public class AccommodationController {
             @ModelAttribute SearchAccommodationRequest request) {
         log.info("Elasticsearch 통합 검색 진입 - 파라미터: {}", request);
 
-        // Elasticsearch로 검색
-        List<AccommodationDocument> documents = elasticsearchService.searchAccommodations(request);
+        try{  // Elasticsearch로 검색
+            List<AccommodationDocument> documents = elasticsearchService.searchAccommodations(request);
 
-        // Document를 Response DTO로 변환
-        List<SearchAccommodationResponse> results = documents.stream()
-                .map(this::convertToResponse)
-                .collect(Collectors.toList());
+            // Document를 Response DTO로 변환
+            List<SearchAccommodationResponse> results = documents.stream()
+                    .map(this::convertToResponse)
+                    .collect(Collectors.toList());
 
-        log.info("Elasticsearch 검색 결과: {} 건", results.size());
-        return ResponseEntity.ok(results);
+            log.info("Elasticsearch 검색 결과: {} 건", results.size());
+            return ResponseEntity.ok(results);
+        } catch (Exception e) {
+            // ElasticSearch 로 검색 실패시 PostgreSQL 로 검색 시작
+
+            List<SearchAccommodationResponse> fallbackResults = accommodationService.searchAccommodations(request);
+            return ResponseEntity.ok(fallbackResults);
+        }
     }
 
     /**
