@@ -120,9 +120,13 @@ public class AccommodationElasticsearchService {
 
             // 5. 평점 필터
             if (request.getMinRating() != null) {
+                // filter 조건 추가
                 boolQuery.filter(f -> f
+                    // 범위 쿼리 지정
                     .range(r -> r
+                         // 평균 평점 필드
                         .field("averageRating")
+                            // 최소 평점 이상
                             .gte(JsonData.of(request.getMinRating()))
                     )
                 );
@@ -130,42 +134,94 @@ public class AccommodationElasticsearchService {
 
             // 검색 요청 빌드
             SearchRequest.Builder searchBuilder = new SearchRequest.Builder()
+                    // accommodations index 검색
                 .index("accommodations")
+                    // 위에서 작성한 쿼리들 적용한 결과 만들기
                 .query(q -> q.bool(boolQuery.build()));
 
             // 정렬
-            if (request.getSortBy() != null) {
-                switch (request.getSortBy()) {
-                    case "price_asc":
+            if (request.getSortBy() != null) { // 정렬 기준이 있으면
+                switch (request.getSortBy()) { // 정렬 기준에 따라
+                    case "price_asc":          // 가격 낮은 순
                         searchBuilder.sort(s -> s.field(f -> f.field("minPrice").order(SortOrder.Asc)));
                         break;
-                    case "price_desc":
+                    case "price_desc":         // 가격 높은 순
                         searchBuilder.sort(s -> s.field(f -> f.field("minPrice").order(SortOrder.Desc)));
                         break;
-                    case "rating":
+                    case "rating":              // 평점 높은 순
                         searchBuilder.sort(s -> s.field(f -> f.field("averageRating").order(SortOrder.Desc)));
                         break;
-                    case "review_count":
+                    case "review_count":        // 리뷰 개수 높은 순
                         searchBuilder.sort(s -> s.field(f -> f.field("reviewCount").order(SortOrder.Desc)));
                         break;
                 }
             }
 
             // 페이징
+            //  시작위치 계산 (페이지 번호 -1 ) * 20  ,  null 이면 0
             int from = request.getPage() != null ? (request.getPage() - 1) * 20 : 0;
+            // 한 페이지당 20개씩 보여주겠다.
             searchBuilder.from(from).size(20);
 
             // 검색 실행
+            // 빌더로 만든 검색을 요청
             SearchResponse<AccommodationDocument> response = elasticsearchClient.search(
                 searchBuilder.build(),
+                // 서치로 가져온 데이터를 넣어놓을 클래스 타입 지정
                 AccommodationDocument.class
             );
 
             // 결과 변환
-            return response.hits().hits().stream()
-                .map(Hit::source)
-                .collect(Collectors.toList());
+            // response.hits().hits().stream() .map(Hit::source).collect(Collectors.toList());
+            //  응답     전체   개별  스트림     실제데이터 추출   리스트로 반환
+            //           결과  결과들  변환
+            /*
+            택배로 비유해보기
+            🚚 Elasticsearch 응답 = 택배 트럭에 실린 index 데이터들
 
+            📦 response     (트럭 전체에 있는 상자들)
+            └───🎁 hits()   (큰 상자)
+                ├─── 총 결과 개수 : 상자 총 개수 개
+                ├─── 최고 점수 : 10.0 만점에서 제일 높은 점수의 index 들
+                └─── hits()  (작은 상자들의 배열)
+                      ├─── 상자1 (Hit)
+                      │      ├─── 점수 : 9.5
+                      │      ├─── 인덱스 : accommodations
+                      │      └─── 🎁 source (실제 내용물)
+                      │                └─── {숙소이름 : "서울호텔", 주소:"강남"...}
+                      ├─── 상자2 (Hit)
+                      │      └─── 🎁 source {숙소이름 : "부산호텔", ...}
+                      └─── 상자3 (Hit)
+                             ├─── 점수 : 9.5
+                             ├─── 인덱스 : accommodations
+                             └───🎁 source {숙소이름 : "제주호텔", ...}
+             */
+            //     큰 상자를 열었다.
+            //     {상자내부에는
+            //      총 몇개 찾았는지
+            //      최고 점수는
+            //           실제결과물hits:[]
+            //                           stream() = 작은 상자들을 하나씩 꺼낼 수 있도록 컨베이어 벨트에 올림
+            return response.hits().hits().stream()
+            //  반복문을 통해 각 상자에 들어있는 실제 내용물을 꺼내기
+                .map(Hit::source) // Hit::source  hit -> hit.source() 와 같은 표기법  각 Hit 에서 source() 메서드를 이용해서 실제 데이터만 가져오기
+                .collect(Collectors.toList());
+            /*
+             class Hit<T> {
+                private String _index;  // 인덱스 이름
+                private String _id;     // 문서 ID
+                private Double _score;  // 검색 점수
+                private T _source;      // 실제 데이터
+             }
+             */
+            /*
+              response                      // 트럭
+              .hits()                       // 큰 상자 열기
+              .hits()                       // 작은 상자들 꺼내기
+              .stream()                     // 컨베이어 벨트에 올리기
+              .map(Hit::source)             // 포장 뜯고 실질 내용물만
+              .collect(Collectors.toList());// 장바구니에 담기
+             */
         } catch (IOException e) {
             log.error("Elasticsearch 검색 중 오류 발생", e);
             return new ArrayList<>();
