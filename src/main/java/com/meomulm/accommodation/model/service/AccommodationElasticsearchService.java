@@ -259,17 +259,17 @@ public class AccommodationElasticsearchService {
                         .order(SortOrder.Asc)
                     )
                 )
+                    // 최대 50개 결과만 조회
                 .size(50)
             );
-
+            // 위에서 작성한 쿼리와 오름차순 내림차순 최대 데이터 개수까지 작성한 sql 을 기반으로 조회한 결과를
+            // AccommodationDocument 객체형태로 유저에게 보여주겠다.
             SearchResponse<AccommodationDocument> response = elasticsearchClient.search(
                 searchRequest,
                 AccommodationDocument.class
             );
 
-            return response.hits().hits().stream()
-                .map(Hit::source)
-                .collect(Collectors.toList());
+            return response.hits().hits().stream().map(Hit::source).collect(Collectors.toList());
 
         } catch (IOException e) {
             log.error("위치 기반 검색 중 오류 발생", e);
