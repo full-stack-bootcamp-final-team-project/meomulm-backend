@@ -27,6 +27,7 @@
         FROM review
         INNER JOIN users ON review.user_id = users.user_id
         WHERE accommodation_id=#{accommodationId}
+        ORDER BY review.created_at ASC
     </select>
 
     <!-- 유저 ID로 리뷰 조회 -->
