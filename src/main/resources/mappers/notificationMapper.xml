@@ -11,6 +11,7 @@
         SELECT *
         FROM notification
         WHERE user_id = #{userId}
+        ORDER BY created_at
     </select>
 
     <!-- 회원 알림 추가 -->
