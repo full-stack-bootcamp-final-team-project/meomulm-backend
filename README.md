@@ -353,18 +353,21 @@ meomulm-backend/
 #### 인증 (Authentication)
 
 ```http
-POST   /api/user/signup          # 회원가입
-POST   /api/user/login           # 로그인
-POST   /api/user/refresh         # 토큰 갱신
-POST   /api/user/find-id         # 아이디 찾기
-POST   /api/user/reset-password  # 비밀번호 재설정
-GET    /api/user/kakao/callback  # 카카오 로그인 콜백
+POST   /api/auth/signup          # 회원가입
+GET    /api/auth/checkEmail      # 이메일 중복 확인
+GET    /api/auth/checkPhone      # 전화번호 중복 확인
+POST   /api/auth/login           # 로그인
+GET    /api/auth/findId          # 아이디 찾기
+GET    /api/auth/checkPassword   # 비밀번호 확인
+PATCH  /api/auth/changePassword  # 비밀번호 재설정
+POST   /api/auth/kakao           # 카카오 로그인
+POST   /api/auth/naver           # 네이버 로그인
 ```
 
 #### 사용자 (User)
 
 ```http
-GET    /api/users/profile         # 프로필 조회
+GET    /api/users                 # 프로필 조회
 GET    /api/users/reservation     # 회원 예약 내역 조회
 PUT    /api/users/userInfo        # 회원 정보 수정
 PATCH  /api/users/profileImage    # 프로필 사진 수정
@@ -376,64 +379,54 @@ DELETE /api/users                 # 회원 탈퇴
 #### 숙박시설 (Accommodation)
 
 ```http
-GET    /api/accommodation              # 숙박시설 목록 조회
-GET    /api/accommodation/{id}         # 숙박시설 상세 조회
-GET    /api/accommodation/search       # 검색 (쿼리 파라미터)
-GET    /api/accommodation/{id}/images  # 이미지 목록
+GET    /api/accommodation/{accommodationId}        # 숙박시설 이미지 조회
+GET    /api/accommodation/search                   # 숙박시설 필터 조회
+POST   /api/accommodation/recent                   # 최근 본 숙박시설 조회
+GET    /api/accommodation/popular                  # 지역별 가격 낮은 숙박시설 12개 조회
+POST   /api/accommodation/map                      # 위치 기반 반경 5km 숙박시설 조회
+GET    /api/accommodation/detail/{accommodationId} # 숙박시설 상세정보 조회
 ```
 
 #### 상품 (Product)
 
 ```http
-GET    /api/product/{accommodationId}  # 객실 목록 조회
-GET    /api/product/detail/{id}        # 객실 상세 조회
-GET    /api/product/availability       # 예약 가능 여부 확인
+GET    /api/product//search/{accommodationId}  # 객실 목록 조회
 ```
 
 #### 예약 (Reservation)
 
 ```http
 POST   /api/reservation                # 예약 생성
-GET    /api/reservation                # 예약 목록 조회
-GET    /api/reservation/{id}           # 예약 상세 조회
-PUT    /api/reservation/{id}           # 예약 변경
-DELETE /api/reservation/{id}           # 예약 취소
-```
-
-#### 결제 (Payment)
-
-```http
-POST   /api/payment/create-intent      # Payment Intent 생성
-POST   /api/payment/confirm            # 결제 확인
-POST   /api/payment/refund             # 환불 처리
-GET    /api/payment/history            # 결제 내역
+PATCH  /api/reservation/{id}           # 예약 변경
+PUT    /api/reservation/{id}           # 예약 취소
+DELETE /api/reservation                # 기존 예약 목록 삭제
 ```
 
 #### 리뷰 (Review)
 
 ```http
-POST   /api/review                     # 리뷰 작성
-GET    /api/review/{accommodationId}  # 숙박시설 리뷰 조회
-PUT    /api/review/{id}                # 리뷰 수정
-DELETE /api/review/{id}                # 리뷰 삭제
-GET    /api/review/my                  # 내 리뷰 조회
+GET    /api/review/summary/{accommodationId}          # 숙박시설별 약식 리뷰 조회
+GET    /api/review//accommodationId/{accommodationId} # 숙박시설별 전체 리뷰 조회
+GET    /api/review                                    # 내 리뷰 조회
+POST   /api/review                                    # 리뷰 생성
+DELETE /api/review//{reviewId}                        # 리뷰 삭제
 ```
 
 #### 찜하기 (Favorite)
 
 ```http
-POST   /api/favorite                   # 찜 추가
-DELETE /api/favorite/{accommodationId} # 찜 삭제
+POST   /api/favorite/{accommodationId} # 찜 추가
+DELETE /api/favorite/{favoriteId}      # 찜 삭제
 GET    /api/favorite                   # 찜 목록 조회
-GET    /api/favorite/check/{id}        # 찜 여부 확인
+GET    /api/favorite/accommodation     # 찜 여부 조회
 ```
 
 #### 알림 (Notification)
 
 ```http
-GET    /api/notification               # 알림 목록 조회
-PUT    /api/notification/{id}/read     # 알림 읽음 처리
-DELETE /api/notification/{id}          # 알림 삭제
+GET    /api/notification/list                  # 알림 목록 조회
+PATCH  /api/notification/list/{notificationId} # 알림 읽음 처리
+DELETE /api/notification/list/{notificationId} # 알림 삭제
 ```
 
 #### 챗봇
