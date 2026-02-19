@@ -364,10 +364,13 @@ GET    /api/user/kakao/callback  # 카카오 로그인 콜백
 #### 사용자 (User)
 
 ```http
-GET    /api/user/profile         # 프로필 조회
-PUT    /api/user/profile         # 프로필 수정
-PUT    /api/user/password        # 비밀번호 변경
-DELETE /api/user                 # 회원 탈퇴
+GET    /api/users                 # 프로필 조회
+GET    /api/users/reservation     # 회원 예약 내역 조회
+PUT    /api/users/userInfo        # 프로필 수정
+PATCH  /api/users/profileImage    # 프로필 사진 수정
+POST   /api/currentPassword       # 현재 비밀번호 확인
+PATCH  /api/users/password        # 비밀번호 수정
+DELETE /api/users                 # 회원 탈퇴
 ```
 
 #### 숙박시설 (Accommodation)
