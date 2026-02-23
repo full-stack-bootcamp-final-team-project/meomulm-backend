@@ -283,7 +283,7 @@ public class UserServiceImpl implements UserService {
         }
 
         try {
-            Email from = new Email("네가_인증한_이메일@gmail.com"); // Single Sender 인증된 이메일
+            Email from = new Email("umqwzxao79953@outlook.com");
             String subject = "[MEOMULM] 회원가입 인증번호입니다.";
             Email to = new Email(userEmail);
 
