@@ -9,14 +9,19 @@ import com.meomulm.user.model.dto.MyReservationResponse;
 import com.meomulm.user.model.dto.User;
 import com.meomulm.user.model.mapper.EmailAuthMapper;
 import com.meomulm.user.model.mapper.UserMapper;
-import jakarta.mail.internet.MimeMessage;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.mail.javamail.JavaMailSender;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,10 +32,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
-    private final EmailAuthMapper emailAuthMapper;           // ✅ 추가
+    private final EmailAuthMapper emailAuthMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ValidateUtil validateUtil;
-    private final JavaMailSender javaMailSender;
+    @Value("${sendgrid.api.key}")
+    private String sendGridApiKey;
 
     // ==========================================
     //                  My Page
@@ -270,38 +276,46 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String sendEmail(String userEmail) {
-        // 6자리 숫자 인증코드 생성
+
         StringBuilder authKey = new StringBuilder();
         for (int i = 0; i < 6; i++) {
             authKey.append((int) (Math.random() * 10));
         }
 
         try {
-            String title = "[MEOMULM] 회원가입 인증번호입니다.";
-            String content =
+            Email from = new Email("네가_인증한_이메일@gmail.com"); // Single Sender 인증된 이메일
+            String subject = "[MEOMULM] 회원가입 인증번호입니다.";
+            Email to = new Email(userEmail);
+
+            Content content = new Content("text/plain",
                     "안녕하세요.\n\n" +
                             "회원가입 인증번호는 아래와 같습니다.\n\n" +
                             "인증번호 : " + authKey + "\n\n" +
-                            "감사합니다.";
+                            "감사합니다.");
 
-            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+            Mail mail = new Mail(from, subject, to, content);
 
-            helper.setTo(userEmail);
-            helper.setSubject(title);
-            helper.setText(content, false);
+            SendGrid sg = new SendGrid(sendGridApiKey);
+            Request request = new Request();
 
-            javaMailSender.send(mimeMessage);
-            log.info("✅ 이메일 발송 완료 - email: {}", userEmail);
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
 
+            Response response = sg.api(request);
+
+            if (response.getStatusCode() != 202) {
+                throw new RuntimeException("SendGrid 발송 실패: " + response.getBody());
+            }
+
+            log.info("✅ SendGrid 이메일 발송 완료 - email: {}", userEmail);
             return authKey.toString();
 
         } catch (Exception e) {
-            log.error("❌ 이메일 발송 실패 - email: {}", userEmail, e);
+            log.error("❌ SendGrid 이메일 발송 실패 - email: {}", userEmail, e);
             throw new UnauthorizedException("인증 실패");
         }
     }
-
     /**
      * 비밀번호 변경 (로그인 페이지)
      */
