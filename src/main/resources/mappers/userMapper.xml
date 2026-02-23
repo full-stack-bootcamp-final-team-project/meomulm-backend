@@ -107,7 +107,7 @@
     <update id="updateUserPassword">
         UPDATE users
         SET user_password = #{userPassword}
-        WHERE user_id = #{userId}
+        WHERE user_id = #{userEmail}
     </update>
 
     <!-- 이메일 조회 -->

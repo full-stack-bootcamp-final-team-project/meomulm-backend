@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,19 +98,64 @@ public class AuthController {
      * @return 유저ID + 상태코드 200
      */
     @GetMapping("/checkPassword")
-    public ResponseEntity<Integer> getUserFindPassword(@RequestParam("userEmail") String userEmail, @RequestParam("userBirth") String userBirth) {
-        int userId = userService.getUserFindPassword(userEmail, userBirth);
-        return ResponseEntity.ok(userId);
+    public ResponseEntity<Integer> getUserFindPassword(
+            @RequestParam("userEmail") String userEmail,
+            @RequestParam("userBirth") String userBirth) {
+        int result = userService.getUserFindPassword(userEmail, userBirth);
+        return ResponseEntity.ok(result);
+    }
+
+    // ==========================================
+    //            이메일 인증 (DB 저장)
+    // ==========================================
+
+    /**
+     * 이메일 인증코드 전송
+     * 기존 세션 저장 → DB 저장으로 변경
+     *
+     * @param body userEmail을 담은 요청 바디
+     * @return 전송 성공 1 / 실패 0
+     */
+    @PostMapping("/sendEmailCode")
+    public ResponseEntity<Integer> sendEmailCode(@RequestBody Map<String, String> body) {
+        String userEmail = body.get("userEmail");
+
+        if (userEmail == null || userEmail.isBlank()) {
+            return ResponseEntity.badRequest().body(0);
+        }
+
+        int result = userService.sendEmailAndSaveAuth(userEmail);
+        return ResponseEntity.ok(result);
     }
 
     /**
-     * 비밀번호 변경 (로그인페이지)
-     * @param user 유저 객체 (userId, 새 비밀번호)
+     * 인증번호 검증
+     * 기존 세션 조회 → DB 조회로 변경
+     *
+     * @param body userEmail, inputCode를 담은 요청 바디
+     * @return 검증 성공 1 / 실패 0
+     */
+    @PostMapping("/verifyEmailCode")
+    public ResponseEntity<Integer> checkAuthKey(@RequestBody Map<String, String> body) {
+        String userEmail = body.get("userEmail");
+        String inputCode  = body.get("inputCode");
+
+        if (userEmail == null || inputCode == null) {
+            return ResponseEntity.badRequest().body(0);
+        }
+
+        int result = userService.verifyEmailCode(userEmail, inputCode);
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 비밀번호 변경 (로그인 페이지)
+     * @param user 유저 객체 (userEmail, 새 비밀번호)
      * @return 상태코드 200
      */
     @PatchMapping("/changePassword")
-    public ResponseEntity<Void> patchUserPassword(@RequestBody User user){
-        userService.patchUserPassword(user.getUserId(), user.getUserPassword());
+    public ResponseEntity<Void> patchUserPassword(@RequestBody User user) {
+        userService.patchUserPassword(user.getUserEmail(), user.getUserPassword());
         return ResponseEntity.ok().build();
     }
 
