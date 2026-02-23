@@ -68,8 +68,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     // 이메일 전송
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
-
+    implementation 'com.sendgrid:sendgrid-java:4.10.2'
 }
 
 tasks.named('test') {
