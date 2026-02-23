@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.meomulm.user.model.mapper.EmailAuthMapper">
+
+    <!--
+        user_email이 PK이므로 중복 발송 시 기존 레코드를 덮어씀 (UPSERT)
+        PostgreSQL: INSERT ... ON CONFLICT DO UPDATE
+    -->
+    <insert id="upsertEmailAuth" parameterType="EmailAuth">
+        INSERT INTO email_auth (user_email, auth_code, expire_time, created_at)
+        VALUES (#{userEmail}, #{authCode}, #{expireTime}, NOW())
+        ON CONFLICT (user_email)
+            DO UPDATE SET
+                          auth_code   = EXCLUDED.auth_code,
+                          expire_time = EXCLUDED.expire_time,
+                          created_at  = NOW()
+    </insert>
+
+    <!-- 이메일로 인증 정보 조회 -->
+    <select id="selectByEmail" resultType="EmailAuth">
+        SELECT
+            user_email  AS userEmail,
+            auth_code   AS authCode,
+            expire_time AS expireTime,
+            created_at  AS createdAt
+        FROM email_auth
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!-- 인증 완료 후 삭제 (검증 성공 시 레코드 제거) -->
+    <delete id="deleteByEmail">
+        DELETE FROM email_auth
+        WHERE user_email = #{userEmail}
+    </delete>
+
+</mapper>

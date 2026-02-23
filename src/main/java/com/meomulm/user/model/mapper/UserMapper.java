@@ -51,7 +51,7 @@ public interface UserMapper {
     User selectUserFindPassword(String userEmail, String userBirth);
 
     // 비밀번호 수정 (로그인페이지)
-    int updateUserPassword(int userId, String userPassword);
+    int updateUserPassword(String userEmail, String userPassword);
 
     // 이메일 조회
     User selectUserByUserEmail(String userEmail);

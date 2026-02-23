@@ -92,32 +92,22 @@ public interface UserService {
      */
     int getUserFindPassword(String userEmail, String userBirth);
 
-    /**
-     * 비밀번호 변경 (로그인 페이지)
-     * @param userId        유저 ID
-     * @param newPassword   새 비밀번호
-     */
-    void patchUserPassword(int userId, String newPassword);
+    /** 이메일 인증코드 발송 후 DB 저장. 성공 1 / 실패 0 */
+    int sendEmailAndSaveAuth(String userEmail);
+
+    /** DB에 저장된 코드와 비교 후 검증. 성공 1 / 실패 0 */
+    int verifyEmailCode(String userEmail, String inputCode);
 
     /**
-     * 이메일 조회
-     * @param userEmail 유저 이메일
-     * @return 유저 객체
+     * @deprecated 내부 발송 전용. 외부에서는 sendEmailAndSaveAuth 사용
      */
+    String sendEmail(String userEmail);
+
+    void patchUserPassword(String userEmail, String newPassword);
+
     User getUserByUserEmail(String userEmail);
 
-    /**
-     * 이메일 중복 체크
-     * @param userEmail 유저 이메일
-     * @return
-     */
     boolean existsByUserEmail(String userEmail);
 
-    /**
-     * 전화번호 중복 체크
-     * @param userPhone 유저 전화번호
-     * @return
-     */
     boolean existsByUserPhone(String userPhone);
-
 }
